@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
+   <children>
+      <Region prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #ff5100;" />
+      <Region layoutY="80.0" prefHeight="318.0" prefWidth="600.0" style="-fx-background-color: #5DC1B9;" />
+      <Label layoutX="30.0" layoutY="18.0" prefHeight="43.0" prefWidth="159.0" text="VagoUY" textFill="#5dc1b9">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="189.0" layoutY="18.0" prefHeight="43.0" prefWidth="238.0" text="TEST CentrosDeportivos">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="30.0" layoutY="139.0" prefHeight="200.0" prefWidth="317.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <Button layoutX="39.0" layoutY="92.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Actividades" />
+      <Button layoutX="390.0" layoutY="139.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" text="Check-in" />
+      <Button layoutX="390.0" layoutY="214.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" text="Gestionar Actividades" />
+   </children>
+</AnchorPane>
