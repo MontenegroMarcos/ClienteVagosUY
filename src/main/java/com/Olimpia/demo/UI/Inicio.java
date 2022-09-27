@@ -15,6 +15,8 @@ public class Inicio extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Inicio.class.getResource("Inicio.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 400);
+        InicioController controller = fxmlLoader.getController();
+        controller.setStage(stage);
         stage.setTitle("GymAPP");
         stage.setScene(scene);
         stage.show();
