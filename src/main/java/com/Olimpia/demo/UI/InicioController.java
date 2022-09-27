@@ -44,8 +44,7 @@ public class InicioController {
     @FXML
     void entrarUsuarioAdmin() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("UsuarioAdminUI.fxml"));
-
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("UsuarioAdminUI.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
