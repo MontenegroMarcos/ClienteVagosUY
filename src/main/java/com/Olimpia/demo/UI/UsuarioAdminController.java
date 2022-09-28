@@ -1,5 +1,7 @@
 package com.Olimpia.demo.UI;
 
+import com.Olimpia.demo.ModeloEmpresa;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -9,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+
+import java.io.File;
+import java.util.List;
 
 public class UsuarioAdminController {
 
@@ -50,14 +55,17 @@ public class UsuarioAdminController {
                 String password = contraseniaEmpresa.getText();
                 try {
                     ObjectMapper mapper = new ObjectMapper();
+                    ModeloEmpresa empresa = new ModeloEmpresa(email,nombreClient,password);
+                    String jsonString = mapper.writeValueAsString(empresa);
+                    /*
                     ObjectNode empresa = mapper.createObjectNode();
                     empresa.put("nombre", nombreClient);
                     empresa.put("email",email);
                     empresa.put("psw",password);
-                    json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(empresa);
+                    json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(empresa);*/
                     HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")
                             .header("Content-Type", "application/json;charset=utf-8")
-                            .body(json)
+                            .body(jsonString)
                             .asJson();
                     System.out.println(response.getBody());
                     System.out.println(response.getStatus());
@@ -72,6 +80,17 @@ public class UsuarioAdminController {
         }
     }
 
+    @FXML
+    protected void obtenerEmpresas(){
+        ObjectMapper mapper = new ObjectMapper();
+        String empresas = Unirest.get("http://10.252.60.160:8080/vagouy/empresa").asString().getBody();
+        try {
+            List<ModeloEmpresa> empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {});
+            //Trabajar aqui con la lista de elementos
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
     @FXML

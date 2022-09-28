@@ -24,7 +24,7 @@
                               <TableColumn fx:id="colPSWEmpresa" prefWidth="146.0" text="Contrasenia" />
                           </columns>
                         </TableView>
-                        <Button layoutX="340.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Modificar" />
+                        <Button layoutX="340.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Modificar" onAction="#obtenerEmpresas" />
                         <Button layoutX="492.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="65.0" text="Eliminar" />
                      </children>
                   </AnchorPane>
