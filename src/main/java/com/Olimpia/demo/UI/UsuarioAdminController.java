@@ -35,22 +35,18 @@ public class UsuarioAdminController implements Initializable {
     private TextField contraseniaEmpresa;
 
     @FXML
-    private TableView tablaEmpresa;
+    private TableView<ModeloEmpresa> tablaEmpresa;
 
     @FXML
-    private TableColumn colnombreEmpresa;
+    private TableColumn<ModeloEmpresa,String> colnombreEmpresa;
 
     @FXML
-    private TableColumn colEmailEmpresa;
+    private TableColumn<ModeloEmpresa,String> colEmailEmpresa;
 
     @FXML
-    private TableColumn colPSWEmpresa;
+    private TableColumn<ModeloEmpresa,String> colPSWEmpresa;
 
     private ObservableList<ModeloEmpresa> empresasLista;
-
-
-
-
 
 
     @FXML
@@ -68,12 +64,6 @@ public class UsuarioAdminController implements Initializable {
                     ObjectMapper mapper = new ObjectMapper();
                     ModeloEmpresa empresa = new ModeloEmpresa(email,nombreClient,password);
                     String jsonString = mapper.writeValueAsString(empresa);
-                    /*
-                    ObjectNode empresa = mapper.createObjectNode();
-                    empresa.put("nombre", nombreClient);
-                    empresa.put("email",email);
-                    empresa.put("psw",password);
-                    json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(empresa);*/
                     HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")
                             .header("Content-Type", "application/json;charset=utf-8")
                             .body(jsonString)
@@ -92,16 +82,18 @@ public class UsuarioAdminController implements Initializable {
     }
 
     @FXML
-    protected ObservableList obtenerEmpresas(){
+    protected ObservableList<ModeloEmpresa> obtenerEmpresas(){
         ObjectMapper mapper = new ObjectMapper();
         String empresas = Unirest.get("http://10.252.60.160:8080/vagouy/empresa").asString().getBody();
+        List<ModeloEmpresa> empresa = null;
         try {
-            List<ModeloEmpresa> empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {});
-            //Trabajar aqui con la lista de elementos
+            empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {});
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+        ObservableList<ModeloEmpresa> retorno = FXCollections.observableList(empresa);
+        System.out.println(retorno);
+        return retorno;
     }
 
 
@@ -117,10 +109,12 @@ public class UsuarioAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        empresasLista = FXCollections.observableArrayList();
+        //empresasLista = FXCollections.observableArrayList();
         this.colnombreEmpresa.setCellFactory(new PropertyValueFactory("nombre"));
         this.colEmailEmpresa.setCellFactory(new PropertyValueFactory("email"));
         this.colPSWEmpresa.setCellFactory(new PropertyValueFactory("psw"));
+
+        tablaEmpresa.setItems(obtenerEmpresas());
     }
 
     @FXML
