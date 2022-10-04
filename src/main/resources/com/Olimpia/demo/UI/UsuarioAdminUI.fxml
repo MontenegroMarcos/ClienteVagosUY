@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuarioAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuarioAdminController">
    <children>
       <TabPane layoutY="66.0" prefHeight="435.0" prefWidth="696.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -17,15 +17,16 @@
                         <Button layoutX="141.0" layoutY="255.0" mnemonicParsing="false" onAction="#aniadirEmpresa" text="Crear empresa" />
                         <Button layoutX="48.0" layoutY="255.0" mnemonicParsing="false" onAction="#limpiartxtEmpresa" prefHeight="26.0" prefWidth="74.0" text="Cancelar" />
                         <TextField fx:id="contraseniaEmpresa" layoutX="40.0" layoutY="203.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" />
-                        <TableView fx:id="tablaEmpresa" layoutX="295.0" layoutY="69.0" prefHeight="200.0" prefWidth="377.0">
+                        <TableView fx:id="tablaEmpresa" layoutX="295.0" layoutY="69.0" onMouseClicked="#seleccionarEmpresa" prefHeight="200.0" prefWidth="377.0">
                           <columns>
                             <TableColumn fx:id="colnombreEmpresa" prefWidth="117.20001220703125" text="Nombre" />
                             <TableColumn fx:id="colEmailEmpresa" prefWidth="113.99996948242188" text="Email" />
                               <TableColumn fx:id="colPSWEmpresa" prefWidth="146.0" text="Contrasenia" />
                           </columns>
                         </TableView>
-                        <Button layoutX="340.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Modificar" onAction="#obtenerEmpresas" />
+                        <Button layoutX="340.0" layoutY="316.0" mnemonicParsing="false" onAction="#modificarEmpresa" prefHeight="26.0" prefWidth="78.0" text="Modificar" />
                         <Button layoutX="492.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="65.0" text="Eliminar" />
+                        <Button layoutX="432.0" layoutY="31.0" mnemonicParsing="false" onAction="#actualizarTblEmpresas" prefHeight="26.0" prefWidth="76.0" text="Actualizar" />
                      </children>
                   </AnchorPane>
                </content>

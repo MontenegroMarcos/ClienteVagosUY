@@ -130,7 +130,7 @@ public class UsuarioAdminController implements Initializable {
     }
 
     @FXML
-    private void seleccionarEmpresa(MouseEvent event){
+    private void seleccionarEmpresas(MouseEvent event){
 
         ModeloEmpresa empresa = (ModeloEmpresa) this.tablaEmpresa.getSelectionModel().getSelectedItem();
 
@@ -181,4 +181,17 @@ public class UsuarioAdminController implements Initializable {
     }
 
 
+    public void seleccionarEmpresa(javafx.scene.input.MouseEvent mouseEvent) {
+        ModeloEmpresa empresa = (ModeloEmpresa) this.tablaEmpresa.getSelectionModel().getSelectedItem();
+
+        if(empresa.equals(null)){
+
+            System.out.println("ERROR");
+
+        } else {
+            this.nombreEmpresa.setText(empresa.getNombre());
+            this.emailEmpresa.setText(empresa.getEmail());
+            this.contraseniaEmpresa.setText(empresa.getPsw());
+        }
+    }
 }
