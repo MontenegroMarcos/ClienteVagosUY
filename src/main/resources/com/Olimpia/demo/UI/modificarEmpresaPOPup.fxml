@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ModificarEmpresaPOPupController">
+   <children>
+      <TextField layoutX="86.0" layoutY="117.0" />
+      <TextField fx:id="#campoNombre" layoutX="86.0" layoutY="200.0" />
+      <TextField layoutX="86.0" layoutY="278.0" />
+      <Button layoutX="395.0" layoutY="117.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="88.0" text="Cambiar" />
+      <Button layoutX="395.0" layoutY="247.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="88.0" text="Cancelar" />
+      <Label layoutX="86.0" layoutY="96.0" text="Correo Electronico" />
+      <Label layoutX="86.0" layoutY="179.0" text="Nombre" />
+      <Label layoutX="86.0" layoutY="260.0" text="password" />
+      <Region layoutY="-4.0" prefHeight="86.0" prefWidth="600.0" style="-fx-background-color: #ff0000;" />
+   </children>
+</AnchorPane>

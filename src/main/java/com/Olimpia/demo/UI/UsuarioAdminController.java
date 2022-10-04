@@ -153,7 +153,7 @@ public class UsuarioAdminController implements Initializable {
                     empresa.setPsw(empresaAux.getPsw());
 
 
-                    this.tablaEmpresa.refresh();
+                    actualizarTblEmpresas();
 
 
                 }

@@ -38,7 +38,7 @@ public class InicioController implements Initializable {
     private Button login;
 
     @FXML
-    private Label verdaderaContraseña;
+    private Label verdaderapassword;
 
 
     @FXML
@@ -82,12 +82,12 @@ public class InicioController implements Initializable {
    public void mostrarContaseña(ActionEvent event){
 
         if(mostrarOcultar.isSelected()){
-            verdaderaContraseña.setVisible(true);
-            verdaderaContraseña.setText(campoPassword.getText());
+            verdaderapassword.setVisible(true);
+            verdaderapassword.setText(campoPassword.getText());
             mostrarOcultar.setText("Ocultar");
         } else {
 
-            verdaderaContraseña.setVisible(false);
+            verdaderapassword.setVisible(false);
             mostrarOcultar.setText("Mostrar");
         }
 
@@ -96,7 +96,7 @@ public class InicioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        verdaderaContraseña.setVisible(false);
+
 
 
     }
