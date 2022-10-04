@@ -2,15 +2,19 @@ package com.Olimpia.demo.UI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class InicioController {
+public class InicioController implements Initializable {
 
 
     private Stage estage;
@@ -20,6 +24,21 @@ public class InicioController {
 
     @FXML
     private Button UsuarioAdmin;
+
+    @FXML
+    private ToggleButton mostrarOcultar;
+
+    @FXML
+    private TextField campoEmail;
+
+    @FXML
+    private TextField campoPassword;
+
+    @FXML
+    private Button login;
+
+    @FXML
+    private Label verdaderaContraseña;
 
 
     @FXML
@@ -55,6 +74,31 @@ public class InicioController {
 
     public void setStage(Stage stage) {
         estage = stage;
+    }
+
+
+
+   @FXML
+   public void mostrarContaseña(ActionEvent event){
+
+        if(mostrarOcultar.isSelected()){
+            verdaderaContraseña.setVisible(true);
+            verdaderaContraseña.setText(campoPassword.getText());
+            mostrarOcultar.setText("Ocultar");
+        } else {
+
+            verdaderaContraseña.setVisible(false);
+            mostrarOcultar.setText("Mostrar");
+        }
+
+   }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        verdaderaContraseña.setVisible(false);
+
+
     }
 
 
