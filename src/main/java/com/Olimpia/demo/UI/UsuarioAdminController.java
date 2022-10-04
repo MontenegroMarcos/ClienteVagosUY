@@ -48,14 +48,12 @@ public class UsuarioAdminController implements Initializable {
 
     private ObservableList<ModeloEmpresa> empresasLista;
 
-
     @FXML
-    protected void aniadirEmpresa() {
+    protected void añadirEmpresa() {
 
         if (nombreEmpresa.getText().equals(null) || contraseniaEmpresa.getText().equals(null) || emailEmpresa.getText().equals(null)) {
             //Hay un error , no se agrega
         } else {
-            String json = "";
             try {
                 String nombreClient = nombreEmpresa.getText();
                 String email = emailEmpresa.getText();
@@ -71,6 +69,7 @@ public class UsuarioAdminController implements Initializable {
                     System.out.println(response.getBody());
                     System.out.println(response.getStatus());
                     System.out.println(response.getStatusText());
+                    actualizarTblEmpresas();
                 } catch (Exception e) {
 
 
@@ -96,31 +95,25 @@ public class UsuarioAdminController implements Initializable {
         return retorno;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.colnombreEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("nombre"));
+        this.colEmailEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("email"));
+        this.colPSWEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("psw"));
+    }
+
+    @FXML
+    public void actualizarTblEmpresas(){
+        this.tablaEmpresa.setItems(obtenerEmpresas());
+    }
+
+
 
     @FXML
     protected void limpiartxtEmpresa(){
         nombreEmpresa.setText(null);
         emailEmpresa.setText(null);
         contraseniaEmpresa.setText(null);
-
-
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //empresasLista = FXCollections.observableArrayList();
-        this.colnombreEmpresa.setCellFactory(new PropertyValueFactory("nombre"));
-        this.colEmailEmpresa.setCellFactory(new PropertyValueFactory("email"));
-        this.colPSWEmpresa.setCellFactory(new PropertyValueFactory("psw"));
-
-        tablaEmpresa.setItems(obtenerEmpresas());
-    }
-
-    @FXML
-    public void actualizarTblEmpresas(){
-        this.tablaEmpresa.setItems(obtenerEmpresas());
-
     }
 
     @FXML
@@ -178,7 +171,7 @@ public class UsuarioAdminController implements Initializable {
     public void seleccionarEmpresa(javafx.scene.input.MouseEvent mouseEvent) {
         ModeloEmpresa empresa = (ModeloEmpresa) this.tablaEmpresa.getSelectionModel().getSelectedItem();
 
-        if(empresa.equals(null)){
+        if (empresa.equals(null)) {
 
             System.out.println("ERROR");
 

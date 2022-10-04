@@ -14,7 +14,7 @@
                      <children>
                         <TextField fx:id="nombreEmpresa" layoutX="40.0" layoutY="76.0" prefHeight="26.0" prefWidth="202.0" promptText="Ingresa Nombre de la Empresa" />
                         <TextField fx:id="emailEmpresa" layoutX="40.0" layoutY="142.0" prefHeight="26.0" prefWidth="202.0" promptText="Correo Electronico" />
-                        <Button layoutX="141.0" layoutY="255.0" mnemonicParsing="false" onAction="#aniadirEmpresa" text="Crear empresa" />
+                        <Button layoutX="141.0" layoutY="255.0" mnemonicParsing="false" onAction="#añadirEmpresa" text="Crear empresa" />
                         <Button layoutX="48.0" layoutY="255.0" mnemonicParsing="false" onAction="#limpiartxtEmpresa" prefHeight="26.0" prefWidth="74.0" text="Cancelar" />
                         <TextField fx:id="contraseniaEmpresa" layoutX="40.0" layoutY="203.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" />
                         <TableView fx:id="tablaEmpresa" layoutX="295.0" layoutY="69.0" onMouseClicked="#seleccionarEmpresa" prefHeight="200.0" prefWidth="377.0">
