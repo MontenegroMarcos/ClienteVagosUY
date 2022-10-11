@@ -1,6 +1,6 @@
 package com.Olimpia.demo.UI;
 
-import com.Olimpia.demo.ModeloUsuario;
+import com.Olimpia.demo.modelo.ModeloUsuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
- import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 
 import java.awt.*;
 
-import java.io.DataInput;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +48,7 @@ public class InicioController implements Initializable {
 
     @FXML
     private Label verdaderapassword;
+
     @FXML
     void entrarUsuarioCentroDeportivo() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -57,6 +57,7 @@ public class InicioController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     @FXML
     void entrarUsuarioAdmin() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -72,9 +73,11 @@ public class InicioController implements Initializable {
     void entrarUsuarioFinal() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("usuariosFinales.fxml"));
+        UsuariosFinalesController controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        controller.init(campoEmail.getText(),stage,this);
         stage.show();
         this.estage.close();
     }
@@ -84,9 +87,10 @@ public class InicioController implements Initializable {
         estage = stage;
         //guarda info pantalla
     }
+
     @FXML
-   public void mostrarContaseña(ActionEvent event){
-        if(mostrarOcultar.isSelected()){
+    public void mostrarContaseña(ActionEvent event) {
+        if (mostrarOcultar.isSelected()) {
             verdaderapassword.setVisible(true);
             verdaderapassword.setText(campoPassword.getText());
             mostrarOcultar.setText("Ocultar");
@@ -94,67 +98,57 @@ public class InicioController implements Initializable {
             verdaderapassword.setVisible(false);
             mostrarOcultar.setText("Mostrar");
         }
-   }
-   @Override
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
     public void mostrarContasenia(javafx.event.ActionEvent actionEvent) {
     }
+
     @FXML
-    public void entrarUsuariofinalLogin(){
+    public void entrarUsuariofinalLogin() {
 
-        String correo = campoEmail.getText();
-        String psw = campoPassword.getText();
 
-        if(validarlogin(correo,psw)){
-            //Desarollo
-        } else {
-            alertLabel.setText("Error, correo y/o contraseña incorrectas");
-        }
 
     }
-    public boolean validarlogin(String email, String psw){
-        //Aqui Santiago obtiene el get de la base de datos
-        boolean result = false;
-
-
-
-        return result;
-
-    }
-
-    public void Login(){
+    public void Login() {
         String email = campoEmail.getText();
         String psw = campoPassword.getText();
         try {
             ObjectMapper mapper = new ObjectMapper();
-            ModeloUsuario usuario = new ModeloUsuario(email,psw);
+            ModeloUsuario usuario = new ModeloUsuario(email, psw);
             String jsonString = mapper.writeValueAsString(usuario);
             HttpResponse<JsonNode> response = Unirest.post("http://10.252.62.73:8080/vagouy/usuario/login")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
-            if(response.getStatus()==400){
+            if (response.getStatus() == 400) {
+                this.alertLabel.setText("Error, email y/o contraseña incorrectos");
                 //Login INCORRECTO
                 //Abrir pantalla error
                 //FIXME
-            }else{
-                if(response.getStatus()==202) {
+            } else {
+                if (response.getStatus() == 202) {
                     try {
                         ModeloUsuario usuarioValido = mapper.readValue(response.getBody().toString(), ModeloUsuario.class);
-                        switch(usuarioValido.getTipoUsuario()){
+                        switch (usuarioValido.getTipoUsuario()) {
                             case 0:
                                 //Abrir pantalla admin
+                                entrarUsuarioAdmin();
                                 break;
                             case 1:
                                 //Abrir pantalla empresa
                                 break;
                             case 2:
                                 //Abrir pantalla centroDeportivo
+                                entrarUsuarioCentroDeportivo();
                                 break;
                             case 3:
                                 //Abrir pantalla Empleados
+                                entrarUsuarioFinal();
                                 break;
                         }
                     } catch (Exception e) {
@@ -162,7 +156,7 @@ public class InicioController implements Initializable {
                     }
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

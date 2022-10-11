@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="449.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuariosFinalesController">
    <children>
       <BorderPane prefHeight="449.0" prefWidth="227.0">
@@ -38,6 +37,11 @@
       <HBox layoutX="229.0" prefHeight="84.0" prefWidth="454.0" style="-fx-background-color: #FED8B1;">
          <children>
             <Text fill="#5dc1b9" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Que haremos Hoy?">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="correoUsuario" strokeType="OUTSIDE" strokeWidth="0.0" text="l">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
