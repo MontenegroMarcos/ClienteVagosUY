@@ -22,10 +22,10 @@
       <Button fx:id="CentroDeportivo" alignment="CENTER" layoutX="29.0" layoutY="180.0" mnemonicParsing="false" onAction="#entrarUsuarioCentroDeportivo" prefHeight="58.0" prefWidth="148.0" text="Centro Deportivo" />
       <Button alignment="CENTER" layoutX="29.0" layoutY="327.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="148.0" text="Empresa" />
       <Button fx:id="UsuarioAdministrador" alignment="CENTER" layoutX="29.0" layoutY="253.0" mnemonicParsing="false" onAction="#entrarUsuarioAdmin" prefHeight="58.0" prefWidth="148.0" text="Usuario Admin" />
-      <TextField layoutX="283.0" layoutY="282.0" promptText="Contraseña" />
-      <TextField layoutX="283.0" layoutY="223.0" promptText="Correo Electronico" />
+      <TextField fx:id="campoPassword" layoutX="283.0" layoutY="282.0" promptText="Contraseña" />
+      <TextField fx:id="campoEmail" layoutX="283.0" layoutY="223.0" promptText="Correo Electronico" />
       <ToggleButton fx:id="mostrarOcultar" layoutX="433.0" layoutY="282.0" mnemonicParsing="false" onAction="#mostrarContaseña" text="Mostrar" />
-      <Button layoutX="344.0" layoutY="341.0" mnemonicParsing="false" text="Ingresar" />
+      <Button layoutX="344.0" layoutY="341.0" mnemonicParsing="false" text="Ingresar" onAction="#Login" />
       <Label layoutX="294.0" layoutY="311.0" prefHeight="18.0" prefWidth="108.0" />
       <Label fx:id="alertLabel" layoutX="284.0" layoutY="185.0" prefHeight="31.0" prefWidth="148.0" />
    </children>

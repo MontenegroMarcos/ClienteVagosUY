@@ -1,5 +1,7 @@
 package com.Olimpia.demo.UI;
 
+import com.Olimpia.demo.ModeloUsuario;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,9 +11,14 @@ import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
  import javafx.scene.control.Label;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import javafx.scene.control.TextField;
 
 import java.awt.*;
 
+import java.io.DataInput;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -104,10 +111,46 @@ public class InicioController implements Initializable {
 
     }
 
-
-
-
-
-
-
+    public void Login(){
+        String email = campoEmail.getText();
+        String psw = campoPassword.getText();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            ModeloUsuario usuario = new ModeloUsuario(email,psw);
+            String jsonString = mapper.writeValueAsString(usuario);
+            HttpResponse<JsonNode> response = Unirest.post("http://10.252.62.73:8080/vagouy/usuario/login")
+                    .header("Content-Type", "application/json;charset=utf-8")
+                    .body(jsonString)
+                    .asJson();
+            if(response.getStatus()==400){
+                //Login INCORRECTO
+                //Abrir pantalla error
+                //FIXME
+            }else{
+                if(response.getStatus()==202) {
+                    try {
+                        ModeloUsuario usuarioValido = mapper.readValue(response.getBody().toString(), ModeloUsuario.class);
+                        switch(usuarioValido.getTipoUsuario()){
+                            case 0:
+                                //Abrir pantalla admin
+                                break;
+                            case 1:
+                                //Abrir pantalla empresa
+                                break;
+                            case 2:
+                                //Abrir pantalla centroDeportivo
+                                break;
+                            case 3:
+                                //Abrir pantalla Empleados
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
