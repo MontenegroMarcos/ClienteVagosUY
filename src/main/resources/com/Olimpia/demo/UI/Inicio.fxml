@@ -24,8 +24,9 @@
       <Button fx:id="UsuarioAdministrador" alignment="CENTER" layoutX="29.0" layoutY="253.0" mnemonicParsing="false" onAction="#entrarUsuarioAdmin" prefHeight="58.0" prefWidth="148.0" text="Usuario Admin" />
       <TextField layoutX="283.0" layoutY="282.0" promptText="Contraseña" />
       <TextField layoutX="283.0" layoutY="223.0" promptText="Correo Electronico" />
-      <ToggleButton fx:id="mostrarOcultar" layoutX="433.0" layoutY="282.0" mnemonicParsing="false" text="Mostrar" />
+      <ToggleButton fx:id="mostrarOcultar" layoutX="433.0" layoutY="282.0" mnemonicParsing="false" onAction="#mostrarContaseña" text="Mostrar" />
       <Button layoutX="344.0" layoutY="341.0" mnemonicParsing="false" text="Ingresar" />
-      <Label  layoutX="294.0" layoutY="311.0" prefHeight="18.0" prefWidth="108.0" />
+      <Label layoutX="294.0" layoutY="311.0" prefHeight="18.0" prefWidth="108.0" />
+      <Label fx:id="alertLabel" layoutX="284.0" layoutY="185.0" prefHeight="31.0" prefWidth="148.0" />
    </children>
 </AnchorPane>
