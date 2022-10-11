@@ -60,6 +60,19 @@ public class InicioController implements Initializable {
         stage.show();
         this.estage.close();
     }
+
+    @FXML
+    void entrarUsuarioFinal() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("usuariosFinales.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        this.estage.close();
+    }
+
+
     public void setStage(Stage stage) {
         estage = stage;
         //guarda info pantalla
