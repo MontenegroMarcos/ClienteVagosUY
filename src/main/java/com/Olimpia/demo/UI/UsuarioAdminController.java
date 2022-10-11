@@ -1,6 +1,6 @@
 package com.Olimpia.demo.UI;
 
-import com.Olimpia.demo.ModeloEmpresa;
+import com.Olimpia.demo.modelo.ModeloEmpresa;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.EmpresasUserController">
+   <children>
+      <ImageView fitHeight="113.0" fitWidth="162.0" layoutX="211.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="266.0" layoutY="305.0" mnemonicParsing="false" text="Button" />
+      <TextField layoutX="218.0" layoutY="237.0" />
+   </children>
+</AnchorPane>

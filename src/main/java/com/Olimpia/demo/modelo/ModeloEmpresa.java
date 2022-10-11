@@ -1,4 +1,4 @@
-package com.Olimpia.demo;
+package com.Olimpia.demo.modelo;
 
 public class ModeloEmpresa {
     private String email;

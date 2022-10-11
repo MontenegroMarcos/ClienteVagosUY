@@ -18,7 +18,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" layoutX="29.0" layoutY="107.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="148.0" text="Usuario Final" />
+      <Button alignment="CENTER" layoutX="29.0" layoutY="107.0" mnemonicParsing="false" onAction="#entrarUsuarioFinal" prefHeight="57.0" prefWidth="148.0" text="Usuario Final" />
       <Button fx:id="CentroDeportivo" alignment="CENTER" layoutX="29.0" layoutY="180.0" mnemonicParsing="false" onAction="#entrarUsuarioCentroDeportivo" prefHeight="58.0" prefWidth="148.0" text="Centro Deportivo" />
       <Button alignment="CENTER" layoutX="29.0" layoutY="327.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="148.0" text="Empresa" />
       <Button fx:id="UsuarioAdministrador" alignment="CENTER" layoutX="29.0" layoutY="253.0" mnemonicParsing="false" onAction="#entrarUsuarioAdmin" prefHeight="58.0" prefWidth="148.0" text="Usuario Admin" />
