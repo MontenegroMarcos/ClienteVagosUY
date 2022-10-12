@@ -56,6 +56,7 @@ public class InicioController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+        this.estage.close();
     }
 
     @FXML
@@ -72,11 +73,12 @@ public class InicioController implements Initializable {
     @FXML
     void entrarUsuarioFinal() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("usuariosFinales.fxml"));
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("usuariosFinales.fxml"));
         UsuariosFinalesController controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        System.out.println(campoEmail.getText());
         controller.init(campoEmail.getText(),stage,this);
         stage.show();
         this.estage.close();
@@ -121,7 +123,7 @@ public class InicioController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             ModeloUsuario usuario = new ModeloUsuario(email, psw);
             String jsonString = mapper.writeValueAsString(usuario);
-            HttpResponse<JsonNode> response = Unirest.post("http://10.252.62.73:8080/vagouy/usuario/login")
+            HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/usuario/login")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
