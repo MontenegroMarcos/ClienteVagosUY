@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="98.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ActividadesItemUserController">
+   <children>
+      <HBox layoutY="-1.0" prefHeight="99.0" prefWidth="454.0">
+         <children>
+            <ImageView fx:id="imagenActividad" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox prefHeight="150.0" prefWidth="309.0">
+               <children>
+                  <Label fx:id="nombreactividad" prefHeight="30.0" prefWidth="305.0" text="NombreDeActividad" />
+                  <Label fx:id="categorias" prefHeight="26.0" prefWidth="311.0" text="Categorias" />
+                  <Label fx:id="fechayhora" prefHeight="18.0" prefWidth="306.0" text="DiasYHorarios" />
+                  <Label fx:id="precioactividad" prefHeight="18.0" prefWidth="310.0" text="Precio" />
+                  <Label fx:id="nombreCentroDeportivo" prefHeight="18.0" prefWidth="306.0" text="NombreCentroDeportivo" />
+                  <Label fx:id="direccionActividad" prefHeight="18.0" prefWidth="306.0" text="Direccion" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
