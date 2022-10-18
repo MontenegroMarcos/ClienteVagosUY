@@ -13,8 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 
-import java.awt.event.KeyEvent;
+
+//import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,32 @@ public class UsuariosFinalesController implements Initializable {
     private List<ModeloActividad> getItemAct(){
         List<ModeloActividad> itemAct = new ArrayList<>();
         ModeloActividad actividad = null;
+
+        List<String> actividad1Cat = new ArrayList<>();
+        actividad1Cat.add("Libre");
+        actividad1Cat.add("Maquina");
+        actividad1Cat.add("Compartido");
+
+        List<String> actividad2Cat = new ArrayList<>();
+        actividad1Cat.add("Agua");
+        actividad1Cat.add("Reserva");
+        actividad1Cat.add("Compartido");
+
+
+        List<String> actividad3Cat = new ArrayList<>();
+        actividad1Cat.add("Futbol");
+        actividad1Cat.add("Reserva");
+        actividad1Cat.add("Compartido");
+
+
+        ModeloActividad actividad1 = new ModeloActividad("Gym Star uso libre",actividad1Cat,null,20.3f,"Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
+        ModeloActividad actividad2 = new ModeloActividad("Piscina Artigas",actividad2Cat,null,100.3f,"Lo de Carlo", "Universo 616");
+        ModeloActividad actividad3 = new ModeloActividad("Fuvol",actividad3Cat,null,20.3f,"Lo de Carlo", "En todos lados");
+
+
+        itemAct.add(actividad1);
+        itemAct.add(actividad2);
+        itemAct.add(actividad3);
 
         return itemAct;
     }
@@ -88,6 +116,8 @@ public class UsuariosFinalesController implements Initializable {
 
 
         if(filtroNombreAct.isEmpty()){
+            this.gridpane.getChildren().clear();
+
             itemAct.addAll(getItemAct());
 
 
@@ -109,7 +139,11 @@ public class UsuariosFinalesController implements Initializable {
 
             }
         } else {
+
+            this.gridpane.getChildren().clear();
             this.itemActAux.clear();
+            this.itemAct.clear();
+
             for (ModeloActividad activity:this.itemAct) {
                 if (activity.getNombreActividad().toLowerCase().contains(filtroNombreAct.toLowerCase())){
                         this.itemActAux.add(activity);

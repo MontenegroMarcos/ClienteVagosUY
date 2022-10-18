@@ -33,7 +33,7 @@ public class ActividadesItemUserController {
     public void setData(ModeloActividad activity) {
         this.actividad = activity;
         this.nombreactividad.setText(activity.getNombreActividad());
-        this.precioactividad.setText(activity.getPrecio());
+        this.precioactividad.setText(String.valueOf(activity.getPrecio()));
         this.nombreCentroDeportivo.setText(activity.getNombreCentrodeActividad());
         this.fechayhora.setText(String.valueOf(activity.getFechayhora()));
         this.direccionActividad.setText(activity.getDireccionCentro());

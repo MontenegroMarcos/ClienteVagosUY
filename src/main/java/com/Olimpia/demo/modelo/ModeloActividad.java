@@ -45,7 +45,7 @@ public class ModeloActividad {
         this.fechayhora = fechayhora;
     }
 
-    public String getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
