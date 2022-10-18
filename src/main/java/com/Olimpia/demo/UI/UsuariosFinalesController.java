@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -23,6 +24,7 @@ import kong.unirest.Unirest;
 
 
 //import java.awt.event.KeyEvent;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -73,10 +75,13 @@ public class UsuariosFinalesController implements Initializable {
         actividad1Cat.add("Reserva");
         actividad1Cat.add("Compartido");
 
+        byte[] imagen = Unirest.get("http://10.252.60.160:8080/Imagen/nacionalnacional.png").asBytes().getBody();
+        ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
+        Image imagenverdadera = new Image(bytearray);
 
-        ModeloActividad actividad1 = new ModeloActividad("Gym Star uso libre",actividad1Cat,null,20.3f,"Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
-        ModeloActividad actividad2 = new ModeloActividad("Piscina Artigas",actividad2Cat,null,100.3f,"Lo de Carlo", "Universo 616");
-        ModeloActividad actividad3 = new ModeloActividad("Fuvol",actividad3Cat,null,20.3f,"Lo de Carlo", "En todos lados");
+        ModeloActividad actividad1 = new ModeloActividad(imagenverdadera,"Gym Star uso libre",actividad1Cat,null,20.3f,"Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
+        ModeloActividad actividad2 = new ModeloActividad(imagenverdadera,"Piscina Artigas",actividad2Cat,null,100.3f,"Lo de Carlo", "Universo 616");
+        ModeloActividad actividad3 = new ModeloActividad(imagenverdadera,"Fuvol",actividad3Cat,null,20.3f,"Lo de Carlo", "En todos lados");
 
 
         itemAct.add(actividad1);
@@ -107,7 +112,7 @@ public class UsuariosFinalesController implements Initializable {
                 AnchorPane anchorpane = fxmlLoader.load();
 
                 ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i),"src/Charcoal.jpg");
+                controlador.setData(itemAct.get(i));
 
                 gridpane.add(anchorpane,0,filas++);
                 GridPane.setMargin(anchorpane,new Insets(10));
@@ -138,7 +143,7 @@ public class UsuariosFinalesController implements Initializable {
                     AnchorPane anchorpane = fxmlLoader.load();
 
                     ActividadesItemUserController controlador = fxmlLoader.getController();
-                    controlador.setData(itemAct.get(i),"src/Charcoal.jpg");
+                    controlador.setData(itemAct.get(i));
 
                     gridpane.add(anchorpane,0,filas++);
                     GridPane.setMargin(anchorpane,new Insets(10));
@@ -164,7 +169,7 @@ public class UsuariosFinalesController implements Initializable {
                     AnchorPane anchorpane = fxmlLoader.load();
 
                     ActividadesItemUserController controlador = fxmlLoader.getController();
-                    controlador.setData(itemActAux.get(i),"src/Charcoal.jpg");
+                    controlador.setData(itemActAux.get(i));
 
                     gridpane.add(anchorpane,0,filas++);
                     GridPane.setMargin(anchorpane,new Insets(10));
@@ -212,7 +217,7 @@ public class UsuariosFinalesController implements Initializable {
             AnchorPane anchorpane = fxmlLoader.load();
 
             ActividadesItemUserController controlador = fxmlLoader.getController();
-            controlador.setData(listaObservableAct.get(i),"src/Charcoal.jpg");
+            controlador.setData(listaObservableAct.get(i));
 
             gridpane.add(anchorpane,0,filas++);
             GridPane.setMargin(anchorpane,new Insets(10));

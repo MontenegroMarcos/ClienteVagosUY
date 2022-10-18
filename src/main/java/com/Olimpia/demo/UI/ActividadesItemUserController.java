@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 
 public class ActividadesItemUserController {
@@ -34,9 +33,8 @@ public class ActividadesItemUserController {
 
     private ModeloActividad actividad;
 
-    private byte [] bitArray;
 
-    public void setData(ModeloActividad activity,String t) {
+    public void setData(ModeloActividad activity) {
         this.actividad = activity;
         this.nombreactividad.setText(activity.getNombreActividad());
         this.precioactividad.setText(String.valueOf(activity.getPrecio()));
@@ -44,9 +42,7 @@ public class ActividadesItemUserController {
         this.fechayhora.setText(String.valueOf(activity.getFechayhora()));
         this.direccionActividad.setText(activity.getDireccionCentro());
         this.categorias.setText(activity.getCategorias().toString());
-
-
-
+        this.imagenActividad.setImage(activity.getImagen());
 
     }
 }

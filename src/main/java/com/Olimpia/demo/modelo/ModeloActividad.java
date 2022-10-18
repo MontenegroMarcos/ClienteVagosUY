@@ -1,17 +1,17 @@
 package com.Olimpia.demo.modelo;
 
+import javafx.scene.image.Image;
+
 import java.util.Date;
 import java.util.List;
 
 public class ModeloActividad {
 
-    public byte[] getByteArray() {
-        return byteArray;
-    }
+    private Image imagen;
 
-    public ModeloActividad(byte[] byteArray, String nombreActividad,
-                           List<String> categorias, Date fechayhora, float precio, String nombreCentrodeActividad, String direccionCentro) {
-        this.byteArray = byteArray;
+    public ModeloActividad(Image imagen, String nombreActividad, List<String> categorias, Date fechayhora,
+                           float precio, String nombreCentrodeActividad, String direccionCentro) {
+        this.imagen = imagen;
         this.nombreActividad = nombreActividad;
         this.categorias = categorias;
         this.fechayhora = fechayhora;
@@ -20,7 +20,9 @@ public class ModeloActividad {
         this.direccionCentro = direccionCentro;
     }
 
-    private byte [] byteArray;
+    public Image getImagen() {
+        return imagen;
+    }
 
     private String nombreActividad;
     private List<String> categorias;
