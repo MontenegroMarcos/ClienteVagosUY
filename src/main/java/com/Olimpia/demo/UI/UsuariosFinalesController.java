@@ -2,6 +2,11 @@ package com.Olimpia.demo.UI;
 
 
 import com.Olimpia.demo.modelo.ModeloActividad;
+import com.Olimpia.demo.modelo.ModeloEmpresa;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,9 +19,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
+import kong.unirest.Unirest;
 
 
 //import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,8 @@ public class UsuariosFinalesController implements Initializable {
     private List<ModeloActividad> itemAct = new ArrayList<>();
 
     private List<ModeloActividad> itemActAux = new ArrayList<>();
+
+    private ObservableList<ModeloActividad> listaObservableAct;
 
     private List<ModeloActividad> getItemAct(){
         List<ModeloActividad> itemAct = new ArrayList<>();
@@ -98,7 +107,7 @@ public class UsuariosFinalesController implements Initializable {
                 AnchorPane anchorpane = fxmlLoader.load();
 
                 ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i));
+                controlador.setData(itemAct.get(i),"src/Charcoal.jpg");
 
                 gridpane.add(anchorpane,0,filas++);
                 GridPane.setMargin(anchorpane,new Insets(10));
@@ -129,7 +138,7 @@ public class UsuariosFinalesController implements Initializable {
                     AnchorPane anchorpane = fxmlLoader.load();
 
                     ActividadesItemUserController controlador = fxmlLoader.getController();
-                    controlador.setData(itemAct.get(i));
+                    controlador.setData(itemAct.get(i),"src/Charcoal.jpg");
 
                     gridpane.add(anchorpane,0,filas++);
                     GridPane.setMargin(anchorpane,new Insets(10));
@@ -142,7 +151,6 @@ public class UsuariosFinalesController implements Initializable {
 
             this.gridpane.getChildren().clear();
             this.itemActAux.clear();
-            this.itemAct.clear();
 
             for (ModeloActividad activity:this.itemAct) {
                 if (activity.getNombreActividad().toLowerCase().contains(filtroNombreAct.toLowerCase())){
@@ -156,7 +164,7 @@ public class UsuariosFinalesController implements Initializable {
                     AnchorPane anchorpane = fxmlLoader.load();
 
                     ActividadesItemUserController controlador = fxmlLoader.getController();
-                    controlador.setData(itemActAux.get(i));
+                    controlador.setData(itemActAux.get(i),"src/Charcoal.jpg");
 
                     gridpane.add(anchorpane,0,filas++);
                     GridPane.setMargin(anchorpane,new Insets(10));
@@ -170,4 +178,67 @@ public class UsuariosFinalesController implements Initializable {
         }
 
     }
+
+    @FXML
+    protected ObservableList<ModeloActividad> obtenerActividades(){
+        ObjectMapper mapper = new ObjectMapper();
+        String actividades = Unirest.get("http://10.252.60.160:8080/vagouy/actividades").asString().getBody();
+        List<ModeloActividad> actividad = null;
+        try {
+            actividad = mapper.readValue(actividades, new TypeReference<List<ModeloActividad>>() {});
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        ObservableList<ModeloActividad> retorno = FXCollections.observableList(actividad);
+        System.out.println(retorno);
+        return retorno;
+    }
+
+
+    @FXML
+    public void listarActividades(ObservableList<ModeloActividad> listaActividades) throws IOException {
+        int filas = 0;
+
+        this.listaObservableAct = listaActividades;
+
+
+        /*for (ModeloActividad activity:listaActividades) {
+
+        }*/
+
+        for (int i = 0; i < listaActividades.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+            AnchorPane anchorpane = fxmlLoader.load();
+
+            ActividadesItemUserController controlador = fxmlLoader.getController();
+            controlador.setData(listaObservableAct.get(i),"src/Charcoal.jpg");
+
+            gridpane.add(anchorpane,0,filas++);
+            GridPane.setMargin(anchorpane,new Insets(10));
+
+
+        }
+
+        /*this.gridpane.getChildren().clear();
+        this.itemActAux.clear();
+
+        for (ModeloActividad activity:this.itemAct) {
+            if (activity.getNombreActividad().toLowerCase().contains(filtroNombreAct.toLowerCase())){
+                this.itemActAux.add(activity);
+            }
+        }
+        try {
+            for (int i = 0; i < itemActAux.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+
+                ActividadesItemUserController controlador = fxmlLoader.getController();
+                controlador.setData(itemActAux.get(i),"src/Charcoal.jpg");
+
+                gridpane.add(anchorpane,0,filas++);
+                GridPane.setMargin(anchorpane,new Insets(10));*/
+    }
+
 }

@@ -4,6 +4,24 @@ import java.util.Date;
 import java.util.List;
 
 public class ModeloActividad {
+
+    public byte[] getByteArray() {
+        return byteArray;
+    }
+
+    public ModeloActividad(byte[] byteArray, String nombreActividad,
+                           List<String> categorias, Date fechayhora, float precio, String nombreCentrodeActividad, String direccionCentro) {
+        this.byteArray = byteArray;
+        this.nombreActividad = nombreActividad;
+        this.categorias = categorias;
+        this.fechayhora = fechayhora;
+        this.precio = precio;
+        this.nombreCentrodeActividad = nombreCentrodeActividad;
+        this.direccionCentro = direccionCentro;
+    }
+
+    private byte [] byteArray;
+
     private String nombreActividad;
     private List<String> categorias;
     private Date fechayhora;
