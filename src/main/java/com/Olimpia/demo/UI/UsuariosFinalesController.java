@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class UsuariosFinalesController implements Initializable {
     private String texto;
 
     private List<ModeloActividad> itemAct = new ArrayList<>();
+
+    private List<ModeloActividad> itemActAux = new ArrayList<>();
 
     private List<ModeloActividad> getItemAct(){
         List<ModeloActividad> itemAct = new ArrayList<>();
@@ -76,5 +79,61 @@ public class UsuariosFinalesController implements Initializable {
         } catch (Exception e){
 
         }
+    }
+
+    public void filtrarNombre(KeyEvent key){
+
+        String filtroNombreAct = this.buscartxtfield.getText();
+        int filas = 0;
+
+
+        if(filtroNombreAct.isEmpty()){
+            itemAct.addAll(getItemAct());
+
+
+            try {
+
+                for (int i = 0; i < itemAct.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                    AnchorPane anchorpane = fxmlLoader.load();
+
+                    ActividadesItemUserController controlador = fxmlLoader.getController();
+                    controlador.setData(itemAct.get(i));
+
+                    gridpane.add(anchorpane,0,filas++);
+                    GridPane.setMargin(anchorpane,new Insets(10));
+
+                }
+            } catch (Exception e){
+
+            }
+        } else {
+            this.itemActAux.clear();
+            for (ModeloActividad activity:this.itemAct) {
+                if (activity.getNombreActividad().toLowerCase().contains(filtroNombreAct.toLowerCase())){
+                        this.itemActAux.add(activity);
+                }
+            }
+            try {
+                for (int i = 0; i < itemActAux.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                    AnchorPane anchorpane = fxmlLoader.load();
+
+                    ActividadesItemUserController controlador = fxmlLoader.getController();
+                    controlador.setData(itemActAux.get(i));
+
+                    gridpane.add(anchorpane,0,filas++);
+                    GridPane.setMargin(anchorpane,new Insets(10));
+
+                }
+            } catch (Exception e){
+
+            }
+
+
+        }
+
     }
 }
