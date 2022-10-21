@@ -19,7 +19,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <TextField fx:id="buscartxtfield" onKeyReleased="#filtrarNombre" prefHeight="25.0" prefWidth="181.0" promptText="Busca Avtividades y Centro" />
+                  <TextField fx:id="buscartxtfield" prefHeight="25.0" prefWidth="181.0" promptText="Busca Avtividades y Centro" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
                </children>
             </VBox>

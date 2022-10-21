@@ -49,7 +49,7 @@ public class UsuariosFinalesController implements Initializable {
 
     private String texto;
 
-    private List<ModeloActividad> itemAct = new ArrayList<>();
+    private List<List> itemAct = new ArrayList<>();
 
     private List<ModeloActividad> itemActAux = new ArrayList<>();
 
@@ -101,7 +101,7 @@ public class UsuariosFinalesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        itemAct.addAll(getItemAct());
+        itemAct= obtenerActividades();
         int filas = 0;
 
         try {
@@ -123,7 +123,19 @@ public class UsuariosFinalesController implements Initializable {
         }
     }
 
-    public void filtrarNombre(KeyEvent key){
+    private List<List> obtenerActividades(){
+        ObjectMapper mapper = new ObjectMapper();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
+        List<List> actividad = null;
+        try {
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return actividad;
+    }
+
+   /* public void filtrarNombre(KeyEvent key){
 
         String filtroNombreAct = this.buscartxtfield.getText();
         int filas = 0;
@@ -132,7 +144,7 @@ public class UsuariosFinalesController implements Initializable {
         if(filtroNombreAct.isEmpty()){
             this.gridpane.getChildren().clear();
 
-            itemAct.addAll(getItemAct());
+            itemAct=obtenerActividades();
 
 
             try {
@@ -184,7 +196,7 @@ public class UsuariosFinalesController implements Initializable {
 
     }
 
-    @FXML
+    /*@FXML
     protected ObservableList<ModeloActividad> obtenerActividades(){
         ObjectMapper mapper = new ObjectMapper();
         String actividades = Unirest.get("http://10.252.60.160:8080/vagouy/actividades").asString().getBody();
@@ -207,9 +219,9 @@ public class UsuariosFinalesController implements Initializable {
         this.listaObservableAct = listaActividades;
 
 
-        /*for (ModeloActividad activity:listaActividades) {
+        for (ModeloActividad activity:listaActividades) {
 
-        }*/
+        }
 
         for (int i = 0; i < listaActividades.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -225,7 +237,7 @@ public class UsuariosFinalesController implements Initializable {
 
         }
 
-        /*this.gridpane.getChildren().clear();
+        this.gridpane.getChildren().clear();
         this.itemActAux.clear();
 
         for (ModeloActividad activity:this.itemAct) {
@@ -243,7 +255,7 @@ public class UsuariosFinalesController implements Initializable {
                 controlador.setData(itemActAux.get(i),"src/Charcoal.jpg");
 
                 gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));*/
-    }
+                GridPane.setMargin(anchorpane,new Insets(10));
+    }*/
 
 }
