@@ -75,7 +75,7 @@ public class UsuariosFinalesController implements Initializable {
         actividad1Cat.add("Reserva");
         actividad1Cat.add("Compartido");
 
-        byte[] imagen = Unirest.get("http://10.252.60.160:8080/Imagen/nacionalnacional.png").asBytes().getBody();
+        byte[] imagen = Unirest.get("http://localhost:8080/Imagen/nacionalnacional.png").asBytes().getBody();
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         Image imagenverdadera = new Image(bytearray);
 

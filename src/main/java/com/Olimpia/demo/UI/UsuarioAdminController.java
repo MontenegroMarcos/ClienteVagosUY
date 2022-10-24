@@ -1,6 +1,7 @@
 package com.Olimpia.demo.UI;
 
 import com.Olimpia.demo.modelo.ModeloEmpresa;
+import com.Olimpia.demo.modelo.ModeloFile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -14,8 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import org.apache.commons.io.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -179,6 +185,29 @@ public class UsuarioAdminController implements Initializable {
             this.nombreEmpresa.setText(empresa.getNombre());
             this.emailEmpresa.setText(empresa.getEmail());
             this.contraseniaEmpresa.setText(empresa.getPsw());
+        }
+    }
+
+    public void subirImagen(){
+        File file = new File("src/main/resources/furbo.jpg");
+        FileInputStream input = null;
+        MultipartFile multipartFile=null;
+
+        ObjectMapper mapper = new ObjectMapper();
+        ModeloFile modeloFile=null;
+        String json = "";
+        try{
+            input = new FileInputStream(file);
+            multipartFile = new MockMultipartFile("file",file.getName(),"image/jpg", IOUtils.toByteArray(input));
+            modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
+            json = mapper.writeValueAsString(modeloFile);
+            System.out.println(json);
+            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
+                    .header("Content-Type", "application/json;charset=utf-8")
+                    .body(json)
+                    .asJson();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
