@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="504.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.PopUpActItemContoller">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="326.0" layoutX="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../Downloads/1_UL9RWkTUtJlyHW7kGm20hQ.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnImagenSiguiente" layoutX="328.0" layoutY="119.0" mnemonicParsing="false" onAction="#siguienteImagen" text="&gt;">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnimagenAnterior" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#anterioreImagen" text="&lt;">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <VBox layoutX="419.0" prefHeight="240.0" prefWidth="294.0">
+         <children>
+            <Text fx:id="nombreActividad" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="293.18308448791504">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="297.0261535644531">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="298.6262512207031">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextArea prefHeight="101.0" prefWidth="294.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="296.3830966949463" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

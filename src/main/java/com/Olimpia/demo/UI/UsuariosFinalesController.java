@@ -11,8 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,6 +27,9 @@ import kong.unirest.Unirest;
 
 
 //import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -58,7 +63,7 @@ public class UsuariosFinalesController implements Initializable {
 
     private ObservableList<ModeloActividad> listaObservableAct;
 
-    private List<ModeloActividad> getItemAct(){
+    private List<ModeloActividad> getItemAct() {
         List<ModeloActividad> itemAct = new ArrayList<>();
         ModeloActividad actividad = null;
 
@@ -82,9 +87,9 @@ public class UsuariosFinalesController implements Initializable {
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         Image imagenverdadera = new Image(bytearray);
 
-        ModeloActividad actividad1 = new ModeloActividad(imagenverdadera,"Gym Star uso libre",actividad1Cat,null,20.3f,"Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
-        ModeloActividad actividad2 = new ModeloActividad(imagenverdadera,"Piscina Artigas",actividad2Cat,null,100.3f,"Lo de Carlo", "Universo 616");
-        ModeloActividad actividad3 = new ModeloActividad(imagenverdadera,"Fuvol",actividad3Cat,null,20.3f,"Lo de Carlo", "En todos lados");
+        ModeloActividad actividad1 = new ModeloActividad(imagenverdadera, "Gym Star uso libre", actividad1Cat, null, 20.3f, "Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
+        ModeloActividad actividad2 = new ModeloActividad(imagenverdadera, "Piscina Artigas", actividad2Cat, null, 100.3f, "Lo de Carlo", "Universo 616");
+        ModeloActividad actividad3 = new ModeloActividad(imagenverdadera, "Fuvol", actividad3Cat, null, 20.3f, "Lo de Carlo", "En todos lados");
 
 
         itemAct.add(actividad1);
@@ -95,7 +100,6 @@ public class UsuariosFinalesController implements Initializable {
     }
 
 
-
     public void init(String text, Stage stage, InicioController inicioController) {
         this.textoUsuario.setText(text);
         this.controllerInicio = inicioController;
@@ -104,7 +108,10 @@ public class UsuariosFinalesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        itemAct= obtenerActividades();
+        itemAct = obtenerActividades();
+        int tamanio = itemAct.size();
+
+
         int filas = 0;
 
         try {
@@ -117,34 +124,57 @@ public class UsuariosFinalesController implements Initializable {
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i));
 
-                gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
-        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Otros");
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Otros");
         this.comboBox.setItems(lista);
     }
 
-    private List<List> obtenerActividades(){
+    private List<List> obtenerActividades() {
         ObjectMapper mapper = new ObjectMapper();
         String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
         List<List> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return actividad;
     }
 
-    public void filtrarPorCategoria(){
+    private List<List> obtenrtAct(){
+
+        List<List> retorno = null;
+
+        ModeloActividad actividad1 = new ModeloActividad("fulbo", null,null,758,"Lo de Carlo","por alla");
+        ModeloActividad actividad2 = new ModeloActividad("fulbo", null,null,778,"Lo de Carlo","por alla");
+        ModeloActividad actividad3 = new ModeloActividad("fulbo", null,null,78,"Lo de Carlo","por alla");
+        ModeloActividad actividad4 = new ModeloActividad("fulbo", null,null,7978,"Lo de Carlo","por alla");
+        ModeloActividad actividad5 = new ModeloActividad("fulbo", null,null,78,"Lo de Carlo","por alla");
+        ModeloActividad actividad6 = new ModeloActividad("fulbo", null,null,108,"Lo de Carlo","por alla");
+        ModeloActividad actividad7 = new ModeloActividad("fulbo", null,null,178,"Lo de Carlo","por alla");
+        ModeloActividad actividad8 = new ModeloActividad("fulbo", null,null,28,"Lo de Carlo","por alla");
+        ModeloActividad actividad9 = new ModeloActividad("fulbo", null,null,78,"Lo de Carlo","por alla");
+        ModeloActividad actividad10 = new ModeloActividad("fulbo", null,null,78,"Lo de Carlo","por alla");
+        ModeloActividad actividad11 = new ModeloActividad("fulbo", null,null,8,"Lo de Carlo","por alla");
+        ModeloActividad actividad12 = new ModeloActividad("fulbo", null,null,100,"Lo de Carlo","por alla");
+
+
+
+        return retorno;
+    }
+
+    public void filtrarPorCategoria() {
         String valor = comboBox.getValue();
         System.out.println(valor);
         this.gridpane.getChildren().clear();
-        itemAct= obtenerActividadesPorCategoria(valor);
+        itemAct = obtenerActividadesPorCategoria(valor);
         int filas = 0;
 
         try {
@@ -157,26 +187,70 @@ public class UsuariosFinalesController implements Initializable {
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i));
 
-                gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public List<List> obtenerActividadesPorCategoria(String categoria){
+    public List<List> obtenerActividadesPorCategoria(String categoria) {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/"+categoria).asString().getBody();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/" + categoria).asString().getBody();
         List<List> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return actividad;
     }
+
+
+
+
+
+   /* public void paginacion(int size, List<List> actividades) {
+
+        Pagination paginacion = new Pagination();
+        paginacion.setPageCount((Integer) size / 20);
+        paginacion.setPageCount(0);
+        paginacion.setMaxPageIndicatorCount(5);
+        itemAct = actividades;
+
+        paginacion.setPageFactory((pageIndex) -> {
+            int filas = 0;
+            try {
+
+                for (int i = 0; i < itemAct.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                    AnchorPane anchorpane = fxmlLoader.load();
+
+                    ActividadesItemUserController controlador = fxmlLoader.getController();
+                    controlador.setData(itemAct.get(i));
+
+                    gridpane.add(anchorpane, 0, filas++);
+                    GridPane.setMargin(anchorpane, new Insets(10));
+
+                }
+            } catch (Exception e) {
+
+            }
+            ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Otros");
+            this.comboBox.setItems(lista);
+
+
+            return null;
+        });
+
+
+    }
+*/
+
 
    /* public void filtrarNombre(KeyEvent key){
 
