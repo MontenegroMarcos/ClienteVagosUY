@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -46,6 +47,8 @@ public class UsuariosFinalesController implements Initializable {
     private GridPane gridpane;
     @FXML
     private ScrollPane scrollpane;
+    @FXML
+    private ComboBox<String> comboBox;
 
     private String texto;
 
@@ -121,11 +124,51 @@ public class UsuariosFinalesController implements Initializable {
         } catch (Exception e){
 
         }
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Otros");
+        this.comboBox.setItems(lista);
     }
 
     private List<List> obtenerActividades(){
         ObjectMapper mapper = new ObjectMapper();
         String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
+        List<List> actividad = null;
+        try {
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return actividad;
+    }
+
+    public void filtrarPorCategoria(){
+        String valor = comboBox.getValue();
+        System.out.println(valor);
+        this.gridpane.getChildren().clear();
+        itemAct= obtenerActividadesPorCategoria(valor);
+        int filas = 0;
+
+        try {
+
+            for (int i = 0; i < itemAct.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+
+                ActividadesItemUserController controlador = fxmlLoader.getController();
+                controlador.setData(itemAct.get(i));
+
+                gridpane.add(anchorpane,0,filas++);
+                GridPane.setMargin(anchorpane,new Insets(10));
+
+            }
+        } catch (Exception e){
+
+        }
+    }
+
+    public List<List> obtenerActividadesPorCategoria(String categoria){
+        ObjectMapper mapper = new ObjectMapper();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/"+categoria).asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});

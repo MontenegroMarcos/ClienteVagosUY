@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="449.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuariosFinalesController">
+<AnchorPane prefHeight="449.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuariosFinalesController">
    <children>
       <BorderPane prefHeight="449.0" prefWidth="227.0">
          <left>
@@ -21,6 +21,7 @@
                   </HBox>
                   <TextField fx:id="buscartxtfield" prefHeight="25.0" prefWidth="181.0" promptText="Busca Avtividades y Centro" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
+                  <ComboBox prefWidth="150.0" fx:id="comboBox" onAction="#filtrarPorCategoria"/>
                </children>
             </VBox>
          </left>
