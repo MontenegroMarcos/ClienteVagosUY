@@ -178,6 +178,45 @@ public class UsuariosFinalesController implements Initializable {
         return actividad;
     }
 
+    public void buscarPorCentroDeportivo(){
+        String nombre = buscartxtfield.getText();
+        System.out.println(nombre);
+        this.gridpane.getChildren().clear();
+        itemAct= obtenerActividadesPorCentroDeportivo(nombre);
+        int filas = 0;
+
+        try {
+
+            for (int i = 0; i < itemAct.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+
+                ActividadesItemUserController controlador = fxmlLoader.getController();
+                controlador.setData(itemAct.get(i));
+
+                gridpane.add(anchorpane,0,filas++);
+                GridPane.setMargin(anchorpane,new Insets(10));
+
+            }
+        } catch (Exception e){
+
+        }
+    }
+
+    public List<List> obtenerActividadesPorCentroDeportivo(String cdNombre){
+        ObjectMapper mapper = new ObjectMapper();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/"+cdNombre).asString().getBody();
+        List<List> actividad = null;
+        try {
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return actividad;
+    }
+
+
    /* public void filtrarNombre(KeyEvent key){
 
         String filtroNombreAct = this.buscartxtfield.getText();

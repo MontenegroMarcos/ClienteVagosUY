@@ -19,9 +19,9 @@
                         </Text>
                      </children>
                   </HBox>
-                  <TextField fx:id="buscartxtfield" prefHeight="25.0" prefWidth="181.0" promptText="Busca Avtividades y Centro" />
-                  <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
-                  <ComboBox prefWidth="150.0" fx:id="comboBox" onAction="#filtrarPorCategoria"/>
+                  <TextField fx:id="buscartxtfield" prefHeight="25.0" prefWidth="181.0" promptText="Buscar Centro Deportivo" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" onAction="#buscarPorCentroDeportivo" />
+                  <ComboBox prefWidth="150.0" fx:id="comboBox" onAction="#filtrarPorCategoria" promptText="Categoria"/>
                </children>
             </VBox>
          </left>
