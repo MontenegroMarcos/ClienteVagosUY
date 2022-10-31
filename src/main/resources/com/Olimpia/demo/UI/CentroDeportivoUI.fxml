@@ -1,30 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" style="-fx-background-color: #FF6600;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
    <children>
-      <Region prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #ff5100;" />
-      <Region layoutY="80.0" prefHeight="318.0" prefWidth="600.0" style="-fx-background-color: #5DC1B9;" />
-      <Label layoutX="30.0" layoutY="18.0" prefHeight="43.0" prefWidth="159.0" text="VagoUY" textFill="#5dc1b9">
+      <TabPane layoutY="75.0" prefHeight="441.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Check-in">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <TextField fx:id="nombreCheckin" layoutX="58.0" layoutY="67.0" promptText="Introducir Nombre" />
+                        <TextField fx:id="checkinCorreo" layoutX="59.0" layoutY="138.0" promptText="introducir correo" />
+                        <Button fx:id="btnCheckin" layoutX="298.0" layoutY="96.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Check-in" />
+                        <Button fx:id="btnCheckInCancelar" layoutX="298.0" layoutY="185.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Cancelar" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Actividades">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <TextField fx:id="nombreActividadAgregar" layoutX="51.0" layoutY="45.0" promptText="Nombre de la Actividad" />
+                        <TextField fx:id="precioAgregar" layoutX="42.0" layoutY="302.0" prefHeight="26.0" prefWidth="167.0" promptText="Precio" />
+                        <Button fx:id="AgregarActividad" layoutX="547.0" layoutY="78.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Agregar Actividad" />
+                        <Button fx:id="cancelarActividadClear" layoutX="548.0" layoutY="277.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" text="Cancelar" />
+                        <ComboBox fx:id="comboboxCategoriasAgregar" layoutX="52.0" layoutY="89.0" prefWidth="150.0" promptText="Categorias" />
+                        <ComboBox fx:id="comboxDiasAgregar" layoutX="51.0" layoutY="142.0" prefWidth="150.0" promptText="Dias" />
+                        <TextField fx:id="horariosAgregar" layoutX="219.0" layoutY="144.0" promptText="Horarios" />
+                        <TextField fx:id="cuposAgregar" layoutX="42.0" layoutY="336.0" promptText="Cupos(opcional)" />
+                        <TextFlow fx:id="DiasyHorarios" layoutX="42.0" layoutY="204.0" prefHeight="58.0" prefWidth="200.0" style="-fx-background-color: #B2BEB5;" />
+                        <Button fx:id="aniadirHorarioAgregar" layoutX="376.0" layoutY="144.0" minWidth="31.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" text="+" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Gestionar Actividades">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <TableView fx:id="tablaGestionActividades" layoutX="47.0" layoutY="61.0" prefHeight="290.0" prefWidth="419.0">
+                          <columns>
+                            <TableColumn fx:id="tablanombreGestion" prefWidth="159.20001220703125" text="Nombre" />
+                            <TableColumn fx:id="preciotablaGestion" prefWidth="100.0" text="Precio" />
+                              <TableColumn fx:id="tablaHorariosGestionar" prefWidth="160.0" text="Horarios" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="modificarGestion" layoutX="573.0" layoutY="97.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="112.0" text="Modificar" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Balance">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+
+                        <Text layoutX="154.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu ingreso es de :" wrappingWidth="110.78306007385254" />
+                        <Text fx:id="balancefinal" layoutX="273.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="esto" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Text fill="#249999" layoutX="45.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VagosUY" wrappingWidth="62.136688232421875">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
-      </Label>
-      <Label layoutX="189.0" layoutY="18.0" prefHeight="43.0" prefWidth="238.0" text="TEST CentrosDeportivos">
+      </Text>
+      <Text fx:id="textoUsuario" layoutX="194.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="212.53668212890625">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
-      </Label>
-      <ScrollPane layoutX="30.0" layoutY="139.0" prefHeight="200.0" prefWidth="317.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-      <Button layoutX="39.0" layoutY="92.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Actividades" />
-      <Button layoutX="390.0" layoutY="139.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" text="Check-in" />
-      <Button layoutX="390.0" layoutY="214.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" text="Gestionar Actividades" />
+      </Text>
    </children>
 </AnchorPane>
