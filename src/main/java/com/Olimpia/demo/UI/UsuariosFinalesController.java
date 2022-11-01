@@ -82,14 +82,6 @@ public class UsuariosFinalesController implements Initializable {
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         Image imagenverdadera = new Image(bytearray);
 
-        ModeloActividad actividad1 = new ModeloActividad(imagenverdadera,"Gym Star uso libre",actividad1Cat,null,20.3f,"Lo de Carlo", "por alla , cerca de aqui y rn la esquina de al lado");
-        ModeloActividad actividad2 = new ModeloActividad(imagenverdadera,"Piscina Artigas",actividad2Cat,null,100.3f,"Lo de Carlo", "Universo 616");
-        ModeloActividad actividad3 = new ModeloActividad(imagenverdadera,"Fuvol",actividad3Cat,null,20.3f,"Lo de Carlo", "En todos lados");
-
-
-        itemAct.add(actividad1);
-        itemAct.add(actividad2);
-        itemAct.add(actividad3);
 
         return itemAct;
     }

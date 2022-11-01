@@ -9,7 +9,7 @@ public class ModeloActividad {
 
     private Image imagen;
 
-    public ModeloActividad(Image imagen, String nombreActividad, List<String> categorias, Date fechayhora,
+    public ModeloActividad(Image imagen, String nombreActividad, String  categorias, Date fechayhora,
                            float precio, String nombreCentrodeActividad, String direccionCentro) {
         this.imagen = imagen;
         this.nombreActividad = nombreActividad;
@@ -25,13 +25,13 @@ public class ModeloActividad {
     }
 
     private String nombreActividad;
-    private List<String> categorias;
+    private String categorias;
     private Date fechayhora;
     private float precio;
     private String nombreCentrodeActividad;
     private String direccionCentro;
 
-    public ModeloActividad(String nombreActividad, List<String> categorias, Date fechayhora,
+    public ModeloActividad(String nombreActividad, String categorias, Date fechayhora,
                            float precio, String nombreCentrodeActividad, String direccionCentro) {
         this.nombreActividad = nombreActividad;
         this.categorias = categorias;
@@ -49,11 +49,11 @@ public class ModeloActividad {
         this.nombreActividad = nombreActividad;
     }
 
-    public List<String> getCategorias() {
+    public String getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(List<String> categorias) {
+    public void setCategorias(String  categorias) {
         this.categorias = categorias;
     }
 
