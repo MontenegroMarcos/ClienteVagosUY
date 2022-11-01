@@ -97,7 +97,7 @@ public class CentroDeportivoController implements Initializable {
 
     private List<List> obtenerActividades() {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/Todas").asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
@@ -110,7 +110,7 @@ public class CentroDeportivoController implements Initializable {
 
     public List<List> obtenerActividadesPorNombre(String  nombre) {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/" + nombre).asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/" + nombre).asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {

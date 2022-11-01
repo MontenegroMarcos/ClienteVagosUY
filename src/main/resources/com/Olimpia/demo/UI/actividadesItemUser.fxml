@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="98.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ActividadesItemUserController">
    <children>
-      <HBox layoutY="-1.0" prefHeight="99.0" prefWidth="454.0">
+      <HBox fx:id="horizontalbox" layoutY="-1.0" prefHeight="99.0" prefWidth="454.0">
          <children>
             <ImageView fx:id="imagenActividad" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="150.0" prefWidth="309.0">

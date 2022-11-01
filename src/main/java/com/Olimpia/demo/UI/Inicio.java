@@ -16,9 +16,12 @@ public class Inicio extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Inicio.class.getResource("Inicio.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 400);
         InicioController controller = fxmlLoader.getController();
+        String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
         controller.setStage(stage);
         stage.setTitle("GymAPP");
         stage.setScene(scene);
+        stage.sizeToScene();
         stage.show();
     }
 

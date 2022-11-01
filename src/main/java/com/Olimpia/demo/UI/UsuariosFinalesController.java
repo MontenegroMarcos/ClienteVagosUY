@@ -78,7 +78,7 @@ public class UsuariosFinalesController implements Initializable {
         actividad1Cat.add("Reserva");
         actividad1Cat.add("Compartido");
 
-        byte[] imagen = Unirest.get("http://localhost:8080/Imagen/nacionalnacional.png").asBytes().getBody();
+        byte[] imagen = Unirest.get("http://10.252.60.114:8080/Imagen/nacionalnacional.png").asBytes().getBody();
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         Image imagenverdadera = new Image(bytearray);
 
@@ -105,7 +105,11 @@ public class UsuariosFinalesController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
                 AnchorPane anchorpane = fxmlLoader.load();
+                String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);
+                anchorpane.setId("pane");
 
+                //scene.getStylesheets().add(css);
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i));
 
@@ -122,7 +126,7 @@ public class UsuariosFinalesController implements Initializable {
 
     private List<List> obtenerActividades(){
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/Todas").asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
@@ -145,7 +149,9 @@ public class UsuariosFinalesController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
                 AnchorPane anchorpane = fxmlLoader.load();
-
+                String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);
+                anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i));
 
@@ -160,7 +166,7 @@ public class UsuariosFinalesController implements Initializable {
 
     public List<List> obtenerActividadesPorCategoria(String categoria){
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/"+categoria).asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/"+categoria).asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
@@ -183,7 +189,9 @@ public class UsuariosFinalesController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
                 AnchorPane anchorpane = fxmlLoader.load();
-
+                String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);
+                anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i));
 
@@ -198,7 +206,7 @@ public class UsuariosFinalesController implements Initializable {
 
     public List<List> obtenerActividadesPorCentroDeportivo(String cdNombre){
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/"+cdNombre).asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/centro/"+cdNombre).asString().getBody();
         List<List> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});

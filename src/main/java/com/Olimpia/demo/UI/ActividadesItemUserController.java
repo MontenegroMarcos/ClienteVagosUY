@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,16 +13,22 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import kong.unirest.Unirest;
 
 import java.io.ByteArrayInputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ActividadesItemUserController {
+public class ActividadesItemUserController implements Initializable {
 
     @FXML
     private Label categorias;
+
+    @FXML
+    private HBox horizontalbox;
 
     @FXML
     private Label direccionActividad;
@@ -53,29 +60,30 @@ public class ActividadesItemUserController {
         this.direccionActividad.setText(String.valueOf(actCd.get(4)));
         this.categorias.setText(String.valueOf(actCd.get(1)));
         this.emailCD = String.valueOf(actCd.get(5));
-        List<Long> idImagenes = obtenerIdImagenes(this.emailCD,String.valueOf(actCd.get(0)));
-        this.imagenActividad.setImage(obtenerimagen(idImagenes.get(idImagenes.size()-1)));
+        List<Long> idImagenes = obtenerIdImagenes(this.emailCD, String.valueOf(actCd.get(0)));
+        this.imagenActividad.setImage(obtenerimagen(idImagenes.get(idImagenes.size() - 1)));
     }
 
-    private Image obtenerimagen(Long id){
-        byte[] imagen = Unirest.get("http://localhost:8080/Imagen/"+id).asBytes().getBody();
+    private Image obtenerimagen(Long id) {
+        byte[] imagen = Unirest.get("http://10.252.60.114:8080/Imagen/" + id).asBytes().getBody();
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         return new Image(bytearray);
     }
 
-    private List<Long> obtenerIdImagenes(String email_centro,String nombre){
+    private List<Long> obtenerIdImagenes(String email_centro, String nombre) {
         ObjectMapper mapper = new ObjectMapper();
-        String imagenesJson = Unirest.get("http://localhost:8080/vagouy/Actividades/imagen/"+email_centro+"/"+nombre).asString().getBody();
+        String imagenesJson = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/imagen/" + email_centro + "/" + nombre).asString().getBody();
         List<Long> imagenes = null;
         try {
-            imagenes = mapper.readValue(imagenesJson, new TypeReference<List<Long>>() {});
-        }catch(Exception e){
+            imagenes = mapper.readValue(imagenesJson, new TypeReference<List<Long>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return imagenes;
     }
 
-    public void pantallaVerHorarios(){
+    public void pantallaVerHorarios() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("VerHorariosActividades.fxml"));
@@ -84,10 +92,17 @@ public class ActividadesItemUserController {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
-            controller.init(this.nombreactividad.getText(),this.nombreCentroDeportivo.getText(),this.emailCD);
+            controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD);
             stage.show();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+        this.horizontalbox.getStylesheets().add(css);
+        this.horizontalbox.setId("horizontalbox");
     }
 }

@@ -65,7 +65,7 @@ public class VerHorariosActividadesController implements Initializable {
 
     private List<List> obtenerHorarios(String nombreActividad,String emailCD){
         ObjectMapper mapper = new ObjectMapper();
-        String strHorarios = Unirest.get("http://localhost:8080/vagouy/Actividades/horarios/"+emailCD+"/"+nombreActividad).asString().getBody();
+        String strHorarios = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/horarios/"+emailCD+"/"+nombreActividad).asString().getBody();
         List<List> horarios = null;
         try {
             horarios = mapper.readValue(strHorarios, new TypeReference<List<List>>() {});

@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 
 import java.awt.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +36,10 @@ public class InicioController implements Initializable {
 
     @FXML
     private Button UsuarioAdmin;
+
+
+    @FXML
+    private ImageView imageview;
 
     @FXML
     private ToggleButton mostrarOcultar;
@@ -77,7 +84,12 @@ public class InicioController implements Initializable {
         UsuariosFinalesController controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
+
         System.out.println(campoEmail.getText());
         controller.init(campoEmail.getText(),stage,this);
         stage.show();
@@ -104,7 +116,9 @@ public class InicioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        File file1 = new File("src/usuarioVagosUY.png");
+        Image imagen1 = new Image(file1.toURI().toString());
+        this.imageview.setImage(imagen1);
     }
 
     public void mostrarContasenia(javafx.event.ActionEvent actionEvent) {
@@ -123,7 +137,7 @@ public class InicioController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             ModeloUsuario usuario = new ModeloUsuario(email, psw);
             String jsonString = mapper.writeValueAsString(usuario);
-            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/usuario/login")
+            HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.114:8080/vagouy/usuario/login")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
