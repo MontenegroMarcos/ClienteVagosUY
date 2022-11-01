@@ -7,15 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import kong.unirest.Unirest;
 
-import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.List;
 
 public class ActividadesItemUserController {
@@ -25,9 +25,6 @@ public class ActividadesItemUserController {
 
     @FXML
     private Label direccionActividad;
-
-    @FXML
-    private Label fechayhora;
 
     @FXML
     private ImageView imagenActividad;
@@ -41,22 +38,22 @@ public class ActividadesItemUserController {
     @FXML
     private Label precioactividad;
 
+    @FXML
+    private Button btnVerHorarios;
+
+    private String emailCD;
+
     private ModeloActividad actividad;
-
-    List<Image> imagenes;
-
-    String nombreAct;
 
 
     public void setData(List actCd) {
         this.nombreactividad.setText(String.valueOf(actCd.get(0)));
-        this.nombreAct = nombreactividad.getText();
-        this.precioactividad.setText(String.valueOf(actCd.get(5)));
-        this.nombreCentroDeportivo.setText(String.valueOf(actCd.get(6)));
-        this.fechayhora.setText(String.valueOf(actCd.get(2)));
-        this.direccionActividad.setText(String.valueOf(actCd.get(7)));
+        this.precioactividad.setText(String.valueOf(actCd.get(2)));
+        this.nombreCentroDeportivo.setText(String.valueOf(actCd.get(3)));
+        this.direccionActividad.setText(String.valueOf(actCd.get(4)));
         this.categorias.setText(String.valueOf(actCd.get(1)));
-        List<Long> idImagenes = obtenerIdImagenes(String.valueOf(actCd.get(8)),String.valueOf(actCd.get(0)));
+        this.emailCD = String.valueOf(actCd.get(5));
+        List<Long> idImagenes = obtenerIdImagenes(this.emailCD,String.valueOf(actCd.get(0)));
         this.imagenActividad.setImage(obtenerimagen(idImagenes.get(idImagenes.size()-1)));
     }
 
@@ -78,16 +75,19 @@ public class ActividadesItemUserController {
         return imagenes;
     }
 
-    @FXML
-    private void clickItem(MouseEvent mouseaction) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("popUpActItem.fxml"));
-        PopUpActItemContoller controller = fxmlLoader.getController();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-
-        controller.init(this.nombreAct, this.imagenes);
-        stage.show();
+    public void pantallaVerHorarios(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("VerHorariosActividades.fxml"));
+            Parent root = fxmlLoader.load();
+            VerHorariosActividadesController controller = fxmlLoader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            controller.init(this.nombreactividad.getText(),this.nombreCentroDeportivo.getText(),this.emailCD);
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
