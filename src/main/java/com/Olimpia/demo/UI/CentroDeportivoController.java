@@ -108,7 +108,7 @@ public class CentroDeportivoController implements Initializable {
         return actividad;
     }
 
-    public List<List> obtenerActividadesPorNombre(String nombre) {
+    public List<List> obtenerActividadesPorNombre(String  nombre) {
         ObjectMapper mapper = new ObjectMapper();
         String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/" + nombre).asString().getBody();
         List<List> actividad = null;
