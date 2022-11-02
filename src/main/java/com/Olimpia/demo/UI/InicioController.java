@@ -62,6 +62,8 @@ public class InicioController implements Initializable {
         Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("CentroDeportivoUI.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        CentroDeportivoController controlador = fxmlLoader.getController();
+        controlador.init(this.campoEmail.getText());
         stage.show();
         this.estage.close();
     }

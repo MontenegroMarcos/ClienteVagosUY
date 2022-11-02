@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" style="-fx-background-color: #FF6600;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" style="-fx-background-color: #FF6600;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
    <children>
       <TabPane layoutY="75.0" prefHeight="441.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -12,11 +12,11 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <TextField fx:id="nombreCheckin" layoutX="58.0" layoutY="67.0" promptText="Introducir Nombre" />
+                        <TextField fx:id="nombreCheckin" layoutX="58.0" layoutY="67.0" promptText="Email Empleado" />
                         <Button fx:id="btnCheckin" layoutX="298.0" layoutY="96.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Check-in" />
                         <Button fx:id="btnCheckInCancelar" layoutX="298.0" layoutY="185.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Cancelar" />
-                        <ComboBox fx:id="checkinAcrividades" layoutX="59.0" layoutY="117.0" prefWidth="150.0" promptText="Actividades" />
-                        <DatePicker fx:id="selectorFecha" layoutX="47.0" layoutY="193.0" />
+                        <ComboBox fx:id="checkinActividades" layoutX="59.0" layoutY="117.0" onAction="#seleccionActividad" prefWidth="150.0" promptText="Actividades" />
+                        <DatePicker fx:id="selectorFecha" layoutX="47.0" layoutY="193.0" onAction="#seleccionarDia" />
                         <ComboBox fx:id="horarioInicio" layoutX="62.0" layoutY="271.0" prefWidth="150.0" promptText="horaInicio" />
                      </children>
                   </AnchorPane>

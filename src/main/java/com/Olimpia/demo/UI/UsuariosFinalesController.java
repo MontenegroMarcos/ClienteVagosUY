@@ -120,7 +120,7 @@ public class UsuariosFinalesController implements Initializable {
         } catch (Exception e){
 
         }
-        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Otros");
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
         this.comboBox.setItems(lista);
     }
 
