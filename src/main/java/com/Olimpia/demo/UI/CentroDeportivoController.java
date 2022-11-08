@@ -108,7 +108,7 @@ public class CentroDeportivoController implements Initializable {
 
     private ObservableList<String> obtenerActividadesdeCD() {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/email/"+this.textoUsuario.getText()).asString().getBody();
+        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/centro/email/"+this.textoUsuario.getText()).asString().getBody();
         List<String> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<String>>() {});
@@ -128,7 +128,7 @@ public class CentroDeportivoController implements Initializable {
 
     private ObservableList<String> obtenerHorasInicio(String actividad,String dia) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaInicio/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia).asString().getBody();
+        String strHoras = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/horaInicio/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia).asString().getBody();
         List<String> horas = null;
         try {
             horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {});

@@ -8,8 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kong.unirest.HttpResponse;
@@ -19,6 +19,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +28,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UsuarioAdminController implements Initializable {
+
+
+    // Variables Empresas
 
     @FXML
     private TextField nombreEmpresa;
@@ -44,15 +48,70 @@ public class UsuarioAdminController implements Initializable {
     private TableView<ModeloEmpresa> tablaEmpresa;
 
     @FXML
-    private TableColumn<ModeloEmpresa,String> colnombreEmpresa;
+    private TableColumn<ModeloEmpresa, String> colnombreEmpresa;
 
     @FXML
-    private TableColumn<ModeloEmpresa,String> colEmailEmpresa;
+    private TableColumn<ModeloEmpresa, String> colEmailEmpresa;
 
     @FXML
-    private TableColumn<ModeloEmpresa,String> colPSWEmpresa;
+    private TableColumn<ModeloEmpresa, String> colPSWEmpresa;
 
     private ObservableList<ModeloEmpresa> empresasLista;
+    //------------------------------------------------------------------------------------------------------------------
+
+    //Variables Centros Deportivos
+    @FXML
+    private TextField camponombreCentro;
+
+    @FXML
+    private TextField campoCorreoCentro;
+
+    @FXML
+    private TextField campoContrasena;
+
+    @FXML
+    private TextField campoDireccionCentro;
+
+    @FXML
+    private Button btnAgregarCentro;
+
+    @FXML
+    private Button btnCancelarCentro;
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //Variables Empleados o Usuarios Finales
+
+    @FXML
+    private TextField campoNombreEmpleado;
+
+    @FXML
+    private TextField campoCorreoUsuario;
+
+    @FXML
+    private TextField campoContrasenaEmpleado;
+
+    @FXML
+    private ComboBox comboboxEmpresa;
+
+    @FXML
+    private Button btnanadirEmpleado;
+
+    @FXML
+    private Button btncancelarEmpleado;
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //Metodo Initializable
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.colnombreEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("nombre"));
+        this.colEmailEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("email"));
+        this.colPSWEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("psw"));
+    }
+    //------------------------------------------------------------------------------------------------------------------
+
+    //Metodos para Empresas
 
     @FXML
     protected void añadirEmpresa() {
@@ -66,7 +125,7 @@ public class UsuarioAdminController implements Initializable {
                 String password = contraseniaEmpresa.getText();
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    ModeloEmpresa empresa = new ModeloEmpresa(email,nombreClient,password);
+                    ModeloEmpresa empresa = new ModeloEmpresa(email, nombreClient, password);
                     String jsonString = mapper.writeValueAsString(empresa);
                     HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")
                             .header("Content-Type", "application/json;charset=utf-8")
@@ -87,13 +146,14 @@ public class UsuarioAdminController implements Initializable {
     }
 
     @FXML
-    protected ObservableList<ModeloEmpresa> obtenerEmpresas(){
+    protected ObservableList<ModeloEmpresa> obtenerEmpresas() {
         ObjectMapper mapper = new ObjectMapper();
         String empresas = Unirest.get("http://10.252.60.160:8080/vagouy/empresa").asString().getBody();
         List<ModeloEmpresa> empresa = null;
         try {
-            empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {});
-        }catch(Exception e){
+            empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         ObservableList<ModeloEmpresa> retorno = FXCollections.observableList(empresa);
@@ -101,33 +161,26 @@ public class UsuarioAdminController implements Initializable {
         return retorno;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.colnombreEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("nombre"));
-        this.colEmailEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("email"));
-        this.colPSWEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa,String>("psw"));
-    }
 
     @FXML
-    public void actualizarTblEmpresas(){
+    public void actualizarTblEmpresas() {
         this.tablaEmpresa.setItems(obtenerEmpresas());
     }
 
 
-
     @FXML
-    protected void limpiartxtEmpresa(){
+    protected void limpiartxtEmpresa() {
         nombreEmpresa.setText(null);
         emailEmpresa.setText(null);
         contraseniaEmpresa.setText(null);
     }
 
     @FXML
-    private void seleccionarEmpresas(MouseEvent event){
+    private void seleccionarEmpresas(MouseEvent event) {
 
         ModeloEmpresa empresa = (ModeloEmpresa) this.tablaEmpresa.getSelectionModel().getSelectedItem();
 
-        if(empresa.equals(null)){
+        if (empresa.equals(null)) {
 
         } else {
             this.nombreEmpresa.setText(empresa.getNombre());
@@ -138,10 +191,10 @@ public class UsuarioAdminController implements Initializable {
 
 
     @FXML
-    private void modificarEmpresa(){
+    private void modificarEmpresa() {
         ModeloEmpresa empresa = (ModeloEmpresa) this.tablaEmpresa.getSelectionModel().getSelectedItem();
 
-        if(empresa.equals(null)){
+        if (empresa.equals(null)) {
 
         } else {
 
@@ -151,9 +204,9 @@ public class UsuarioAdminController implements Initializable {
                 String password = contraseniaEmpresa.getText();
 
 
-                ModeloEmpresa empresaAux = new ModeloEmpresa(email,nombreCliente,password);
+                ModeloEmpresa empresaAux = new ModeloEmpresa(email, nombreCliente, password);
 
-                if(!this.empresasLista.contains(empresaAux)){
+                if (!this.empresasLista.contains(empresaAux)) {
                     empresa.setNombre(empresaAux.getNombre());
                     empresa.setEmail(empresaAux.getEmail());
                     empresa.setPsw(empresaAux.getPsw());
@@ -165,7 +218,7 @@ public class UsuarioAdminController implements Initializable {
                 }
 
 
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
@@ -188,26 +241,53 @@ public class UsuarioAdminController implements Initializable {
         }
     }
 
-    public void subirImagen(){
+    public void subirImagen() {
         File file = new File("src/main/resources/furbo.jpg");
         FileInputStream input = null;
-        MultipartFile multipartFile=null;
+        MultipartFile multipartFile = null;
 
         ObjectMapper mapper = new ObjectMapper();
-        ModeloFile modeloFile=null;
+        ModeloFile modeloFile = null;
         String json = "";
-        try{
+        try {
             input = new FileInputStream(file);
-            multipartFile = new MockMultipartFile("file",file.getName(),"image/jpg", IOUtils.toByteArray(input));
+            multipartFile = new MockMultipartFile("file", file.getName(), "image/jpg", IOUtils.toByteArray(input));
             modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
             json = mapper.writeValueAsString(modeloFile);
             System.out.println(json);
-            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
+            HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/Imagen")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(json)
                     .asJson();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //Metodos para Centros Deportivos
+
+    @FXML
+    private void agregarCentroDeportivo(){
+
+        String nombreCentro = camponombreCentro.getText();
+        String pswCentro = campoContrasena.getText();
+        String correoCentro = campoCorreoCentro.getText();
+        String direccionCentro = campoDireccionCentro.getText();
+
+        if(nombreCentro.equals(null) || pswCentro.equals(null) || correoCentro.equals(null) || direccionCentro.equals(null)){
+             //Salta error
+        } else {
+            try {
+
+
+
+
+            }catch (Exception e){}
+        }
+
+    }
+
+    //Metodos para Empleados o Usuarios Finales
 }

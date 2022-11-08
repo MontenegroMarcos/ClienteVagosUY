@@ -91,6 +91,10 @@ public class ActividadesItemUserController implements Initializable {
             VerHorariosActividadesController controller = fxmlLoader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+
+            String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+            scene.getStylesheets().add(css);
+
             stage.setScene(scene);
             controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD);
             stage.show();
