@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="481.0" prefWidth="742.0" style="-fx-background-color: #FF5100;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.MisReservasUsuarioFinalController">
+   <children>
+      <ScrollPane fx:id="scrollpane" layoutY="121.0" prefHeight="359.0" prefWidth="742.0">
+         <content>
+            <GridPane fx:id="gridpane" prefHeight="102.0" prefWidth="742.0">
+               <columnConstraints>
+                  <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Text fill="#5dc1b9" layoutX="47.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VagosUY" wrappingWidth="138.13674926757812">
+         <font>
+            <Font name="Ebrima Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#39d1c5" layoutX="14.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Reservas">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtUser" layoutX="529.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Somebody@example.com">
+         <font>
+            <Font name="Dubai Bold" size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

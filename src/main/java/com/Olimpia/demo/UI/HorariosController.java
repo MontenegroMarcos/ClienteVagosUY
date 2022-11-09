@@ -21,4 +21,6 @@ public class HorariosController {
         this.horaFin.setText(String.valueOf(horas.get(2)));
         this.cupos.setText(String.valueOf(horas.get(3)));
     }
+
+
 }

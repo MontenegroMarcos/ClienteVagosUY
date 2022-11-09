@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
@@ -214,6 +216,29 @@ public class UsuariosFinalesController implements Initializable {
             e.printStackTrace();
         }
         return actividad;
+    }
+
+
+
+    @FXML
+    public void misReservas() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("misReservasUsuarioFinal.fxml"));
+
+        MisReservasUsuarioFinalController controller = fxmlLoader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        stage.setScene(scene);
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        controller.setinit(this.textoUsuario.getText(), estage);
+        controller.setStage(stage);
+        stage.show();
+        estage.close();
     }
 
 

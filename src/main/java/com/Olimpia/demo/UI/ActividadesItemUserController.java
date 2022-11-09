@@ -92,8 +92,9 @@ public class ActividadesItemUserController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
 
-            String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+            String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
             scene.getStylesheets().add(css);
+
 
             stage.setScene(scene);
             controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD);
