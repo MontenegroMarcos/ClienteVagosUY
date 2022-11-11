@@ -1,93 +1,52 @@
 package com.Olimpia.demo.modelo;
 
-import javafx.scene.image.Image;
-
-import java.util.Date;
 import java.util.List;
 
 public class ModeloActividad {
+    private ActividadKey Key;
+    private String categoria;
+    private Long precio;
+    private List<ModeloHorario> horarios;
 
-    private Image imagen;
+    public ModeloActividad() {
+    }
 
-    public ModeloActividad(Image imagen, String nombreActividad, String  categorias, Date fechayhora,
-                           float precio, String nombreCentrodeActividad, String direccionCentro) {
-        this.imagen = imagen;
-        this.nombreActividad = nombreActividad;
-        this.categorias = categorias;
-        this.fechayhora = fechayhora;
+    public ModeloActividad(ActividadKey key, String categoria, Long precio, List<ModeloHorario> horarios) {
+        Key = key;
+        this.categoria = categoria;
         this.precio = precio;
-        this.nombreCentrodeActividad = nombreCentrodeActividad;
-        this.direccionCentro = direccionCentro;
+        this.horarios = horarios;
     }
 
-    public Image getImagen() {
-        return imagen;
+    public ActividadKey getKey() {
+        return Key;
     }
 
-    private String nombreActividad;
-    private String categorias;
-    private Date fechayhora;
-    private float precio;
-    private String nombreCentrodeActividad;
-    private String direccionCentro;
-
-    public ModeloActividad(String nombreActividad, String categorias, Date fechayhora,
-                           float precio, String nombreCentrodeActividad, String direccionCentro) {
-        this.nombreActividad = nombreActividad;
-        this.categorias = categorias;
-        this.fechayhora = fechayhora;
-        this.precio = precio;
-        this.nombreCentrodeActividad = nombreCentrodeActividad;
-        this.direccionCentro = direccionCentro;
+    public void setKey(ActividadKey key) {
+        Key = key;
     }
 
-    public String getNombreActividad() {
-        return nombreActividad;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreActividad = nombreActividad;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public String getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(String  categorias) {
-        this.categorias = categorias;
-    }
-
-    public Date getFechayhora() {
-        return fechayhora;
-    }
-
-    public void setFechayhora(Date fechayhora) {
-        this.fechayhora = fechayhora;
-    }
-
-    public float getPrecio() {
+    public Long getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(Long precio) {
         this.precio = precio;
     }
 
-    public String getNombreCentrodeActividad() {
-        return nombreCentrodeActividad;
+    public List<ModeloHorario> getHorarios() {
+        return horarios;
     }
 
-    public void setNombreCentrodeActividad(String nombreCentrodeActividad) {
-        this.nombreCentrodeActividad = nombreCentrodeActividad;
+    public void setHorarios(List<ModeloHorario> horarios) {
+        this.horarios = horarios;
     }
-
-    public String getDireccionCentro() {
-        return direccionCentro;
-    }
-
-    public void setDireccionCentro(String direccionCentro) {
-        this.direccionCentro = direccionCentro;
-    }
-
-
 }

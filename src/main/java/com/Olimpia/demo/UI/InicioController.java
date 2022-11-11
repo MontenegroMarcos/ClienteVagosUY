@@ -138,7 +138,7 @@ public class InicioController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             ModeloUsuario usuario = new ModeloUsuario(email, psw);
             String jsonString = mapper.writeValueAsString(usuario);
-            HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.114:8080/vagouy/usuario/login")
+            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/usuario/login")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();

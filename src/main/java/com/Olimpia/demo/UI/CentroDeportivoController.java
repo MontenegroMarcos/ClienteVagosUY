@@ -1,5 +1,6 @@
 package com.Olimpia.demo.UI;
 
+import com.Olimpia.demo.modelo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -9,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
 import java.net.URL;
@@ -55,6 +58,9 @@ public class CentroDeportivoController implements Initializable {
 
     @FXML
     private ComboBox<?> comboxDiasAgregar;
+
+    @FXML
+    private ComboBox<String> horarioFin;
 
     @FXML
     private TextField cuposAgregar;
@@ -108,7 +114,7 @@ public class CentroDeportivoController implements Initializable {
 
     private ObservableList<String> obtenerActividadesdeCD() {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/centro/email/"+this.textoUsuario.getText()).asString().getBody();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/email/"+this.textoUsuario.getText()).asString().getBody();
         List<String> actividad = null;
         try {
             actividad = mapper.readValue(actividades, new TypeReference<List<String>>() {});
@@ -122,13 +128,14 @@ public class CentroDeportivoController implements Initializable {
     public void seleccionActividad(){
         if(this.selectorFecha.getValue()!=null) {
             this.horarioInicio.getItems().clear();
+            this.horarioFin.getItems().clear();
             this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(),diaSemanaDate()));
         }
     }
 
     private ObservableList<String> obtenerHorasInicio(String actividad,String dia) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHoras = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/horaInicio/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia).asString().getBody();
+        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaInicio/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia).asString().getBody();
         List<String> horas = null;
         try {
             horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {});
@@ -142,6 +149,7 @@ public class CentroDeportivoController implements Initializable {
     public void seleccionarDia(){
         if(this.checkinActividades!=null){
             this.horarioInicio.getItems().clear();
+            this.horarioFin.getItems().clear();
             this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(),diaSemanaDate()));
         }
     }
@@ -180,8 +188,83 @@ public class CentroDeportivoController implements Initializable {
         return dia;
     }
 
-    public void checkIn(){
+    public void seleccionarHoraInicio(){
+        this.horarioFin.setItems(obtenerHorasFin(this.checkinActividades.getValue(),diaSemanaDate(),this.horarioInicio.getValue()));
+    }
 
+    private ObservableList<String> obtenerHorasFin(String actividad,String dia,String horaInicio) {
+        ObjectMapper mapper = new ObjectMapper();
+        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaFin/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia+"/"+horaInicio).asString().getBody();
+        List<String> horas = null;
+        try {
+            horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ObservableList<String> retorno = FXCollections.observableList(horas);
+        return retorno;
+    }
+
+    public void checkIn(){
+        if(!this.nombreCheckin.getText().isEmpty() && !this.checkinActividades.getValue().isEmpty() &&
+            this.selectorFecha.getValue()!=null && !this.horarioInicio.getValue().isEmpty() &&
+            !this.horarioFin.getValue().isEmpty()){
+            LocalDate localDate = this.selectorFecha.getValue();
+            Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instant);
+            ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,obtenerActividad(this.textoUsuario.getText(),this.checkinActividades.getValue()),obtenerHorario(this.checkinActividades.getValue(),this.textoUsuario.getText(),diaSemanaDate(),this.horarioInicio.getValue(),this.horarioFin.getValue()),obtenerEmpleado(this.nombreCheckin.getText()),23);
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonString = mapper.writeValueAsString(actRealizada);
+                HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/actividadRealizada/checkIn")
+                        .header("Content-Type", "application/json;charset=utf-8")
+                        .body(jsonString)
+                        .asJson();
+                System.out.println(response.getBody());
+                System.out.println(response.getStatus());
+                System.out.println(response.getStatusText());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            //Levantar cuadro de texto
+        }
+    }
+
+    private ModeloActividad obtenerActividad(String email_centro,String nombre){
+        ObjectMapper mapper = new ObjectMapper();
+        String strActividad = Unirest.get("http://localhost:8080/vagouy/Actividades/actividad/"+email_centro+"/"+nombre).asString().getBody();
+        ModeloActividad actividad = null;
+        try {
+            actividad = mapper.readValue(strActividad, ModeloActividad.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return actividad;
+    }
+
+    private ModeloHorario obtenerHorario(String nombre,String email,String dia,String horaInicio,String horaFin){
+        ObjectMapper mapper = new ObjectMapper();
+        String strHorario = Unirest.get("http://localhost:8080/vagouy/Actividades/obtenerHorario/"+nombre+"/"+email+"/"+dia+"/"+horaInicio+"/"+horaFin).asString().getBody();
+        ModeloHorario horario = null;
+        try {
+            horario = mapper.readValue(strHorario, ModeloHorario.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return horario;
+    }
+
+    private ModeloEmpleado obtenerEmpleado(String email){
+        ObjectMapper mapper = new ObjectMapper();
+        String strEmpleado = Unirest.get("http://localhost:8080/vagouy/Empleado/"+email).asString().getBody();
+        ModeloEmpleado empleado = null;
+        try {
+            empleado = mapper.readValue(strEmpleado, ModeloEmpleado.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return empleado;
     }
 
     /*public List<List> obtenerActividadesPorNombre(String  nombre) {
