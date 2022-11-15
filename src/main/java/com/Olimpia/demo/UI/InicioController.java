@@ -7,25 +7,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import javafx.scene.control.TextField;
 
 import java.awt.*;
 
+import java.awt.Button;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InicioController implements Initializable {
+    public CheckBox checkbox;
+    public TextField campoPSW;
     private Stage estage;
 
     @FXML
@@ -40,20 +43,28 @@ public class InicioController implements Initializable {
     @FXML
     private ImageView imageview;
 
-    @FXML
-    private ToggleButton mostrarOcultar;
+
 
     @FXML
     private TextField campoEmail;
 
-    @FXML
+    /*@FXML
     private TextField campoPassword;
+*/
+    @FXML
+    private PasswordField campoPassword;
 
     @FXML
     private Button login;
 
     @FXML
     private Label verdaderapassword;
+
+
+    @FXML
+    void mostrarOcultar(){
+
+    }
 
     @FXML
     void entrarUsuarioCentroDeportivo() throws IOException {
@@ -63,6 +74,7 @@ public class InicioController implements Initializable {
         stage.setScene(new Scene(root));
         CentroDeportivoController controlador = fxmlLoader.getController();
         controlador.init(this.campoEmail.getText());
+        controlador.setStage(stage);
         stage.show();
         this.estage.close();
     }
@@ -103,20 +115,22 @@ public class InicioController implements Initializable {
         //guarda info pantalla
     }
 
-    @FXML
-    public void mostrarContaseña(ActionEvent event) {
-        if (mostrarOcultar.isSelected()) {
-            verdaderapassword.setVisible(true);
-            verdaderapassword.setText(campoPassword.getText());
-            mostrarOcultar.setText("Ocultar");
-        } else {
-            verdaderapassword.setVisible(false);
-            mostrarOcultar.setText("Mostrar");
-        }
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        this.campoPSW.setManaged(false);
+        this.campoPSW.setVisible(false);
+
+        this.campoPSW.managedProperty().bind(this.checkbox.selectedProperty());
+        this.campoPSW.visibleProperty().bind(this.checkbox.selectedProperty());
+
+        this.campoPassword.managedProperty().bind(this.checkbox.selectedProperty().not());
+        this.campoPassword.visibleProperty().bind(this.checkbox.selectedProperty().not());
+
+        this.campoPSW.textProperty().bindBidirectional(this.campoPassword.textProperty());
+
         File file1 = new File("src/usuarioVagosUY.png");
         Image imagen1 = new Image(file1.toURI().toString());
         this.imageview.setImage(imagen1);
@@ -138,7 +152,7 @@ public class InicioController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             ModeloUsuario usuario = new ModeloUsuario(email, psw);
             String jsonString = mapper.writeValueAsString(usuario);
-            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/usuario/login")
+            HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.114:8080/vagouy/usuario/login")
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();

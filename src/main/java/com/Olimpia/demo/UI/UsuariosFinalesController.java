@@ -96,6 +96,24 @@ public class UsuariosFinalesController implements Initializable {
         this.estage = stage;
     }
 
+    @FXML
+    public void cerrarsesion() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 550, 400);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        InicioController controlador = fxmlLoader.getController();
+        String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        controlador.setStage(stage);
+        stage.setTitle("GymAPP");
+        stage.show();
+        this.estage.close();
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         itemAct= obtenerActividades();
