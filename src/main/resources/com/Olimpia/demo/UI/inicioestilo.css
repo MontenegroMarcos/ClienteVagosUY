@@ -31,3 +31,8 @@
             radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
 
 }
+
+.checkbox{
+    -fx-background-color: #c54e2c;
+
+}
