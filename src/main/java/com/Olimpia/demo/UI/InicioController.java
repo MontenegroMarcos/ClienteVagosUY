@@ -166,7 +166,7 @@ public class InicioController implements Initializable {
                 //Abrir pantalla error
                 //FIXME
             } else {
-                if (response.getStatus() == 202) {
+                if (response.getStatus() == 200) {
                     try {
                         ModeloUsuario usuarioValido = mapper.readValue(response.getBody().toString(), ModeloUsuario.class);
                         switch (usuarioValido.getTipoUsuario()) {

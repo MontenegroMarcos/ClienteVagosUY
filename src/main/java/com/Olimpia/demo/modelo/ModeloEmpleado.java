@@ -5,18 +5,21 @@ public class ModeloEmpleado {
     private String nombre;
     private String psw;
     private Long saldoMensual;
-    private Long tope;
+    private Long gastoAdicional;
+    private Long saldoActual;
     private ModeloEmpresa empresa;
 
     public ModeloEmpleado() {
     }
 
-    public ModeloEmpleado(String email, String nombre, String psw, Long saldoMensual, Long tope) {
+    public ModeloEmpleado(String email, String nombre, String psw, Long saldoMensual, Long gastoAdicional, Long saldoActual, ModeloEmpresa empresa) {
         this.email = email;
         this.nombre = nombre;
         this.psw = psw;
         this.saldoMensual = saldoMensual;
-        this.tope = tope;
+        this.gastoAdicional = gastoAdicional;
+        this.saldoActual = saldoActual;
+        this.empresa = empresa;
     }
 
     public String getEmail() {
@@ -51,12 +54,20 @@ public class ModeloEmpleado {
         this.saldoMensual = saldoMensual;
     }
 
-    public Long getTope() {
-        return tope;
+    public Long getGastoAdicional() {
+        return gastoAdicional;
     }
 
-    public void setTope(Long tope) {
-        this.tope = tope;
+    public void setGastoAdicional(Long gastoAdicional) {
+        this.gastoAdicional = gastoAdicional;
+    }
+
+    public Long getSaldoActual() {
+        return saldoActual;
+    }
+
+    public void setSaldoActual(Long saldoActual) {
+        this.saldoActual = saldoActual;
     }
 
     public ModeloEmpresa getEmpresa() {

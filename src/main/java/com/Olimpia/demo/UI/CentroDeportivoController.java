@@ -212,7 +212,8 @@ public class CentroDeportivoController implements Initializable {
             LocalDate localDate = this.selectorFecha.getValue();
             Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
-            ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,obtenerActividad(this.textoUsuario.getText(),this.checkinActividades.getValue()),obtenerHorario(this.checkinActividades.getValue(),this.textoUsuario.getText(),diaSemanaDate(),this.horarioInicio.getValue(),this.horarioFin.getValue()),obtenerEmpleado(this.nombreCheckin.getText()),23);
+            ModeloHorario horario = obtenerHorario(this.checkinActividades.getValue(),this.textoUsuario.getText(),diaSemanaDate(),this.horarioInicio.getValue(),this.horarioFin.getValue());
+            ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,obtenerActividad(this.textoUsuario.getText(),this.checkinActividades.getValue()),horario,obtenerEmpleado(this.nombreCheckin.getText()),horario.getCupos());
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 String jsonString = mapper.writeValueAsString(actRealizada);
