@@ -31,7 +31,7 @@ public class VerHorariosActividadesController implements Initializable {
 
     private List<List> listaHorarios = new ArrayList<>();
 
-    public void init(String nombreActividad,String nombreCD,String emailCd){
+    public void init(String nombreActividad,String nombreCD,String emailCd,String emailEmpleado){
         this.titulo.setText("Entrena "+nombreActividad+" en "+nombreCD);
         this.nombreActividad=nombreActividad;
         this.nombreCD=nombreCD;
@@ -47,7 +47,7 @@ public class VerHorariosActividadesController implements Initializable {
                 AnchorPane anchorpane = fxmlLoader.load();
 
                 HorariosController controlador = fxmlLoader.getController();
-                controlador.setData(listaHorarios.get(i));
+                controlador.setData(listaHorarios.get(i),emailCd,nombreActividad,emailEmpleado);
 
                 gridpane.add(anchorpane,0,filas++);
                 GridPane.setMargin(anchorpane,new Insets(10));
@@ -65,7 +65,7 @@ public class VerHorariosActividadesController implements Initializable {
 
     private List<List> obtenerHorarios(String nombreActividad,String emailCD){
         ObjectMapper mapper = new ObjectMapper();
-        String strHorarios = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/horarios/"+emailCD+"/"+nombreActividad).asString().getBody();
+        String strHorarios = Unirest.get("http://localhost:8080/vagouy/Actividades/horarios/"+emailCD+"/"+nombreActividad).asString().getBody();
         List<List> horarios = null;
         try {
             horarios = mapper.readValue(strHorarios, new TypeReference<List<List>>() {});

@@ -52,8 +52,10 @@ public class ActividadesItemUserController implements Initializable {
 
     private ModeloActividad actividad;
 
+    private String emailEmpleado;
 
-    public void setData(List actCd) {
+
+    public void setData(List actCd,String emailEmpleado) {
         this.nombreactividad.setText(String.valueOf(actCd.get(0)));
         this.precioactividad.setText(String.valueOf(actCd.get(2)));
         this.nombreCentroDeportivo.setText(String.valueOf(actCd.get(3)));
@@ -62,17 +64,18 @@ public class ActividadesItemUserController implements Initializable {
         this.emailCD = String.valueOf(actCd.get(5));
         List<Long> idImagenes = obtenerIdImagenes(this.emailCD, String.valueOf(actCd.get(0)));
         this.imagenActividad.setImage(obtenerimagen(idImagenes.get(idImagenes.size() - 1)));
+        this.emailEmpleado=emailEmpleado;
     }
 
     private Image obtenerimagen(Long id) {
-        byte[] imagen = Unirest.get("http://10.252.60.114:8080/Imagen/" + id).asBytes().getBody();
+        byte[] imagen = Unirest.get("http://localhost:8080/Imagen/" + id).asBytes().getBody();
         ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
         return new Image(bytearray);
     }
 
     private List<Long> obtenerIdImagenes(String email_centro, String nombre) {
         ObjectMapper mapper = new ObjectMapper();
-        String imagenesJson = Unirest.get("http://10.252.60.114:8080/vagouy/Actividades/imagen/" + email_centro + "/" + nombre).asString().getBody();
+        String imagenesJson = Unirest.get("http://localhost:8080/vagouy/Actividades/imagen/" + email_centro + "/" + nombre).asString().getBody();
         List<Long> imagenes = null;
         try {
             imagenes = mapper.readValue(imagenesJson, new TypeReference<List<Long>>() {
@@ -97,7 +100,7 @@ public class ActividadesItemUserController implements Initializable {
 
 
             stage.setScene(scene);
-            controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD);
+            controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD,this.emailEmpleado);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

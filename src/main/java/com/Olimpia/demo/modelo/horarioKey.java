@@ -4,14 +4,16 @@ public class horarioKey {
     private String dia;
     private String horaInicio;
     private String horaFin;
+    private Integer cupos;
 
     public horarioKey() {
     }
 
-    public horarioKey(String dia, String horaInicio, String horaFin) {
+    public horarioKey(String dia, String horaInicio, String horaFin, Integer cupos) {
         this.dia = dia;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.cupos = cupos;
     }
 
     public String getDia() {
@@ -36,5 +38,13 @@ public class horarioKey {
 
     public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
+    }
+
+    public Integer getCupos() {
+        return cupos;
+    }
+
+    public void setCupos(Integer cupos) {
+        this.cupos = cupos;
     }
 }
