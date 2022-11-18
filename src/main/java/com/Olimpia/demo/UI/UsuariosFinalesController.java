@@ -2,7 +2,6 @@ package com.Olimpia.demo.UI;
 
 
 import com.Olimpia.demo.modelo.ModeloActividad;
-import com.Olimpia.demo.modelo.ModeloEmpresa;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -13,29 +12,25 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyEvent;
 import kong.unirest.Unirest;
 
 
 //import java.awt.event.KeyEvent;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UsuariosFinalesController implements Initializable {
 
+    public Pagination paginador;
     private InicioController controllerInicio;
     private Stage estage;
 
@@ -60,33 +55,7 @@ public class UsuariosFinalesController implements Initializable {
 
     private ObservableList<ModeloActividad> listaObservableAct;
 
-    private List<ModeloActividad> getItemAct(){
-        List<ModeloActividad> itemAct = new ArrayList<>();
-        ModeloActividad actividad = null;
 
-        List<String> actividad1Cat = new ArrayList<>();
-        actividad1Cat.add("Libre");
-        actividad1Cat.add("Maquina");
-        actividad1Cat.add("Compartido");
-
-        List<String> actividad2Cat = new ArrayList<>();
-        actividad1Cat.add("Agua");
-        actividad1Cat.add("Reserva");
-        actividad1Cat.add("Compartido");
-
-
-        List<String> actividad3Cat = new ArrayList<>();
-        actividad1Cat.add("Futbol");
-        actividad1Cat.add("Reserva");
-        actividad1Cat.add("Compartido");
-
-        byte[] imagen = Unirest.get("http://localhost:8080/Imagen/nacionalnacional.png").asBytes().getBody();
-        ByteArrayInputStream bytearray = new ByteArrayInputStream(imagen);
-        Image imagenverdadera = new Image(bytearray);
-
-
-        return itemAct;
-    }
 
 
 
@@ -116,8 +85,43 @@ public class UsuariosFinalesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         itemAct= obtenerActividades();
-        int filas = 0;
+        AtomicInteger filas = new AtomicInteger();
+        paginador.setPageCount(itemAct.size()/5);
+
+        paginador.setPageFactory((pageIndex) -> {
+            try {
+
+                for (int i = pageIndex; i < pageIndex + 5; i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                    AnchorPane anchorpane = fxmlLoader.load();
+                    String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                    anchorpane.getStylesheets().add(css);
+                    anchorpane.setId("pane");
+
+                    //scene.getStylesheets().add(css);
+                    ActividadesItemUserController controlador = fxmlLoader.getController();
+                    controlador.setData(itemAct.get(i),textoUsuario.getText());
+
+                    gridpane.add(anchorpane,0, filas.getAndIncrement());
+
+                    GridPane.setMargin(anchorpane,new Insets(10));
+
+                }
+            } catch (Exception e){
+
+            }
+
+            return gridpane;
+        });
+
+
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
+        this.comboBox.setItems(lista);
+        /*int filas = 0;
 
         try {
 
@@ -142,6 +146,10 @@ public class UsuariosFinalesController implements Initializable {
         }
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
         this.comboBox.setItems(lista);
+
+
+
+         */
     }
 
     private List<List> obtenerActividades(){

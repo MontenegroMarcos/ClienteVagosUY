@@ -39,7 +39,17 @@ public class HorariosController {
             fxmlLoader.setLocation(getClass().getResource("hacerReserva.fxml"));
             Parent root = fxmlLoader.load();
             HacerReservaController controlador = fxmlLoader.getController();
+
+            /* String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);
+                anchorpane.setId("pane");
+                */
             Scene scene = new Scene(root);
+
+            String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
+            scene.getStylesheets().add(css);
+
+
             Stage stage = new Stage();
             stage.setScene(scene);
             controlador.init(diaActividad.getText(),horaInicio.getText(),horaFin.getText(),Integer.parseInt(cupos.getText()),this.emailCentro,this.nombreActividad,this.emailEmpleado);

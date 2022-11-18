@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="449.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuariosFinalesController">
+<AnchorPane prefHeight="449.0" prefWidth="683.0" style="-fx-background-color: #FED8B1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuariosFinalesController">
    <children>
       <BorderPane prefHeight="449.0" prefWidth="227.0">
          <left>
-            <VBox prefHeight="359.0" prefWidth="227.0" style="-fx-background-color: #FED8B1;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="412.0" prefWidth="227.0" style="-fx-background-color: #FED8B1;" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="227.0" style="-fx-background-color: #ff5100;">
                      <children>
@@ -36,14 +37,13 @@
             </VBox>
          </left>
       </BorderPane>
-      <HBox layoutX="224.0" prefHeight="84.0" prefWidth="460.0" style="-fx-background-color: #FED8B1;">
+      <HBox layoutX="230.0" prefHeight="84.0" prefWidth="454.0" style="-fx-background-color: #FED8B1;">
          <children>
             <Text fill="#5dc1b9" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Que haremos Hoy?">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Button fx:id="btncerrarsesion" mnemonicParsing="false" onAction="#cerrarsesion" text="Cerrar sesion" />
             <Text fx:id="textoUsuario" strokeType="OUTSIDE" strokeWidth="0.0" text="l">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -51,9 +51,9 @@
             </Text>
          </children>
       </HBox>
-      <HBox layoutX="229.0" layoutY="84.0" prefHeight="365.0" prefWidth="454.0">
+      <HBox layoutX="229.0" layoutY="84.0" prefHeight="327.0" prefWidth="454.0">
          <children>
-            <ScrollPane fx:id="scrollpane" prefHeight="365.0" prefWidth="470.0" HBox.hgrow="ALWAYS">
+            <ScrollPane fx:id="scrollpane" prefHeight="320.0" prefWidth="454.0" HBox.hgrow="ALWAYS">
                <content>
                   <GridPane fx:id="gridpane" prefHeight="98.0" prefWidth="454.0">
                     <columnConstraints>
@@ -64,5 +64,7 @@
             </ScrollPane>
          </children>
       </HBox>
+      <Pagination fx:id="paginador" layoutX="251.0" layoutY="418.0" prefHeight="44.0" prefWidth="269.0" />
+      <Button fx:id="btncerrarsesion" layoutY="436.0" mnemonicParsing="false" onAction="#cerrarsesion" text="Cerrar sesion" />
    </children>
 </AnchorPane>

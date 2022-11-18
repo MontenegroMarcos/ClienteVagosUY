@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="204.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.HacerReservaController">
+<AnchorPane prefHeight="204.0" prefWidth="313.0" style="-fx-background-color: #249999;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.HacerReservaController">
    <children>
       <Label layoutX="14.0" layoutY="64.0" prefHeight="22.0" prefWidth="54.0" text="Fecha:">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <Label fx:id="diaSemana" layoutX="80.0" layoutY="64.0" text="Miercoles">
@@ -42,6 +43,6 @@
             <Font name="System Bold Italic" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="restarFecha" layoutX="255.0" layoutY="79.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="37.0" text="-" onAction="#anteriorFecha"/>
+      <Button fx:id="restarFecha" layoutX="255.0" layoutY="79.0" mnemonicParsing="false" onAction="#anteriorFecha" prefHeight="19.0" prefWidth="37.0" text="-" />
    </children>
 </AnchorPane>
