@@ -89,7 +89,7 @@ public class UsuariosFinalesController implements Initializable {
 
         itemAct= obtenerActividades();
         AtomicInteger filas = new AtomicInteger();
-        paginador.setPageCount(itemAct.size()/5);
+        //paginador.setPageCount(itemAct.size()/5);
 
         paginador.setPageFactory((pageIndex) -> {
             try {
@@ -100,7 +100,7 @@ public class UsuariosFinalesController implements Initializable {
                     AnchorPane anchorpane = fxmlLoader.load();
                     String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
                     anchorpane.getStylesheets().add(css);
-                    anchorpane.setId("pane");
+                    //anchorpane.setId("pane");
 
                     //scene.getStylesheets().add(css);
                     ActividadesItemUserController controlador = fxmlLoader.getController();

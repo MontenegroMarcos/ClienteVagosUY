@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="204.0" prefWidth="313.0" style="-fx-background-color: #249999;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.HacerReservaController">
+<AnchorPane prefHeight="204.0" prefWidth="313.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.HacerReservaController">
    <children>
       <Label layoutX="14.0" layoutY="64.0" prefHeight="22.0" prefWidth="54.0" text="Fecha:">
          <font>
@@ -43,6 +43,6 @@
             <Font name="System Bold Italic" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="restarFecha" layoutX="255.0" layoutY="79.0" mnemonicParsing="false" onAction="#anteriorFecha" prefHeight="19.0" prefWidth="37.0" text="-" />
+      <Button fx:id="restarFecha" layoutX="256.0" layoutY="91.0" mnemonicParsing="false" onAction="#anteriorFecha" prefHeight="19.0" prefWidth="37.0" text="-" />
    </children>
 </AnchorPane>

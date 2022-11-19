@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ff5100;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.VerHorariosActividadesController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.VerHorariosActividadesController">
     <ScrollPane layoutX="14.0" layoutY="75.0" prefHeight="307.0" prefWidth="568.0" HBox.hgrow="ALWAYS">
         <content>
             <GridPane fx:id="gridpane" prefHeight="98.0" prefWidth="454.0">
@@ -14,7 +18,7 @@
             </GridPane>
         </content>
     </ScrollPane>
-   <Label fx:id="titulo" layoutX="29.0" layoutY="26.0" prefHeight="0.0" prefWidth="543.0" textFill="#5dc1b9">
+   <Label fx:id="titulo" layoutX="29.0" layoutY="26.0" prefHeight="0.0" prefWidth="543.0" styleClass="text-field" stylesheets="@usuariosfinalesEstilo.css" textFill="#5dc1b9">
       <font>
          <Font size="30.0" />
       </font></Label>

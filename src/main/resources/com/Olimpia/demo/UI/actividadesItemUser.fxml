@@ -3,20 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="98.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ActividadesItemUserController">
+<AnchorPane prefHeight="98.0" prefWidth="454.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ActividadesItemUserController">
    <children>
       <HBox fx:id="horizontalbox" layoutY="-1.0" prefHeight="99.0" prefWidth="454.0">
          <children>
             <ImageView fx:id="imagenActividad" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="150.0" prefWidth="309.0">
                <children>
-                  <Label fx:id="nombreactividad" prefHeight="30.0" prefWidth="305.0" text="NombreDeActividad" />
+                  <Label fx:id="nombreactividad" prefHeight="30.0" prefWidth="305.0" text="NombreDeActividad">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Label fx:id="categorias" prefHeight="26.0" prefWidth="311.0" text="Categorias" />
                   <Label fx:id="precioactividad" prefHeight="18.0" prefWidth="310.0" text="Precio" />
                   <Label fx:id="nombreCentroDeportivo" prefHeight="18.0" prefWidth="306.0" text="NombreCentroDeportivo" />
                   <Label fx:id="direccionActividad" prefHeight="18.0" prefWidth="306.0" text="Direccion" />
-                  <Button fx:id="btnVerHorarios" mnemonicParsing="false" text="Ver Horarios" onAction="#pantallaVerHorarios"/>
+                  <Button fx:id="btnVerHorarios" mnemonicParsing="false" onAction="#pantallaVerHorarios" text="Ver Horarios" />
                </children>
             </VBox>
          </children>

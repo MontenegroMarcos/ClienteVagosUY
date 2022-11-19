@@ -31,18 +31,12 @@
 }
 
 
-#pane {
-    -fx-background-color: #5DC1B9FF;
-    /*-fx-background-color:
-            #000000,
-            linear-gradient(#7ebcea, #5DC1B9FF),
-            linear-gradient(#426ab7, #5dc1c1),
-            linear-gradient(#395cab, #1f787a);
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
-    -fx-padding: 12 30 12 30;
-*/
+
+.gradient-background{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,#5DC1B9,#1f787a);
 }
+
+
 
 #horizontalbox{
 -fx-padding: 10;

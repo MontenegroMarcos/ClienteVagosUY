@@ -82,6 +82,20 @@
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 3,2,2,2;
     -fx-padding: 12 30 12 30;
+}
 
+.pagination{
+    -fx-background-color: #c54e2c;
+}
 
+.pagination:hover{
+    -fx-background-color: #d86e3a;
+}
+
+.pagination:pressed{
+    -fx-background-color: #ff5100;
+}
+
+.gradient-background{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,#ff5100,#C54E2CFF);
 }
