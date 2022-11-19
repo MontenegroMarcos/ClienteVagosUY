@@ -115,7 +115,7 @@ public class UsuariosFinalesController implements Initializable {
 
             }
 
-            return gridpane;
+            return this.scrollpane;
         });
 
 
