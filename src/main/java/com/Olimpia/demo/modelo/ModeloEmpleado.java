@@ -22,6 +22,10 @@ public class ModeloEmpleado {
         this.empresa = empresa;
     }
 
+    public ModeloEmpleado(String email, String nombreClient, String password, Long saldoMensual) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

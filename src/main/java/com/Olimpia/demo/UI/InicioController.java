@@ -91,6 +91,19 @@ public class InicioController implements Initializable {
     }
 
     @FXML
+    void entrarEmpresaUser() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResource("empresasUser.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        EmpresasUserController controler = new EmpresasUserController();
+        controler.init(this.campoEmail.getText());
+        stage.show();
+        this.estage.close();
+    }
+
+    @FXML
     void entrarUsuarioFinal() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("usuariosFinales.fxml"));
@@ -190,6 +203,7 @@ public class InicioController implements Initializable {
                                 break;
                             case 1:
                                 //Abrir pantalla empresa
+                                entrarEmpresaUser();
                                 break;
                             case 2:
                                 //Abrir pantalla centroDeportivo

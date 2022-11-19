@@ -1,13 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.EmpresasUserController">
+<AnchorPane prefHeight="485.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.EmpresasUserController">
    <children>
-      <ImageView fitHeight="113.0" fitWidth="162.0" layoutX="211.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="266.0" layoutY="305.0" mnemonicParsing="false" text="Button" />
-      <TextField layoutX="218.0" layoutY="237.0" />
+      <Region prefHeight="72.0" prefWidth="689.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" />
+      <Label layoutX="33.0" layoutY="12.0" prefHeight="33.0" prefWidth="79.0" text="VagosUY" textFill="#0cd6dd">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TabPane layoutY="72.0" prefHeight="412.0" prefWidth="689.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Empleados">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+                     <children>
+                        <TextField fx:id="camponombre" layoutX="40.0" layoutY="54.0" promptText="Nombre" styleClass="text-field" stylesheets="@usuariosfinalesEstilo.css" />
+                        <TextField fx:id="campoCorreo" layoutX="40.0" layoutY="111.0" promptText="Correo" styleClass="text-field" stylesheets="@usuariosfinalesEstilo.css" />
+                        <TextField fx:id="campoPSW" layoutX="40.0" layoutY="167.0" promptText="Contraseña" stylesheets="@usuariosfinalesEstilo.css" />
+                        <TextField fx:id="campoSaldo" layoutX="40.0" layoutY="219.0" promptText="Saldo" stylesheets="@usuariosfinalesEstilo.css" />
+                        <Button fx:id="btnCrear" layoutX="268.0" layoutY="79.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Crear" />
+                        <Button fx:id="btnCancelar" layoutX="268.0" layoutY="157.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Cancelar" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Gestion">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+                     <children>
+                        <TableView fx:id="tablaEmpleados" layoutX="229.0" layoutY="21.0" prefHeight="253.0" prefWidth="428.0">
+                          <columns>
+                            <TableColumn fx:id="columnaNombre" prefWidth="135.0" text="Nombre" />
+                            <TableColumn fx:id="columnaCorreo" prefWidth="160.0" text="Correo" />
+                              <TableColumn fx:id="columnaSaldo" prefWidth="132.0" text="Saldo(U$)" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="buscarNombre" layoutX="25.0" layoutY="46.0" promptText="Buscar Por nombre" stylesheets="@usuariosfinalesEstilo.css" />
+                        <Button fx:id="btnModificar" layoutX="59.0" layoutY="234.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="93.0" text="Modificar" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="Finanzas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+                     <children>
+                        <LineChart fx:id="graficalineal" layoutX="266.0" layoutY="14.0" prefHeight="271.0" prefWidth="409.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <Label layoutX="40.0" layoutY="54.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" text="Gasto Mensual" textFill="#0fb9db" />
+                        <Label fx:id="gastoMensualLabel" layoutX="137.0" layoutY="54.0" prefHeight="17.0" prefWidth="79.0" text="X cantidad" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Label layoutX="176.0" layoutY="20.0" prefHeight="33.0" prefWidth="101.0" text="Bienvenido">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelEmpresa" layoutX="304.0" layoutY="23.0" prefHeight="27.0" prefWidth="230.0" text="somebody@example.com" textFill="#1ea7bf">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
