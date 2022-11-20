@@ -91,17 +91,32 @@ public class UsuariosFinalesController implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 550, 400);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
         InicioController controlador = fxmlLoader.getController();
+
         String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
         scene.getStylesheets().add(css);
         controlador.setStage(stage);
+
         stage.setTitle("GymAPP");
+
         stage.show();
         this.estage.close();
 
+        /*
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("CentroDeportivoUI.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        CentroDeportivoController controlador = fxmlLoader.getController();
+        controlador.init(this.campoEmail.getText());
+        controlador.setStage(stage);
+        stage.show();
+        this.estage.close();
+         */
     }
 
     @Override

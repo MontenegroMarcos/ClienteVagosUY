@@ -85,6 +85,8 @@ public class InicioController implements Initializable {
         Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("UsuarioAdminUI.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
         this.estage.close();
