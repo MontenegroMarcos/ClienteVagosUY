@@ -87,7 +87,7 @@ public class UsuariosFinalesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        itemAct= obtenerActividades();
+
         /*AtomicInteger filas = new AtomicInteger();
         //paginador.setPageCount(itemAct.size()/5);
 
@@ -121,6 +121,8 @@ public class UsuariosFinalesController implements Initializable {
 
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
         this.comboBox.setItems(lista);*/
+        this.gridpane.getChildren().clear();
+        this.itemAct = obtenerActividades();
         int filas = 0;
 
         try {
@@ -132,13 +134,12 @@ public class UsuariosFinalesController implements Initializable {
                 String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
                 anchorpane.getStylesheets().add(css);
                 anchorpane.setId("pane");
-
-                //scene.getStylesheets().add(css);
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i),textoUsuario.getText());
 
-                gridpane.add(anchorpane,0,filas++);
+                this.gridpane.add(anchorpane,0,filas++);
                 GridPane.setMargin(anchorpane,new Insets(10));
+
 
             }
         } catch (Exception e){
