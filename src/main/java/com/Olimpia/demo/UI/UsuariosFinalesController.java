@@ -85,8 +85,8 @@ public class UsuariosFinalesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        this.gridpane.getChildren().clear();
-        this.itemAct = obtenerActividades();
+
+        this.itemAct.addAll(obtenerActividades());
 
 
         try {
