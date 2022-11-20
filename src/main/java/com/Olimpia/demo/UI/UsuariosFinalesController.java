@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UsuariosFinalesController implements Initializable {
 
     public Pagination paginador;
+    public Button btncerrarsesion;
     private InicioController controllerInicio;
     private Stage estage;
 
@@ -54,9 +55,6 @@ public class UsuariosFinalesController implements Initializable {
     private List<ModeloActividad> itemActAux = new ArrayList<>();
 
     private ObservableList<ModeloActividad> listaObservableAct;
-
-
-
 
 
     public void init(String text, Stage stage, InicioController inicioController) {
@@ -89,85 +87,55 @@ public class UsuariosFinalesController implements Initializable {
 
         this.gridpane.getChildren().clear();
         this.itemAct = obtenerActividades();
-        //int filas = 0;
-        AtomicInteger filas = new AtomicInteger(0);
-        //paginador.setPageCount(itemAct.size()/5);
-
-        paginador.setPageFactory((pageIndex) -> {
-            try {
-
-                for (int i = pageIndex; i < pageIndex + 5; i++) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
-                    AnchorPane anchorpane = fxmlLoader.load();
-                    String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
-                    anchorpane.getStylesheets().add(css);
-                    //anchorpane.setId("pane");
-
-                    //scene.getStylesheets().add(css);
-                    ActividadesItemUserController controlador = fxmlLoader.getController();
-                    controlador.setData(itemAct.get(i),textoUsuario.getText());
-
-                    gridpane.add(anchorpane,0, filas.getAndIncrement());
-
-                    GridPane.setMargin(anchorpane,new Insets(10));
-
-                }
-            } catch (Exception e){
-
-            }
-
-            return this.scrollpane;
-        });
 
 
-        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
-        this.comboBox.setItems(lista);
-
-
-        /*try {
-
+        try {
+            int filas = 0;
             for (int i = 0; i < itemAct.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
                 AnchorPane anchorpane = fxmlLoader.load();
                 String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
                 anchorpane.getStylesheets().add(css);
-                anchorpane.setId("pane");
+                //anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i),textoUsuario.getText());
+                controlador.setData(itemAct.get(i), textoUsuario.getText());
 
-                this.gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                this.gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
-        ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
+
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Tenis", "Otros");
         this.comboBox.setItems(lista);
 
-         */
+
+
+
     }
 
-    private List<List> obtenerActividades(){
+    private List<List> obtenerActividades() {
         ObjectMapper mapper = new ObjectMapper();
         String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/Todas").asString().getBody();
         List<List> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return actividad;
     }
 
-    public void filtrarPorCategoria(){
+    public void filtrarPorCategoria() {
         String valor = comboBox.getValue();
         System.out.println(valor);
         this.gridpane.getChildren().clear();
-        itemAct= obtenerActividadesPorCategoria(valor);
+        itemAct = obtenerActividadesPorCategoria(valor);
         int filas = 0;
 
         try {
@@ -180,34 +148,35 @@ public class UsuariosFinalesController implements Initializable {
                 anchorpane.getStylesheets().add(css);
                 anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i),textoUsuario.getText());
+                controlador.setData(itemAct.get(i), textoUsuario.getText());
 
-                gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public List<List> obtenerActividadesPorCategoria(String categoria){
+    public List<List> obtenerActividadesPorCategoria(String categoria) {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/"+categoria).asString().getBody();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/" + categoria).asString().getBody();
         List<List> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return actividad;
     }
 
-    public void buscarPorCentroDeportivo(){
+    public void buscarPorCentroDeportivo() {
         String nombre = buscartxtfield.getText();
         System.out.println(nombre);
         this.gridpane.getChildren().clear();
-        itemAct= obtenerActividadesPorCentroDeportivo(nombre);
+        itemAct = obtenerActividadesPorCentroDeportivo(nombre);
         int filas = 0;
 
         try {
@@ -220,29 +189,29 @@ public class UsuariosFinalesController implements Initializable {
                 anchorpane.getStylesheets().add(css);
                 anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i),textoUsuario.getText());
+                controlador.setData(itemAct.get(i), textoUsuario.getText());
 
-                gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public List<List> obtenerActividadesPorCentroDeportivo(String cdNombre){
+    public List<List> obtenerActividadesPorCentroDeportivo(String cdNombre) {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/"+cdNombre).asString().getBody();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/" + cdNombre).asString().getBody();
         List<List> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            actividad = mapper.readValue(actividades, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return actividad;
     }
-
 
 
     @FXML
@@ -390,4 +359,35 @@ public class UsuariosFinalesController implements Initializable {
                 GridPane.setMargin(anchorpane,new Insets(10));
     }*/
 
+     /*AtomicInteger filas = new AtomicInteger(0);
+        //paginador.setPageCount(itemAct.size()/5);
+
+        paginador.setPageFactory((pageIndex) -> {
+            try {
+
+                for (int i = pageIndex; i < pageIndex + 5; i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                    AnchorPane anchorpane = fxmlLoader.load();
+                    String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                    anchorpane.getStylesheets().add(css);
+                    //anchorpane.setId("pane");
+
+                    //scene.getStylesheets().add(css);
+                    ActividadesItemUserController controlador = fxmlLoader.getController();
+                    controlador.setData(itemAct.get(i),textoUsuario.getText());
+
+                    gridpane.add(anchorpane,0, filas.getAndIncrement());
+
+                    GridPane.setMargin(anchorpane,new Insets(10));
+
+                }
+            } catch (Exception e){
+
+            }
+
+            return this.scrollpane;
+        });
+
+         */
 }
