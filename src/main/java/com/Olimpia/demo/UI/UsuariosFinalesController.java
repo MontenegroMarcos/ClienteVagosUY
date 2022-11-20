@@ -87,8 +87,10 @@ public class UsuariosFinalesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-
-        /*AtomicInteger filas = new AtomicInteger();
+        this.gridpane.getChildren().clear();
+        this.itemAct = obtenerActividades();
+        //int filas = 0;
+        AtomicInteger filas = new AtomicInteger(0);
         //paginador.setPageCount(itemAct.size()/5);
 
         paginador.setPageFactory((pageIndex) -> {
@@ -120,12 +122,10 @@ public class UsuariosFinalesController implements Initializable {
 
 
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
-        this.comboBox.setItems(lista);*/
-        this.gridpane.getChildren().clear();
-        this.itemAct = obtenerActividades();
-        int filas = 0;
+        this.comboBox.setItems(lista);
 
-        try {
+
+        /*try {
 
             for (int i = 0; i < itemAct.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -147,6 +147,8 @@ public class UsuariosFinalesController implements Initializable {
         }
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
         this.comboBox.setItems(lista);
+
+         */
     }
 
     private List<List> obtenerActividades(){
