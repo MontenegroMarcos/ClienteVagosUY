@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuarioAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.UsuarioAdminController">
    <children>
       <TabPane layoutY="66.0" prefHeight="435.0" prefWidth="696.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -73,5 +73,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+      <Button fx:id="btncerrarsesion" layoutX="598.0" layoutY="27.0" mnemonicParsing="false" onAction="#cerrarSesion" stylesheets="@inicioestilo.css" text="Cerrar Sesión" />
    </children>
 </AnchorPane>

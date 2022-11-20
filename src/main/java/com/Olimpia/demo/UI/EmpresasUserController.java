@@ -64,6 +64,11 @@ public class EmpresasUserController implements Initializable {
     private TableColumn<ModeloEmpleado, String> columnaSaldo;
 
     @FXML
+    private Stage estage;
+
+    @FXML
+    private InicioController controlador;
+    @FXML
     private Label gastoMensualLabel;
 
     @FXML
@@ -86,9 +91,35 @@ public class EmpresasUserController implements Initializable {
         actualizarTblEmpleados();
     }
 
-    public void init(String email_empresa){
+    public void init(String email_empresa, Stage stage, InicioController inicioController) {
         this.labelEmpresa.setText(email_empresa);
+        this.estage = stage;
+        this.controlador = inicioController;
+
     }
+
+    @FXML
+    public void cerrarSesion() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        InicioController controlador = fxmlLoader.getController();
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        controlador.setStage(stage);
+
+        stage.setTitle("GymAPP");
+
+        stage.show();
+        this.estage.close();
+    }
+
+
 
     public ObservableList<ModeloEmpleado> obtenerEmpleados(){
         return null;
@@ -183,7 +214,6 @@ public class EmpresasUserController implements Initializable {
         }
 
     }
-
 
 
 

@@ -85,9 +85,13 @@ public class InicioController implements Initializable {
         Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("UsuarioAdminUI.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+
+        UsuarioAdminController controller = fxmlLoader.getController();
+
         String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
+        controller.setStage(stage);
         stage.show();
         this.estage.close();
     }
@@ -104,7 +108,8 @@ public class InicioController implements Initializable {
         scene.getStylesheets().add(css);
 
         stage.setScene(scene);
-        controler.init(this.campoEmail.getText());
+        //controler.init(this.campoEmail.getText());
+        controler.init(this.campoEmail.getText(), stage, this);
         stage.show();
         this.estage.close();
     }

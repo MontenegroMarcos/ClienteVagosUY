@@ -8,11 +8,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -24,6 +28,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -100,6 +105,7 @@ public class UsuarioAdminController implements Initializable {
 
     @FXML
     private Button btncancelarEmpleado;
+    private Stage estage;
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -250,6 +256,27 @@ public class UsuarioAdminController implements Initializable {
         }
     }
 
+    @FXML
+    public void cerrarSesion() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        InicioController controlador = fxmlLoader.getController();
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        controlador.setStage(stage);
+
+        stage.setTitle("GymAPP");
+
+        stage.show();
+        this.estage.close();
+    }
+
     /*public void subirImagen() {
         File file = new File("src/main/resources/furbo.jpg");
         FileInputStream input = null;
@@ -296,6 +323,10 @@ public class UsuarioAdminController implements Initializable {
             }catch (Exception e){}
         }
 
+    }
+
+    public void setStage(Stage stage) {
+        this.estage = stage;
     }
 
     //Metodos para Empleados o Usuarios Finales

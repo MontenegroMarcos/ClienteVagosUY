@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="485.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.EmpresasUserController">
+<AnchorPane prefHeight="485.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.EmpresasUserController">
    <children>
       <Region prefHeight="72.0" prefWidth="689.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" />
       <Label layoutX="33.0" layoutY="12.0" prefHeight="33.0" prefWidth="79.0" text="VagosUY" textFill="#0cd6dd">
@@ -23,7 +32,7 @@
                         <TextField fx:id="campoCorreo" layoutX="40.0" layoutY="111.0" promptText="Correo" styleClass="text-field" stylesheets="@usuariosfinalesEstilo.css" />
                         <TextField fx:id="campoPSW" layoutX="40.0" layoutY="167.0" promptText="Contraseña" stylesheets="@usuariosfinalesEstilo.css" />
                         <TextField fx:id="campoSaldo" layoutX="40.0" layoutY="219.0" promptText="Saldo" stylesheets="@usuariosfinalesEstilo.css" />
-                        <Button fx:id="btnCrear" layoutX="268.0" layoutY="79.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Crear" onAction="#AddEmpleados"/>
+                        <Button fx:id="btnCrear" layoutX="268.0" layoutY="79.0" mnemonicParsing="false" onAction="#AddEmpleados" prefHeight="45.0" prefWidth="92.0" text="Crear" />
                         <Button fx:id="btnCancelar" layoutX="268.0" layoutY="157.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Cancelar" />
                      </children>
                   </AnchorPane>
@@ -76,5 +85,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="btnCerrarsesion" layoutX="569.0" layoutY="16.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="25.0" prefWidth="101.0" stylesheets="@inicioestilo.css" text="Cerrar Sesión" />
    </children>
 </AnchorPane>

@@ -149,23 +149,7 @@ public class CentroDeportivoController implements Initializable {
         this.checkinActividades.setItems(obtenerActividadesdeCD());
     }
 
-    @FXML
-    public void cerrarsesion() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 550, 400);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        InicioController controlador = fxmlLoader.getController();
-        String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        controlador.setStage(stage);
-        stage.setTitle("GymAPP");
-        stage.show();
-        this.estage.close();
-
-    }
 
     private ObservableList<String> obtenerActividadesdeCD() {
         ObjectMapper mapper = new ObjectMapper();
@@ -359,6 +343,28 @@ public class CentroDeportivoController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    @FXML
+    public void cerrarSesion() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("Inicio.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        InicioController controlador = fxmlLoader.getController();
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        controlador.setStage(stage);
+
+        stage.setTitle("GymAPP");
+
+        stage.show();
+        this.estage.close();
     }
 
     /*public List<List> obtenerActividadesPorNombre(String  nombre) {
