@@ -94,6 +94,7 @@ public class ActividadesItemUserController implements Initializable {
             VerHorariosActividadesController controller = fxmlLoader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            controller.setConfig(stage,this);
 
             String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
             scene.getStylesheets().add(css);
@@ -114,4 +115,6 @@ public class ActividadesItemUserController implements Initializable {
         this.horizontalbox.getStylesheets().add(css);
         this.horizontalbox.setId("horizontalbox");
     }
+
+
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="151.0" prefWidth="559.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.ElementoReservasUserController">
+   <children>
+      <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="209.0" layoutY="14.0" prefHeight="17.0" prefWidth="63.0" text="Actividad:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblNombre" layoutX="280.0" layoutY="14.0" prefHeight="17.0" prefWidth="150.0" text="Labelnombre" />
+      <Label layoutX="209.0" layoutY="37.0" prefHeight="17.0" prefWidth="69.0" text="Categorias:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCategorias" layoutX="280.0" layoutY="37.0" prefHeight="17.0" prefWidth="277.0" text="LabelCategorias" />
+      <Label layoutX="209.0" layoutY="54.0" prefHeight="17.0" prefWidth="53.0" text="Precio:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPrecio" layoutX="280.0" layoutY="54.0" text="LabelPrecio" />
+      <Label layoutX="209.0" layoutY="76.0" prefHeight="17.0" prefWidth="109.0" text="Centro Deportivo:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCentroDeportivo" layoutX="318.0" layoutY="76.0" prefHeight="17.0" prefWidth="141.0" text="LabelCentroDeportivo" />
+      <Label layoutX="208.0" layoutY="101.0" prefHeight="17.0" prefWidth="69.0" text="Dirección:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbldireccion" layoutX="280.0" layoutY="101.0" prefHeight="17.0" prefWidth="150.0" text="LabelDirección" />
+      <Button fx:id="btnCancelarReserva" layoutX="407.0" layoutY="106.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Cancelar Reserva" />
+   </children>
+</AnchorPane>

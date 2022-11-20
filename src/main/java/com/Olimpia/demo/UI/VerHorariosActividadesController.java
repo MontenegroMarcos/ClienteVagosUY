@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import kong.unirest.Unirest;
 
 import java.net.URL;
@@ -23,6 +24,11 @@ public class VerHorariosActividadesController implements Initializable {
     @FXML
     private Label titulo;
 
+    @FXML
+    private Stage estage;
+
+    ActividadesItemUserController controlador;
+
     private String nombreActividad;
 
     private String nombreCD;
@@ -31,12 +37,12 @@ public class VerHorariosActividadesController implements Initializable {
 
     private List<List> listaHorarios = new ArrayList<>();
 
-    public void init(String nombreActividad,String nombreCD,String emailCd,String emailEmpleado){
-        this.titulo.setText("Entrena "+nombreActividad+" en "+nombreCD);
-        this.nombreActividad=nombreActividad;
-        this.nombreCD=nombreCD;
-        this.emailCD=emailCd;
-        this.listaHorarios=obtenerHorarios(this.nombreActividad,this.emailCD);
+    public void init(String nombreActividad, String nombreCD, String emailCd, String emailEmpleado) {
+        this.titulo.setText("Entrena " + nombreActividad + " en " + nombreCD);
+        this.nombreActividad = nombreActividad;
+        this.nombreCD = nombreCD;
+        this.emailCD = emailCd;
+        this.listaHorarios = obtenerHorarios(this.nombreActividad, this.emailCD);
         int filas = 0;
 
         try {
@@ -47,31 +53,45 @@ public class VerHorariosActividadesController implements Initializable {
                 AnchorPane anchorpane = fxmlLoader.load();
 
                 HorariosController controlador = fxmlLoader.getController();
-                controlador.setData(listaHorarios.get(i),emailCd,nombreActividad,emailEmpleado);
+                controlador.setData(listaHorarios.get(i), emailCd, nombreActividad, emailEmpleado);
 
-                gridpane.add(anchorpane,0,filas++);
-                GridPane.setMargin(anchorpane,new Insets(10));
+                gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         this.titulo.setText("");
     }
 
-    private List<List> obtenerHorarios(String nombreActividad,String emailCD){
+    private List<List> obtenerHorarios(String nombreActividad, String emailCD) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHorarios = Unirest.get("http://localhost:8080/vagouy/Actividades/horarios/"+emailCD+"/"+nombreActividad).asString().getBody();
+        String strHorarios = Unirest.get("http://localhost:8080/vagouy/Actividades/horarios/" + emailCD + "/" + nombreActividad).asString().getBody();
         List<List> horarios = null;
         try {
-            horarios = mapper.readValue(strHorarios, new TypeReference<List<List>>() {});
-        }catch(Exception e){
+            horarios = mapper.readValue(strHorarios, new TypeReference<List<List>>() {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return horarios;
     }
+
+    public void setConfig(Stage stage, ActividadesItemUserController actividadesItemUserController) {
+        this.estage = stage;
+        this.controlador = actividadesItemUserController;
+    }
+
+  /*  @FXML
+    void Back(){
+        controlador.show();
+        estage.close();
+    }
+
+   */
 }

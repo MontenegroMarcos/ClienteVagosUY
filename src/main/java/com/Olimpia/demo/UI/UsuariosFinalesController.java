@@ -32,6 +32,7 @@ public class UsuariosFinalesController implements Initializable {
 
     public Pagination paginador;
     public Button btncerrarsesion;
+
     private InicioController controllerInicio;
     private Stage estage;
 
@@ -209,9 +210,9 @@ public class UsuariosFinalesController implements Initializable {
     public void misReservas() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("misReservasUsuarioFinal.fxml"));
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("pantalladeReservasUser.fxml"));
 
-        MisReservasUsuarioFinalController controller = fxmlLoader.getController();
+        PantalladeReservasUserController controller = fxmlLoader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 
@@ -220,10 +221,16 @@ public class UsuariosFinalesController implements Initializable {
         String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
         scene.getStylesheets().add(css);
 
-        controller.setinit(this.textoUsuario.getText(), estage);
+        controller.setinit(this.textoUsuario.getText(), estage,this);
         controller.setStage(stage);
         stage.show();
         estage.close();
+    }
+
+
+
+    public void showWindow() {
+        estage.show();
     }
 
 
