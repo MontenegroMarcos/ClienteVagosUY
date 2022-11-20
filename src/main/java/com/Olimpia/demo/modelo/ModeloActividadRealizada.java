@@ -3,6 +3,7 @@ package com.Olimpia.demo.modelo;
 import java.util.*;
 
 public class ModeloActividadRealizada {
+    private Long id;
     private Date fecha;
     private ModeloActividad actividad;
     private ModeloHorario horarios;
@@ -22,6 +23,14 @@ public class ModeloActividadRealizada {
         this.cupos = cupos;
         this.empleadosReservas = new ArrayList<>();
         this.empleadosReservas.add(empleadoReserva);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getFecha() {

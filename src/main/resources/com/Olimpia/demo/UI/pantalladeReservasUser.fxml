@@ -34,6 +34,6 @@
          </font>
       </Label>
       <TextField fx:id="campoBusqueda" layoutX="14.0" layoutY="121.0" promptText="Buscar Reserva" />
-      <Button fx:id="btnVolver" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Volver" />
+      <Button fx:id="btnVolver" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Volver" onAction="#Back" />
    </children>
 </AnchorPane>

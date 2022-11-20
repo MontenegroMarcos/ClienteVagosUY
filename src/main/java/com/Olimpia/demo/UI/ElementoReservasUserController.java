@@ -1,5 +1,6 @@
 package com.Olimpia.demo.UI;
 
+import com.Olimpia.demo.modelo.ModeloActividadRealizada;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public class ElementoReservasUserController {
     @FXML
     private Button btnCancelarReserva;
 
-    String emailCD;
+    String emailEmpleado;
 
     @FXML
     private ImageView imageview;
@@ -38,17 +39,15 @@ public class ElementoReservasUserController {
     private Label lbldireccion;
 
 
-    void setData(List element, String nombreUser){
-        this.lblNombre.setText(String.valueOf(element.get(0)));
-        this.lblPrecio.setText(String.valueOf(element.get(2)));
-        this.lblCentroDeportivo.setText(String.valueOf(element.get(3)));
-        this.lbldireccion.setText(String.valueOf(element.get(4)));
-        this.lblCategorias.setText(String.valueOf(element.get(1)));
-        this.emailCD = nombreUser;
-        List<Long> idImagenes = obtenerIdImagenes(this.emailCD, String.valueOf(element.get(0)));
+    public void setData(ModeloActividadRealizada reserva, String emailEmpleado){
+        this.lblNombre.setText(String.valueOf(reserva.getActividad().getKey().getNombre()));
+        this.lblPrecio.setText(String.valueOf(reserva.getActividad().getPrecio()));
+        this.lblCentroDeportivo.setText(String.valueOf(reserva.getActividad().getKey().getCentroDeportivo().getNombre()));
+        this.lbldireccion.setText(String.valueOf(reserva.getActividad().getKey().getCentroDeportivo().getDireccion()));
+        this.lblCategorias.setText(String.valueOf(reserva.getActividad().getCategoria()));
+        this.emailEmpleado = emailEmpleado;
+        List<Long> idImagenes = obtenerIdImagenes(reserva.getActividad().getKey().getCentroDeportivo().getEmail(), reserva.getActividad().getKey().getNombre());
         this.imageview.setImage(obtenerimagen(idImagenes.get(idImagenes.size() - 1)));
-        //this.emailEmpleado=emailEmpleado;
-
     }
 
     private Image obtenerimagen(Long id) {
