@@ -97,7 +97,7 @@ public class UsuariosFinalesController implements Initializable {
 
         InicioController controlador = fxmlLoader.getController();
 
-        String css = this.getClass().getResource("inicioestilo.css").toExternalForm();
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
         scene.getStylesheets().add(css);
         controlador.setStage(stage);
 
