@@ -33,7 +33,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="32.0" layoutY="144.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="253.0" text="RESERVAR">
+      <Button layoutX="32.0" layoutY="144.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="253.0" text="RESERVAR" onAction="#hacerReserva">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

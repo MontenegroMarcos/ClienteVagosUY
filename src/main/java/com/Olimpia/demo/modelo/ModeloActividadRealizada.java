@@ -8,17 +8,20 @@ public class ModeloActividadRealizada {
     private ModeloHorario horarios;
     private List<ModeloEmpleado> empleados;
     private Integer cupos;
+    private List<ModeloEmpleado> empleadosReservas;
 
     public ModeloActividadRealizada() {
     }
 
-    public ModeloActividadRealizada(Date fecha, ModeloActividad actividad, ModeloHorario horarios, ModeloEmpleado empleado, Integer cupos) {
+    public ModeloActividadRealizada(Date fecha, ModeloActividad actividad, ModeloHorario horarios, ModeloEmpleado empleado, Integer cupos, ModeloEmpleado empleadoReserva) {
         this.fecha = fecha;
         this.actividad = actividad;
         this.horarios = horarios;
         this.empleados = new ArrayList<>();
         this.empleados.add(empleado);
         this.cupos = cupos;
+        this.empleadosReservas = new ArrayList<>();
+        this.empleadosReservas.add(empleadoReserva);
     }
 
     public Date getFecha() {
@@ -59,5 +62,13 @@ public class ModeloActividadRealizada {
 
     public void setCupos(Integer cupos) {
         this.cupos = cupos;
+    }
+
+    public List<ModeloEmpleado> getEmpleadosReservas() {
+        return empleadosReservas;
+    }
+
+    public void setEmpleadosReservas(List<ModeloEmpleado> empleadosReservas) {
+        this.empleadosReservas = empleadosReservas;
     }
 }

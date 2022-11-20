@@ -111,7 +111,7 @@ public class HacerReservaController {
         }catch(Exception e){
             e.printStackTrace();
         }
-        ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,actividad,horario,empleado,horario.getKey().getCupos());
+        ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,actividad,horario,empleado,horario.getKey().getCupos(),empleado);
         HttpResponse<JsonNode> response=null;
         CuposDisponibles respuesta=null;
         try {
@@ -162,5 +162,26 @@ public class HacerReservaController {
             e.printStackTrace();
         }
         return empleado;
+    }
+
+    public void hacerReserva(){
+        Date date=null;
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yy");
+        try {
+            date = format1.parse(format1.format(fecha.getTime()));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        ModeloActividadRealizada reserva = new ModeloActividadRealizada(date,actividad,horario,empleado,horario.getKey().getCupos(),empleado);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(reserva);
+            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/actividadRealizada/reserva")
+                    .header("Content-Type", "application/json;charset=utf-8")
+                    .body(jsonString)
+                    .asJson();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

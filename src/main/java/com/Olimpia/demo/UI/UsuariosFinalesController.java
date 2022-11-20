@@ -61,6 +61,28 @@ public class UsuariosFinalesController implements Initializable {
         this.textoUsuario.setText(text);
         this.controllerInicio = inicioController;
         this.estage = stage;
+
+        this.itemAct.addAll(obtenerActividades());
+        try {
+            int filas = 0;
+            for (int i = 0; i < itemAct.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);*/
+                //anchorpane.setId("pane");
+                ActividadesItemUserController controlador = fxmlLoader.getController();
+                controlador.setData(itemAct.get(i), textoUsuario.getText());
+
+                this.gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -83,39 +105,8 @@ public class UsuariosFinalesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-        this.itemAct.addAll(obtenerActividades());
-
-
-        try {
-            int filas = 0;
-            for (int i = 0; i < itemAct.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
-                AnchorPane anchorpane = fxmlLoader.load();
-                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
-                anchorpane.getStylesheets().add(css);*/
-                //anchorpane.setId("pane");
-                ActividadesItemUserController controlador = fxmlLoader.getController();
-                controlador.setData(itemAct.get(i), textoUsuario.getText());
-
-                this.gridpane.add(anchorpane, 0, filas++);
-                GridPane.setMargin(anchorpane, new Insets(10));
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Tenis", "Otros");
         this.comboBox.setItems(lista);
-
-
-
-
     }
 
     private List<List> obtenerActividades() {
