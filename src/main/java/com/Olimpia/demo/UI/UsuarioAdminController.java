@@ -2,6 +2,7 @@ package com.Olimpia.demo.UI;
 
 import com.Olimpia.demo.modelo.ModeloEmpresa;
 import com.Olimpia.demo.modelo.ModeloFile;
+import com.Olimpia.demo.modelo.ModeloUsuario;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -108,6 +109,7 @@ public class UsuarioAdminController implements Initializable {
         this.colnombreEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("nombre"));
         this.colEmailEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("email"));
         this.colPSWEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("psw"));
+        actualizarTblEmpresas();
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -125,9 +127,16 @@ public class UsuarioAdminController implements Initializable {
                 String password = contraseniaEmpresa.getText();
                 try {
                     ObjectMapper mapper = new ObjectMapper();
+                    ModeloUsuario usuario = new ModeloUsuario(email,password,1);
+                    String strUsuario = mapper.writeValueAsString(usuario);
+                    HttpResponse<JsonNode> responseUsr = Unirest.post("http://localhost:8080/vagouy/usuario/registrarUsuario")
+                            .header("Content-Type", "application/json;charset=utf-8")
+                            .body(strUsuario)
+                            .asJson();
+                    System.out.println(responseUsr.getStatus());
                     ModeloEmpresa empresa = new ModeloEmpresa(email, nombreClient, password);
                     String jsonString = mapper.writeValueAsString(empresa);
-                    HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")
+                    HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/empresa")
                             .header("Content-Type", "application/json;charset=utf-8")
                             .body(jsonString)
                             .asJson();
@@ -148,7 +157,7 @@ public class UsuarioAdminController implements Initializable {
     @FXML
     protected ObservableList<ModeloEmpresa> obtenerEmpresas() {
         ObjectMapper mapper = new ObjectMapper();
-        String empresas = Unirest.get("http://10.252.60.160:8080/vagouy/empresa").asString().getBody();
+        String empresas = Unirest.get("http://localhost:8080/vagouy/empresa").asString().getBody();
         List<ModeloEmpresa> empresa = null;
         try {
             empresa = mapper.readValue(empresas, new TypeReference<List<ModeloEmpresa>>() {

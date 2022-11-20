@@ -95,8 +95,8 @@ public class UsuariosFinalesController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("ActividadesItemUser.fxml"));
                 AnchorPane anchorpane = fxmlLoader.load();
-                String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
-                anchorpane.getStylesheets().add(css);
+                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);*/
                 //anchorpane.setId("pane");
                 ActividadesItemUserController controlador = fxmlLoader.getController();
                 controlador.setData(itemAct.get(i), textoUsuario.getText());
