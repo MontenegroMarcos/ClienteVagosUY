@@ -112,7 +112,7 @@ public class EmpresasUserController implements Initializable {
                 String password = campoPSW.getText();
                 Long saldoMensual = Long.parseLong(campoSaldo.getText());
                 try {
-                    ObjectMapper mapper = new ObjectMapper();
+                    Unirest mapper = new ObjectMapper();
                     ModeloEmpleado empleado = new ModeloEmpleado(email, nombreClient, password, saldoMensual);
                     String jsonString = mapper.writeValueAsString(empleado);
                     HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")

@@ -11,13 +11,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -31,6 +36,11 @@ import java.util.ResourceBundle;
 
 public class CentroDeportivoController implements Initializable {
 
+    public CheckBox checkbox;
+
+    public ImageView imageview;
+
+    public Button btnSubirImagen;
     @FXML
     private Stage estage;
     @FXML
@@ -111,6 +121,22 @@ public class CentroDeportivoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.cuposAgregar.setManaged(false);
+        this.cuposAgregar.setVisible(false);
+
+        this.cuposAgregar.managedProperty().bind(this.checkbox.selectedProperty());
+        this.cuposAgregar.visibleProperty().bind(this.checkbox.selectedProperty());
+        if(cuposAgregar.managedProperty().getValue()){
+            this.cuposAgregar.setText(null);
+        }
+
+        /*
+        this.campoPSW.setManaged(false);
+        this.campoPSW.setVisible(false);
+
+        this.campoPSW.managedProperty().bind(this.checkbox.selectedProperty());
+        this.campoPSW.visibleProperty().bind(this.checkbox.selectedProperty());
+         */
 
     }
 
@@ -295,6 +321,22 @@ public class CentroDeportivoController implements Initializable {
 
     public void setStage(Stage stage) {
         this.estage = stage;
+    }
+
+
+    public void elegirImagen(){
+        FileChooser seleccionar = new FileChooser();
+        seleccionar.setTitle("elegir imagen");
+        seleccionar.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        seleccionar.getExtensionFilters().clear();
+        seleccionar.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images Files","*.png","*.jpg","*.gif"));
+
+        File file = seleccionar.showOpenDialog(null);
+
+        if(file != null){
+            this.imageview.setImage(new Image(file.toURI().toString()));
+        }
     }
 
     /*public List<List> obtenerActividadesPorNombre(String  nombre) {
