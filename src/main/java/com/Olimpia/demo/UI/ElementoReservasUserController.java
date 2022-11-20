@@ -15,6 +15,9 @@ import java.util.List;
 
 public class ElementoReservasUserController {
 
+    public Label lblfecha;
+    public Label lblInicio;
+    public Label lblFinal;
     @FXML
     private Button btnCancelarReserva;
 
