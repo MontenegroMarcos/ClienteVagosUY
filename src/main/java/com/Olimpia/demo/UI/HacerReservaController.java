@@ -113,6 +113,7 @@ public class HacerReservaController {
         }
         ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,actividad,horario,empleado,horario.getKey().getCupos());
         HttpResponse<JsonNode> response=null;
+        CuposDisponibles respuesta=null;
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(actRealizada);
@@ -120,11 +121,11 @@ public class HacerReservaController {
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
+            respuesta = mapper.readValue(response.getBody().toString(), CuposDisponibles.class);
         }catch(Exception e){
             e.printStackTrace();
         }
-        String respuesta = response.getBody().toString();
-        return response.getParsingError().get().getOriginalBody();
+        return respuesta.getCuposRestantes().toString();
     }
 
     private ModeloActividad obtenerActividad(String email_centro,String nombre){

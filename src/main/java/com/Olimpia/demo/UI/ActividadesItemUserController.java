@@ -110,6 +110,7 @@ public class ActividadesItemUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+        this.horizontalbox = new HBox();
         this.horizontalbox.getStylesheets().add(css);
         this.horizontalbox.setId("horizontalbox");
     }

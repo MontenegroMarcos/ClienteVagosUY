@@ -107,7 +107,7 @@ public class UsuariosFinalesController implements Initializable {
 
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Tenis", "Otros");
