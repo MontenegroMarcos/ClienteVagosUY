@@ -3,16 +3,18 @@ package com.Olimpia.demo.modelo;
 public class ModeloFile {
     private String originalName;
     private String contentType;
-    private byte[] Bytes;
+    private byte[] bytes;
+    private ModeloActividad actividad;
 
-    public ModeloFile(String originalName, String contentType, byte[] bytes) {
+    public ModeloFile(String originalName, String contentType, byte[] bytes, ModeloActividad actividad) {
         this.originalName = originalName;
         this.contentType = contentType;
-        Bytes = bytes;
+        this.bytes = bytes;
+        this.actividad = actividad;
     }
 
     public ModeloFile(byte[] bytes) {
-        Bytes = bytes;
+        this.bytes = bytes;
     }
 
     public String getOriginalName() {
@@ -32,10 +34,18 @@ public class ModeloFile {
     }
 
     public byte[] getBytes() {
-        return Bytes;
+        return bytes;
     }
 
     public void setBytes(byte[] bytes) {
-        Bytes = bytes;
+        bytes = bytes;
+    }
+
+    public ModeloActividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(ModeloActividad actividad) {
+        this.actividad = actividad;
     }
 }

@@ -241,7 +241,7 @@ public class UsuarioAdminController implements Initializable {
         }
     }
 
-    public void subirImagen() {
+    /*public void subirImagen() {
         File file = new File("src/main/resources/furbo.jpg");
         FileInputStream input = null;
         MultipartFile multipartFile = null;
@@ -262,7 +262,7 @@ public class UsuarioAdminController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     //------------------------------------------------------------------------------------------------------------------
 

@@ -21,8 +21,12 @@ import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+import org.apache.commons.io.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -335,7 +339,25 @@ public class CentroDeportivoController implements Initializable {
         File file = seleccionar.showOpenDialog(null);
 
         if(file != null){
-            this.imageview.setImage(new Image(file.toURI().toString()));
+            //this.imageview.setImage(new Image(file.toURI().toString()));
+            FileInputStream input = null;
+            MultipartFile multipartFile = null;
+
+            ObjectMapper mapper = new ObjectMapper();
+            ModeloFile modeloFile = null;
+            String json = "";
+            try {
+                input = new FileInputStream(file);
+                multipartFile = new MockMultipartFile("file", file.getName(), "image/jpg", IOUtils.toByteArray(input));
+                modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(),obtenerActividad(this.textoUsuario.getText(),this.nombreActividadAgregar.getText()));
+                json = mapper.writeValueAsString(modeloFile);
+                HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
+                        .header("Content-Type", "application/json;charset=utf-8")
+                        .body(json)
+                        .asJson();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
