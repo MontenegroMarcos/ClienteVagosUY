@@ -41,7 +41,7 @@
             </Text>
          </children>
       </HBox>
-      <Pagination fx:id="paginador" layoutX="227.0" layoutY="42.0" prefHeight="420.0" prefWidth="454.0" stylesheets="@usuariosfinalesEstilo.css" />
+      <!--<Pagination fx:id="paginador" layoutX="227.0" layoutY="42.0" prefHeight="420.0" prefWidth="454.0" stylesheets="@usuariosfinalesEstilo.css" /> -->
       <Button fx:id="btncerrarsesion" layoutY="436.0" mnemonicParsing="false" onAction="#cerrarsesion" text="Cerrar sesion" />
       <ScrollPane fx:id="scrollpane" layoutX="233.0" layoutY="38.0" prefHeight="368.0" prefWidth="442.0">
          <content>

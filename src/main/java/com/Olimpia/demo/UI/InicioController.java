@@ -93,11 +93,15 @@ public class InicioController implements Initializable {
     @FXML
     void entrarEmpresaUser() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(InicioController.class.getResource("empresasUser.fxml"));
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("empresasUser.fxml"));
+        EmpresasUserController controler = fxmlLoader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         stage.setScene(scene);
-        EmpresasUserController controler = new EmpresasUserController();
         controler.init(this.campoEmail.getText());
         stage.show();
         this.estage.close();

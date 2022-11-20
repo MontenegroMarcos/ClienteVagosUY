@@ -123,6 +123,7 @@ public class HacerReservaController {
         }catch(Exception e){
             e.printStackTrace();
         }
+        String respuesta = response.getBody().toString();
         return response.getParsingError().get().getOriginalBody();
     }
 

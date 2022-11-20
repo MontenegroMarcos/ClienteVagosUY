@@ -13,6 +13,12 @@ public class ModeloUsuario {
         this.psw = psw;
     }
 
+    public ModeloUsuario(String email, String psw, Integer tipoUsuario) {
+        this.email = email;
+        this.psw = psw;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -23,7 +23,7 @@
                         <TextField fx:id="campoCorreo" layoutX="40.0" layoutY="111.0" promptText="Correo" styleClass="text-field" stylesheets="@usuariosfinalesEstilo.css" />
                         <TextField fx:id="campoPSW" layoutX="40.0" layoutY="167.0" promptText="Contraseña" stylesheets="@usuariosfinalesEstilo.css" />
                         <TextField fx:id="campoSaldo" layoutX="40.0" layoutY="219.0" promptText="Saldo" stylesheets="@usuariosfinalesEstilo.css" />
-                        <Button fx:id="btnCrear" layoutX="268.0" layoutY="79.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Crear" />
+                        <Button fx:id="btnCrear" layoutX="268.0" layoutY="79.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Crear" onAction="#AddEmpleados"/>
                         <Button fx:id="btnCancelar" layoutX="268.0" layoutY="157.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" text="Cancelar" />
                      </children>
                   </AnchorPane>

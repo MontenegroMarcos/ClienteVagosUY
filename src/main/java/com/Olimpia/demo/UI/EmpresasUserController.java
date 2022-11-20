@@ -1,6 +1,9 @@
 package com.Olimpia.demo.UI;
 
 import com.Olimpia.demo.modelo.ModeloEmpleado;
+import com.Olimpia.demo.modelo.ModeloEmpresa;
+import com.Olimpia.demo.modelo.ModeloUsuario;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
-import kong.unirest.ObjectMapper;
 import kong.unirest.Unirest;
 
 import java.io.IOException;
@@ -76,18 +78,16 @@ public class EmpresasUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        this.labelEmpresa.setText(correoEmpresa);
+        this.labelEmpresa.setText("");
 
         this.columnaNombre.setCellValueFactory(new PropertyValueFactory<ModeloEmpleado,String>("nombre"));
         this.columnaCorreo.setCellValueFactory(new PropertyValueFactory<ModeloEmpleado,String>("email"));
         this.columnaSaldo.setCellValueFactory(new PropertyValueFactory<ModeloEmpleado,String>("saldoMensual"));
-         actualizarTblEmpleados();
+        actualizarTblEmpleados();
     }
 
-    @FXML
-    void init(String email_empresa){
-        this.correoEmpresa = email_empresa;
-
+    public void init(String email_empresa){
+        this.labelEmpresa.setText(email_empresa);
     }
 
     public ObservableList<ModeloEmpleado> obtenerEmpleados(){
@@ -99,30 +99,34 @@ public class EmpresasUserController implements Initializable {
         this.tablaEmpleados.setItems(obtenerEmpleados());
     }
 
-    @FXML
-    void AddEmpleados() {
+
+    public void AddEmpleados() {
         if (this.camponombre.getText().equals(null) || this.campoPSW.getText().equals(null) || this.campoCorreo.getText().equals(null)
                 || (this.campoSaldo.getText().equals(null))) {
             //Hay un error , no se agrega
 
         } else {
             try {
-                String nombreClient = camponombre.getText();
+                String nombreCliente = camponombre.getText();
                 String email = campoCorreo.getText();
                 String password = campoPSW.getText();
                 Long saldoMensual = Long.parseLong(campoSaldo.getText());
                 try {
-                    Unirest mapper = new ObjectMapper();
-                    ModeloEmpleado empleado = new ModeloEmpleado(email, nombreClient, password, saldoMensual);
-                    String jsonString = mapper.writeValueAsString(empleado);
-                    HttpResponse<JsonNode> response = Unirest.post("http://10.252.60.160:8080/vagouy/empresa")
+                    ObjectMapper mapper = new ObjectMapper();
+                    ModeloUsuario usuario = new ModeloUsuario(email,password,3);
+                    String jsonString = mapper.writeValueAsString(usuario);
+                    HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/usuario/registrarUsuario")
                             .header("Content-Type", "application/json;charset=utf-8")
                             .body(jsonString)
                             .asJson();
-                    System.out.println(response.getBody());
                     System.out.println(response.getStatus());
-                    System.out.println(response.getStatusText());
-                    actualizarTblEmpleados();
+                    ModeloEmpleado empleado = new ModeloEmpleado(email,nombreCliente,password,saldoMensual,0L,0L,obtenerEmpresa(this.labelEmpresa.getText()));
+                    String empleadoJson = mapper.writeValueAsString(empleado);
+                    HttpResponse<JsonNode> responseEmpleado = Unirest.post("http://localhost:8080/vagouy/Empleado")
+                            .header("Content-Type", "application/json;charset=utf-8")
+                            .body(empleadoJson)
+                            .asJson();
+                    System.out.println(responseEmpleado.getStatus());
                 } catch (Exception e) {
 
                 }
@@ -131,6 +135,18 @@ public class EmpresasUserController implements Initializable {
 
         }
 
+    }
+
+    private ModeloEmpresa obtenerEmpresa(String email){
+        ObjectMapper mapper = new ObjectMapper();
+        String strEmpresa = Unirest.get("http://localhost:8080/vagouy/empresa/"+email).asString().getBody();
+        ModeloEmpresa empresa = null;
+        try {
+            empresa = mapper.readValue(strEmpresa, ModeloEmpresa.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return empresa;
     }
 
     @FXML
@@ -164,10 +180,6 @@ public class EmpresasUserController implements Initializable {
             controller.init(empelado.getNombre(),empelado.getEmail(),empelado.getPsw(),
                     String.valueOf(empelado.getSaldoActual()));
             stage.show();
-
-
-
-
         }
 
     }

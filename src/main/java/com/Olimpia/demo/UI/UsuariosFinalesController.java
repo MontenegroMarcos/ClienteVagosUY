@@ -88,7 +88,7 @@ public class UsuariosFinalesController implements Initializable {
 
 
         itemAct= obtenerActividades();
-        AtomicInteger filas = new AtomicInteger();
+        /*AtomicInteger filas = new AtomicInteger();
         //paginador.setPageCount(itemAct.size()/5);
 
         paginador.setPageFactory((pageIndex) -> {
@@ -120,8 +120,8 @@ public class UsuariosFinalesController implements Initializable {
 
 
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
-        this.comboBox.setItems(lista);
-        /*int filas = 0;
+        this.comboBox.setItems(lista);*/
+        int filas = 0;
 
         try {
 
@@ -146,10 +146,6 @@ public class UsuariosFinalesController implements Initializable {
         }
         ObservableList<String> lista = FXCollections.observableArrayList("Todas","Futbol","Basketball","Tenis","Otros");
         this.comboBox.setItems(lista);
-
-
-
-         */
     }
 
     private List<List> obtenerActividades(){
