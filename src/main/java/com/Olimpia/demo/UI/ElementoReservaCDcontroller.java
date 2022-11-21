@@ -69,8 +69,8 @@ public class ElementoReservaCDcontroller {
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
-
             this.controller.actualizar();
+            this.controller.actualizarBalance();
         } catch (Exception e) {
             e.printStackTrace();
         }

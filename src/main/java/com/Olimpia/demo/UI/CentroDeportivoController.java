@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,15 +47,15 @@ import java.util.*;
 public class CentroDeportivoController implements Initializable {
 
     @FXML
-    public TableColumn<ModeloActividad,String> tablaDiaGestion;
+    public TableColumn<MostrarActividad,String> tablaDiaGestion;
     @FXML
-    public TableColumn<ModeloActividad,Integer> columnaHoraInicio;
+    public TableColumn<MostrarActividad,String> columnaHoraInicio;
 
     @FXML
-    public TableColumn<ModeloActividad,Integer> colHoraFinal;
+    public TableColumn<MostrarActividad,String> colHoraFinal;
 
     @FXML
-    public TableColumn<ModeloActividad,Integer> colCupos;
+    public TableColumn<MostrarActividad,String> colCupos;
     private String emailCentroDeportivo;
 
     public CheckBox checkbox;
@@ -126,16 +127,16 @@ public class CentroDeportivoController implements Initializable {
     private TextField precioAgregar;
 
     @FXML
-    private TableColumn<ModeloActividad, Long> preciotablaGestion;
+    private TableColumn<MostrarActividad, String> preciotablaGestion;
 
     @FXML
-    private TableView<ModeloActividad> tablaGestionActividades;
+    private TableView<MostrarActividad> tablaGestionActividades;
 
     @FXML
     private TableColumn<?, ?> tablaHorariosGestionar;
 
     @FXML
-    private TableColumn<ModeloActividad, String> tablanombreGestion;
+    private TableColumn<MostrarActividad, String> tablanombreGestion;
 
     @FXML
     private Text textoUsuario;
@@ -183,7 +184,12 @@ public class CentroDeportivoController implements Initializable {
         ObservableList<String> lista1 = FXCollections.observableArrayList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes","Sabado","Domingo");
         this.comboxDiasAgregar.setItems(lista1);
 
-       
+        this.tablanombreGestion.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("nombre"));
+        this.preciotablaGestion.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("precio"));
+        this.tablaDiaGestion.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("dia"));
+        this.columnaHoraInicio.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("horaInicio"));
+        this.colHoraFinal.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("horaFin"));
+        this.colCupos.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("cupos"));
     }
 
     public void controlHorafinal(){
@@ -208,6 +214,7 @@ public class CentroDeportivoController implements Initializable {
             horaInicio.add(String.valueOf(i));
         }
         this.comboBoxHorarioInicial.setItems(FXCollections.observableList(horaInicio));
+        this.actualizarTblEmpresas();
 
         /*ObservableList<String> horafin = null;
         for (int i = (int) this.comboBoxHorarioInicial.getValue(); i < 23; i++) {
@@ -265,7 +272,11 @@ public class CentroDeportivoController implements Initializable {
         return balance;
     }
 
-    private ObservableList<ModeloActividad> obtenerActividades(String emailCD) {
+    public void actualizarBalance(){
+        this.balancefinal.setText(obtenerBalanace(this.textoUsuario.getText()).toString());
+    }
+
+    private List<ModeloActividad> obtenerActividades(String emailCD) {
         ObjectMapper mapper = new ObjectMapper();
         String strActividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/getActividad/"+emailCD).asString().getBody();
         List<ModeloActividad> actividades = null;
@@ -275,8 +286,7 @@ public class CentroDeportivoController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ObservableList<ModeloActividad> retorno = FXCollections.observableList(actividades);
-        return retorno;
+        return actividades;
     }
 
     private List<idActEmpl> obtenerIDReservas(String emailCD) {
@@ -436,7 +446,7 @@ public class CentroDeportivoController implements Initializable {
                 System.out.println(response.getStatus());
                 System.out.println(response.getStatusText());
                 if(response.getStatus()==200){
-                    this.balancefinal.setText(obtenerBalanace(this.textoUsuario.getText()).toString());
+                    this.actualizarBalance();
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -508,6 +518,7 @@ public class CentroDeportivoController implements Initializable {
                         .asJson();
                 if(response.getStatus()==200){
                     añadirImagenActividad(actividad.getKey().getNombre());
+                    this.actualizarTblEmpresas();
                 }else{
                     //Error ya existe actividad
                 }
@@ -606,6 +617,24 @@ public class CentroDeportivoController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void actualizarTblEmpresas() {
+        List<ModeloActividad> actividades = obtenerActividades(this.emailCentroDeportivo);
+        List<MostrarActividad> actividadesMostrar = new ArrayList<>();
+        ModeloActividad temp=null;
+        ModeloHorario tempH=null;
+        for(int i=0;i<actividades.size();i++){
+            temp=actividades.get(i);
+            for(int j=0;j<temp.getHorarios().size();j++){
+                tempH=temp.getHorarios().get(j);
+                actividadesMostrar.add(new MostrarActividad(temp.getKey().getNombre(),temp.getPrecio().toString(),tempH.getKey().getDia(),tempH.getKey().getHoraInicio(),tempH.getKey().getHoraFin(), tempH.getKey().getCupos().toString()));
+            }
+        }
+        ObservableList<MostrarActividad> lista = FXCollections.observableList(actividadesMostrar);
+        this.tablaGestionActividades.setItems(lista);
+    }
+
+
 
     /*public List<List> obtenerActividadesPorNombre(String  nombre) {
         ObjectMapper mapper = new ObjectMapper();
