@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
    <children>
       <TabPane layoutY="75.0" prefHeight="441.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>

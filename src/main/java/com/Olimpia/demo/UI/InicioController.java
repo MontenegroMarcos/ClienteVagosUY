@@ -70,9 +70,14 @@ public class InicioController implements Initializable {
     void entrarUsuarioCentroDeportivo() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(InicioController.class.getResourceAsStream("CentroDeportivoUI.fxml"));
+        Scene scene = new Scene(root);
+
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
+
         CentroDeportivoController controlador = fxmlLoader.getController();
+        String css = this.getClass().getResource("usuariosfinalesEstilo.css").toExternalForm();
+        scene.getStylesheets().add(css);
         controlador.init(this.campoEmail.getText());
         controlador.setStage(stage);
         stage.show();
