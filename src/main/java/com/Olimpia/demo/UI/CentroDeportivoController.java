@@ -154,6 +154,7 @@ public class CentroDeportivoController implements Initializable {
     public void init(String emailCD){
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
+        this.balancefinal.setText(obtenerBalanace(emailCD).toString());
         this.itemActReservadas.addAll(obtenerActividades());
         try {
             int filas = 0;
@@ -177,6 +178,17 @@ public class CentroDeportivoController implements Initializable {
         }
     }
 
+    private Long obtenerBalanace(String emailCD){
+        ObjectMapper mapper = new ObjectMapper();
+        String strActividad = Unirest.get("http://localhost:8080/vagouy/CentroDeportivos/balance/"+emailCD).asString().getBody();
+        Long balance = null;
+        try {
+            balance = mapper.readValue(strActividad, Long.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return balance;
+    }
     private List<List> obtenerActividades() {
         return null;
     }
@@ -294,6 +306,9 @@ public class CentroDeportivoController implements Initializable {
                 System.out.println(response.getBody());
                 System.out.println(response.getStatus());
                 System.out.println(response.getStatusText());
+                if(response.getStatus()==200){
+                    this.balancefinal.setText(obtenerBalanace(this.textoUsuario.getText()).toString());
+                }
             }catch(Exception e){
                 e.printStackTrace();
             }
