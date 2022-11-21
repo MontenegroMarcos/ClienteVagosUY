@@ -55,8 +55,8 @@
                         <CheckBox fx:id="checkbox" layoutX="212.0" layoutY="341.0" mnemonicParsing="false" text="Tiene Cupos" />
                         <Button fx:id="btnSubirImagen" layoutX="538.0" layoutY="188.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
                         <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                        <ComboBox fx:id="comboBoxHorarioInicial" layoutX="193.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Inicio" />
-                        <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" onAction="#controlHorafinal" prefWidth="150.0" promptText="Hora Final" />
+                        <ComboBox fx:id="comboBoxHorarioInicial" layoutX="193.0" layoutY="148.0" onAction="#controlHorafinal" prefWidth="150.0" promptText="Hora Inicio" />
+                        <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Final" />
                      </children>
                   </AnchorPane>
             </content>

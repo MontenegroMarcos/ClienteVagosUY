@@ -159,11 +159,12 @@ public class CentroDeportivoController implements Initializable {
     }
 
     public void controlHorafinal(){
-        ObservableList<String> horafin = null;
-        for (int i = Integer.parseInt(this.comboBoxHorarioInicial.getValue()); i < 23; i++) {
+        this.comboBoxhorarioFinal.getItems().clear();
+        List<String> horafin = new ArrayList<>();
+        for (int i = Integer.parseInt(this.comboBoxHorarioInicial.getValue())+1; i <= 23; i++) {
             horafin.add(String.valueOf(i));
         }
-        this.comboBoxhorarioFinal.setItems(horafin);
+        this.comboBoxhorarioFinal.setItems(FXCollections.observableList(horafin));
     }
 
     public void init(String emailCD){
@@ -174,7 +175,7 @@ public class CentroDeportivoController implements Initializable {
         this.itemIDReservas.addAll(obtenerIDReservas(emailCD));
 
         List<String> horaInicio = new ArrayList<>();
-        for (int i = 0; i <= 23; i++) {
+        for (int i = 0; i < 23; i++) {
             horaInicio.add(String.valueOf(i));
         }
         this.comboBoxHorarioInicial.setItems(FXCollections.observableList(horaInicio));
