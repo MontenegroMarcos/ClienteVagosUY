@@ -180,7 +180,7 @@ public class HacerReservaController {
         }catch(Exception e){
             e.printStackTrace();
         }
-        ModeloActividadRealizada reserva = new ModeloActividadRealizada(date,actividad,horario,empleado,horario.getKey().getCupos(),empleado);
+        ModeloActividadRealizada reserva = new ModeloActividadRealizada(date,actividad,horario,null,horario.getKey().getCupos(),empleado);
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(reserva);
