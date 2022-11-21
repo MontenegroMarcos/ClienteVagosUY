@@ -33,6 +33,11 @@ public class UsuariosFinalesController implements Initializable {
     public Pagination paginador;
     public Button btncerrarsesion;
 
+    @FXML
+    public Label lblSaldo;
+    @FXML
+    public Label lblgastoAdicional;
+
     private InicioController controllerInicio;
     private Stage estage;
 
