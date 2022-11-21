@@ -47,15 +47,15 @@
                         <Button fx:id="AgregarActividad" layoutX="578.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Agregar Actividad" />
                         <Button fx:id="cancelarActividadClear" layoutX="409.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" text="Cancelar" />
                         <ComboBox fx:id="comboboxCategoriasAgregar" layoutX="32.0" layoutY="79.0" prefWidth="150.0" promptText="Categorias" />
-                        <TextField fx:id="horariosinicioAgregar" layoutX="196.0" layoutY="159.0" prefHeight="26.0" prefWidth="72.0" promptText="Inicio" />
                         <TextField fx:id="cuposAgregar" layoutX="27.0" layoutY="336.0" promptText="Cupos(opcional)" />
                         <TextFlow fx:id="DiasyHorarios" layoutX="26.0" layoutY="213.0" prefHeight="58.0" prefWidth="200.0" style="-fx-background-color: #B2BEB5;" />
-                        <Button fx:id="aniadirHorarioAgregar" layoutX="404.0" layoutY="152.0" minWidth="31.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" text="+" />
-                        <TextField fx:id="horarioFinalAgregar" layoutX="293.0" layoutY="159.0" prefHeight="26.0" prefWidth="93.0" promptText="final" />
+                        <Button fx:id="aniadirHorarioAgregar" layoutX="299.0" layoutY="206.0" minWidth="31.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" text="+" />
                         <ComboBox fx:id="comboxDiasAgregar" layoutX="32.0" layoutY="148.0" prefWidth="150.0" promptText="Dias" />
                         <CheckBox fx:id="checkbox" layoutX="212.0" layoutY="341.0" mnemonicParsing="false" text="Tiene Cupos" />
-                        <Button fx:id="btnSubirImagen" layoutX="509.0" layoutY="188.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
-                        <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="478.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="btnSubirImagen" layoutX="538.0" layoutY="188.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
+                        <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <ComboBox fx:id="comboBoxHorarioInicial" layoutX="193.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Inicio" />
+                        <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Final" />
                      </children>
                   </AnchorPane>
             </content>

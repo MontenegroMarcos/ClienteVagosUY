@@ -1,6 +1,5 @@
 package com.Olimpia.demo.UI;
 
-import ch.qos.logback.core.util.COWArrayList;
 import com.Olimpia.demo.modelo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,13 +12,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
@@ -33,7 +30,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -51,6 +47,11 @@ public class CentroDeportivoController implements Initializable {
     public Button btnSubirImagen;
     @FXML
     public GridPane gridpane;
+    @FXML
+    public ComboBox comboBoxHorarioInicial;
+
+    @FXML
+    public ComboBox comboBoxhorarioFinal;
     @FXML
     private Stage estage;
     @FXML
@@ -137,7 +138,7 @@ public class CentroDeportivoController implements Initializable {
 
         this.cuposAgregar.managedProperty().bind(this.checkbox.selectedProperty());
         this.cuposAgregar.visibleProperty().bind(this.checkbox.selectedProperty());
-        if(cuposAgregar.managedProperty().getValue()){
+        if (cuposAgregar.managedProperty().getValue()) {
             this.cuposAgregar.setText(null);
         }
 
@@ -151,11 +152,26 @@ public class CentroDeportivoController implements Initializable {
 
     }
 
-    public void init(String emailCD){
+    public void init(String emailCD) {
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
         this.balancefinal.setText(obtenerBalanace(emailCD).toString());
         this.itemActReservadas.addAll(obtenerActividades());
+
+        ObservableList<String> horaInicio = null;
+        for (int i = 0; i < 23; i++) {
+            horaInicio.add(String.valueOf(i));
+        }
+        this.comboBoxHorarioInicial.setItems(horaInicio);
+
+        ObservableList<String> horafin = null;
+        for (int i = (int) this.comboBoxHorarioInicial.getValue(); i < 23; i++) {
+            horafin.add(String.valueOf(i));
+        }
+        this.comboBoxhorarioFinal.setItems(horafin);
+
+
+
         try {
             int filas = 0;
             for (int i = 0; i < itemActReservadas.size(); i++) {
@@ -166,7 +182,7 @@ public class CentroDeportivoController implements Initializable {
                 anchorpane.getStylesheets().add(css);*/
                 //anchorpane.setId("pane");
                 ElementoReservaCDcontroller controlador = fxmlLoader.getController();
-                controlador.setData(itemActReservadas.get(i), textoUsuario.getText(),this);
+                controlador.setData(itemActReservadas.get(i), textoUsuario.getText(), this);
 
                 this.gridpane.add(anchorpane, 0, filas++);
                 GridPane.setMargin(anchorpane, new Insets(10));
@@ -178,9 +194,9 @@ public class CentroDeportivoController implements Initializable {
         }
     }
 
-    private Long obtenerBalanace(String emailCD){
+    private Long obtenerBalanace(String emailCD) {
         ObjectMapper mapper = new ObjectMapper();
-        String strActividad = Unirest.get("http://localhost:8080/vagouy/CentroDeportivos/balance/"+emailCD).asString().getBody();
+        String strActividad = Unirest.get("http://localhost:8080/vagouy/CentroDeportivos/balance/" + emailCD).asString().getBody();
         Long balance = null;
         try {
             balance = mapper.readValue(strActividad, Long.class);
@@ -189,6 +205,7 @@ public class CentroDeportivoController implements Initializable {
         }
         return balance;
     }
+
     private List<List> obtenerActividades() {
         return null;
     }
@@ -196,10 +213,11 @@ public class CentroDeportivoController implements Initializable {
 
     private ObservableList<String> obtenerActividadesdeCD() {
         ObjectMapper mapper = new ObjectMapper();
-        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/email/"+this.textoUsuario.getText()).asString().getBody();
+        String actividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/email/" + this.textoUsuario.getText()).asString().getBody();
         List<String> actividad = null;
         try {
-            actividad = mapper.readValue(actividades, new TypeReference<List<String>>() {});
+            actividad = mapper.readValue(actividades, new TypeReference<List<String>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,20 +225,21 @@ public class CentroDeportivoController implements Initializable {
         return retorno;
     }
 
-    public void seleccionActividad(){
-        if(this.selectorFecha.getValue()!=null) {
+    public void seleccionActividad() {
+        if (this.selectorFecha.getValue() != null) {
             this.horarioInicio.getItems().clear();
             this.horarioFin.getItems().clear();
-            this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(),diaSemanaDate()));
+            this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(), diaSemanaDate()));
         }
     }
 
-    private ObservableList<String> obtenerHorasInicio(String actividad,String dia) {
+    private ObservableList<String> obtenerHorasInicio(String actividad, String dia) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaInicio/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia).asString().getBody();
+        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaInicio/" + actividad + "/" + this.textoUsuario.getText() + "/" + dia).asString().getBody();
         List<String> horas = null;
         try {
-            horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {});
+            horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -228,58 +247,59 @@ public class CentroDeportivoController implements Initializable {
         return retorno;
     }
 
-    public void seleccionarDia(){
-        if(this.checkinActividades!=null){
+    public void seleccionarDia() {
+        if (this.checkinActividades != null) {
             this.horarioInicio.getItems().clear();
             this.horarioFin.getItems().clear();
-            this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(),diaSemanaDate()));
+            this.horarioInicio.setItems(obtenerHorasInicio(this.checkinActividades.getValue(), diaSemanaDate()));
         }
     }
 
-    private String diaSemanaDate(){
+    private String diaSemanaDate() {
         LocalDate localDate = this.selectorFecha.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int diaSemana = c.get(Calendar.DAY_OF_WEEK);
-        String dia="";
-        switch(diaSemana){
+        String dia = "";
+        switch (diaSemana) {
             case 1:
-                dia="Domingo";
+                dia = "Domingo";
                 break;
             case 2:
-                dia="Lunes";
+                dia = "Lunes";
                 break;
             case 3:
-                dia="Martes";
+                dia = "Martes";
                 break;
             case 4:
-                dia="Miercoles";
+                dia = "Miercoles";
                 break;
             case 5:
-                dia="Jueves";
+                dia = "Jueves";
                 break;
             case 6:
-                dia="Viernes";
+                dia = "Viernes";
                 break;
             case 7:
-                dia="Sabado";
+                dia = "Sabado";
                 break;
         }
         return dia;
     }
 
-    public void seleccionarHoraInicio(){
-        this.horarioFin.setItems(obtenerHorasFin(this.checkinActividades.getValue(),diaSemanaDate(),this.horarioInicio.getValue()));
+    public void seleccionarHoraInicio() {
+        this.horarioFin.setItems(obtenerHorasFin(this.checkinActividades.getValue(), diaSemanaDate(), this.horarioInicio.getValue()));
     }
 
-    private ObservableList<String> obtenerHorasFin(String actividad,String dia,String horaInicio) {
+    private ObservableList<String> obtenerHorasFin(String actividad, String dia, String horaInicio) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaFin/"+actividad+"/"+this.textoUsuario.getText()+"/"+dia+"/"+horaInicio).asString().getBody();
+        String strHoras = Unirest.get("http://localhost:8080/vagouy/Actividades/horaFin/" + actividad + "/" + this.textoUsuario.getText() + "/" + dia + "/" + horaInicio).asString().getBody();
         List<String> horas = null;
         try {
-            horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {});
+            horas = mapper.readValue(strHoras, new TypeReference<List<String>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -287,15 +307,15 @@ public class CentroDeportivoController implements Initializable {
         return retorno;
     }
 
-    public void checkIn(){
-        if(!this.nombreCheckin.getText().isEmpty() && !this.checkinActividades.getValue().isEmpty() &&
-            this.selectorFecha.getValue()!=null && !this.horarioInicio.getValue().isEmpty() &&
-            !this.horarioFin.getValue().isEmpty()){
+    public void checkIn() {
+        if (!this.nombreCheckin.getText().isEmpty() && !this.checkinActividades.getValue().isEmpty() &&
+                this.selectorFecha.getValue() != null && !this.horarioInicio.getValue().isEmpty() &&
+                !this.horarioFin.getValue().isEmpty()) {
             LocalDate localDate = this.selectorFecha.getValue();
             Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
-            ModeloHorario horario = obtenerHorario(this.checkinActividades.getValue(),this.textoUsuario.getText(),diaSemanaDate(),this.horarioInicio.getValue(),this.horarioFin.getValue());
-            ModeloActividadRealizada actRealizada=new ModeloActividadRealizada(date,obtenerActividad(this.textoUsuario.getText(),this.checkinActividades.getValue()),horario,obtenerEmpleado(this.nombreCheckin.getText()),horario.getKey().getCupos(),obtenerEmpleado(this.nombreCheckin.getText()));
+            ModeloHorario horario = obtenerHorario(this.checkinActividades.getValue(), this.textoUsuario.getText(), diaSemanaDate(), this.horarioInicio.getValue(), this.horarioFin.getValue());
+            ModeloActividadRealizada actRealizada = new ModeloActividadRealizada(date, obtenerActividad(this.textoUsuario.getText(), this.checkinActividades.getValue()), horario, obtenerEmpleado(this.nombreCheckin.getText()), horario.getKey().getCupos(), obtenerEmpleado(this.nombreCheckin.getText()));
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 String jsonString = mapper.writeValueAsString(actRealizada);
@@ -306,20 +326,20 @@ public class CentroDeportivoController implements Initializable {
                 System.out.println(response.getBody());
                 System.out.println(response.getStatus());
                 System.out.println(response.getStatusText());
-                if(response.getStatus()==200){
+                if (response.getStatus() == 200) {
                     this.balancefinal.setText(obtenerBalanace(this.textoUsuario.getText()).toString());
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             //Levantar cuadro de texto
         }
     }
 
-    private ModeloActividad obtenerActividad(String email_centro,String nombre){
+    private ModeloActividad obtenerActividad(String email_centro, String nombre) {
         ObjectMapper mapper = new ObjectMapper();
-        String strActividad = Unirest.get("http://localhost:8080/vagouy/Actividades/actividad/"+email_centro+"/"+nombre).asString().getBody();
+        String strActividad = Unirest.get("http://localhost:8080/vagouy/Actividades/actividad/" + email_centro + "/" + nombre).asString().getBody();
         ModeloActividad actividad = null;
         try {
             actividad = mapper.readValue(strActividad, ModeloActividad.class);
@@ -329,9 +349,9 @@ public class CentroDeportivoController implements Initializable {
         return actividad;
     }
 
-    private ModeloHorario obtenerHorario(String nombre,String email,String dia,String horaInicio,String horaFin){
+    private ModeloHorario obtenerHorario(String nombre, String email, String dia, String horaInicio, String horaFin) {
         ObjectMapper mapper = new ObjectMapper();
-        String strHorario = Unirest.get("http://localhost:8080/vagouy/Actividades/obtenerHorario/"+nombre+"/"+email+"/"+dia+"/"+horaInicio+"/"+horaFin).asString().getBody();
+        String strHorario = Unirest.get("http://localhost:8080/vagouy/Actividades/obtenerHorario/" + nombre + "/" + email + "/" + dia + "/" + horaInicio + "/" + horaFin).asString().getBody();
         ModeloHorario horario = null;
         try {
             horario = mapper.readValue(strHorario, ModeloHorario.class);
@@ -341,9 +361,9 @@ public class CentroDeportivoController implements Initializable {
         return horario;
     }
 
-    private ModeloEmpleado obtenerEmpleado(String email){
+    private ModeloEmpleado obtenerEmpleado(String email) {
         ObjectMapper mapper = new ObjectMapper();
-        String strEmpleado = Unirest.get("http://localhost:8080/vagouy/Empleado/"+email).asString().getBody();
+        String strEmpleado = Unirest.get("http://localhost:8080/vagouy/Empleado/" + email).asString().getBody();
         ModeloEmpleado empleado = null;
         try {
             empleado = mapper.readValue(strEmpleado, ModeloEmpleado.class);
@@ -358,17 +378,17 @@ public class CentroDeportivoController implements Initializable {
     }
 
 
-    public void elegirImagen(){
+    public void elegirImagen() {
         FileChooser seleccionar = new FileChooser();
         seleccionar.setTitle("elegir imagen");
         seleccionar.setInitialDirectory(new File(System.getProperty("user.home")));
 
         seleccionar.getExtensionFilters().clear();
-        seleccionar.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images Files","*.png","*.jpg","*.gif"));
+        seleccionar.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images Files", "*.png", "*.jpg", "*.gif"));
 
         File file = seleccionar.showOpenDialog(null);
 
-        if(file != null){
+        if (file != null) {
             //this.imageview.setImage(new Image(file.toURI().toString()));
             FileInputStream input = null;
             MultipartFile multipartFile = null;
@@ -379,7 +399,7 @@ public class CentroDeportivoController implements Initializable {
             try {
                 input = new FileInputStream(file);
                 multipartFile = new MockMultipartFile("file", file.getName(), "image/jpg", IOUtils.toByteArray(input));
-                modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(),obtenerActividad(this.textoUsuario.getText(),this.nombreActividadAgregar.getText()));
+                modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(), obtenerActividad(this.textoUsuario.getText(), this.nombreActividadAgregar.getText()));
                 json = mapper.writeValueAsString(modeloFile);
                 HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
                         .header("Content-Type", "application/json;charset=utf-8")
