@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class HorariosController {
+
+    VerHorariosActividadesController controller;
+
+    @FXML
+    private Stage estage;
     @FXML
     private Label diaActividad;
     @FXML
@@ -23,7 +28,11 @@ public class HorariosController {
     private String nombreActividad;
     private String emailEmpleado;
 
-    public void setData(List horas,String emailCentro,String nombreActividad,String emailEmpleado) {
+    public void setData(List horas, String emailCentro, String nombreActividad, String emailEmpleado, Stage stage, VerHorariosActividadesController verHorariosActividadesController) {
+        this.estage = stage;
+        this.controller = verHorariosActividadesController;
+
+
         this.diaActividad.setText(String.valueOf(horas.get(0)));
         this.horaInicio.setText(String.valueOf(horas.get(1)));
         this.horaFin.setText(String.valueOf(horas.get(2)));
@@ -52,11 +61,13 @@ public class HorariosController {
 
             Stage stage = new Stage();
             stage.setScene(scene);
-            controlador.init(diaActividad.getText(),horaInicio.getText(),horaFin.getText(),Integer.parseInt(cupos.getText()),this.emailCentro,this.nombreActividad,this.emailEmpleado);
+            controlador.init(diaActividad.getText(),horaInicio.getText(),horaFin.getText(),Integer.parseInt(cupos.getText()),this.emailCentro,this.nombreActividad,this.emailEmpleado,this.controller,stage);
+           controller.ocultar();
             stage.show();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
 }

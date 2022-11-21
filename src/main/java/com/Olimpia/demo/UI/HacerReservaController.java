@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -14,6 +15,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HacerReservaController {
+
+    @FXML
+    private Stage estage;
+
+    private VerHorariosActividadesController controller;
     @FXML
     public Label diaSemana;
     @FXML
@@ -29,7 +35,9 @@ public class HacerReservaController {
     public ModeloActividad actividad;
     public ModeloEmpleado empleado;
 
-    public void init(String dia, String horaInicio, String horaFin, Integer cupos,String emailCentro,String nombreActividad,String emailEmpleado){
+    public void init(String dia, String horaInicio, String horaFin, Integer cupos, String emailCentro, String nombreActividad, String emailEmpleado, VerHorariosActividadesController controller, Stage stage){
+        this.estage = stage;
+        this.controller = controller;
         diaSemana.setText(dia);
         fecha=Calendar.getInstance(); //Fecha de ahora
         fechaElegida.setText(primerDia(numeroDia(dia),Integer.parseInt(horaInicio)));
@@ -180,6 +188,8 @@ public class HacerReservaController {
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
+            this.estage.close();
+            this.controller.mostrar();
         }catch(Exception e){
             e.printStackTrace();
         }

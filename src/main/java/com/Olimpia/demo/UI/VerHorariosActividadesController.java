@@ -37,7 +37,8 @@ public class VerHorariosActividadesController implements Initializable {
 
     private List<List> listaHorarios = new ArrayList<>();
 
-    public void init(String nombreActividad, String nombreCD, String emailCd, String emailEmpleado) {
+    public void init(String nombreActividad, String nombreCD, String emailCd, String emailEmpleado ,Stage stage, ActividadesItemUserController actividadesItemUserController) {
+        this.estage = stage;
         this.titulo.setText("Entrena " + nombreActividad + " en " + nombreCD);
         this.nombreActividad = nombreActividad;
         this.nombreCD = nombreCD;
@@ -53,7 +54,7 @@ public class VerHorariosActividadesController implements Initializable {
                 AnchorPane anchorpane = fxmlLoader.load();
 
                 HorariosController controlador = fxmlLoader.getController();
-                controlador.setData(listaHorarios.get(i), emailCd, nombreActividad, emailEmpleado);
+                controlador.setData(listaHorarios.get(i), emailCd, nombreActividad, emailEmpleado,stage,this);
 
                 gridpane.add(anchorpane, 0, filas++);
                 GridPane.setMargin(anchorpane, new Insets(10));
@@ -86,6 +87,16 @@ public class VerHorariosActividadesController implements Initializable {
         this.estage = stage;
         this.controlador = actividadesItemUserController;
     }
+
+    public void mostrar() {
+        estage.show();
+    }
+
+    public void ocultar() {
+        estage.close();
+    }
+
+
 
   /*  @FXML
     void Back(){

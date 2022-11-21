@@ -101,7 +101,7 @@ public class ActividadesItemUserController implements Initializable {
 
 
             stage.setScene(scene);
-            controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD,this.emailEmpleado);
+            controller.init(this.nombreactividad.getText(), this.nombreCentroDeportivo.getText(), this.emailCD,this.emailEmpleado,stage,this);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
