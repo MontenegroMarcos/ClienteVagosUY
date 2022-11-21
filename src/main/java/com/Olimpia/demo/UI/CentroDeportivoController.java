@@ -1,5 +1,6 @@
 package com.Olimpia.demo.UI;
 
+import ch.qos.logback.core.util.COWArrayList;
 import com.Olimpia.demo.modelo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,11 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -45,6 +49,8 @@ public class CentroDeportivoController implements Initializable {
     public ImageView imageview;
 
     public Button btnSubirImagen;
+    @FXML
+    public GridPane gridpane;
     @FXML
     private Stage estage;
     @FXML
@@ -121,6 +127,7 @@ public class CentroDeportivoController implements Initializable {
 
     @FXML
     private DatePicker selectorFecha;
+    private List<List> itemActReservadas;
 
 
     @Override
@@ -147,8 +154,32 @@ public class CentroDeportivoController implements Initializable {
     public void init(String emailCD){
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
+        this.itemActReservadas.addAll(obtenerActividades());
+        try {
+            int filas = 0;
+            for (int i = 0; i < itemActReservadas.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("elementoReservaCD.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);*/
+                //anchorpane.setId("pane");
+                ElementoReservaCDcontroller controlador = fxmlLoader.getController();
+                controlador.setData(itemActReservadas.get(i), textoUsuario.getText());
+
+                this.gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    private List<List> obtenerActividades() {
+        return null;
+    }
 
 
     private ObservableList<String> obtenerActividadesdeCD() {
