@@ -23,12 +23,14 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kong.unirest.HttpResponse;
+import kong.unirest.Interceptor;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import org.apache.commons.io.IOUtils;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.PrinterGraphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -43,6 +45,16 @@ import java.util.*;
 
 public class CentroDeportivoController implements Initializable {
 
+    @FXML
+    public TableColumn<ModeloActividad,String> tablaDiaGestion;
+    @FXML
+    public TableColumn<ModeloActividad,Integer> columnaHoraInicio;
+
+    @FXML
+    public TableColumn<ModeloActividad,Integer> colHoraFinal;
+
+    @FXML
+    public TableColumn<ModeloActividad,Integer> colCupos;
     private String emailCentroDeportivo;
 
     public CheckBox checkbox;
@@ -142,6 +154,19 @@ public class CentroDeportivoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /*
+        this.colnombreEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("nombre"));
+        this.colEmailEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("email"));
+        this.colPSWEmpresa.setCellValueFactory(new PropertyValueFactory<ModeloEmpresa, String>("psw"));
+         */
+
+        //this.tablanombreGestion.setCellValueFactory(new PropertyPermission());
+
+
+
+
+
         this.cuposAgregar.setManaged(false);
         this.cuposAgregar.setVisible(false);
 
@@ -158,14 +183,7 @@ public class CentroDeportivoController implements Initializable {
         ObservableList<String> lista1 = FXCollections.observableArrayList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes","Sabado","Domingo");
         this.comboxDiasAgregar.setItems(lista1);
 
-        /*
-        this.campoPSW.setManaged(false);
-        this.campoPSW.setVisible(false);
-
-        this.campoPSW.managedProperty().bind(this.checkbox.selectedProperty());
-        this.campoPSW.visibleProperty().bind(this.checkbox.selectedProperty());
-         */
-
+       
     }
 
     public void controlHorafinal(){

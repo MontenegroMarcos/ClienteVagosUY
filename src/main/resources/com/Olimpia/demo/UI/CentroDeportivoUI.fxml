@@ -20,13 +20,13 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="752.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="849.0" styleClass="gradient-background" stylesheets="@usuariosfinalesEstilo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Olimpia.demo.UI.CentroDeportivoController">
    <children>
-      <TabPane layoutY="75.0" prefHeight="441.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="80.0" prefHeight="465.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Check-in">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #5DC1B9FF;">
                      <children>
                         <TextField fx:id="nombreCheckin" layoutX="58.0" layoutY="67.0" promptText="Email Empleado" />
                         <Button fx:id="btnCheckin" layoutX="298.0" layoutY="96.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="41.0" prefWidth="91.0" text="Check-in" />
@@ -41,38 +41,42 @@
           </Tab>
           <Tab text="Registrar Actividades">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #5DC1B9FF;">
                      <children>
                         <TextField fx:id="nombreActividadAgregar" layoutX="32.0" layoutY="31.0" promptText="Nombre de la Actividad" />
-                        <TextField fx:id="precioAgregar" layoutX="29.0" layoutY="302.0" prefHeight="26.0" prefWidth="167.0" promptText="Precio" />
-                        <Button fx:id="AgregarActividad" layoutX="578.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Agregar Actividad" onAction="#añadirActividad"/>
+                        <TextField fx:id="precioAgregar" layoutX="23.0" layoutY="363.0" prefHeight="26.0" prefWidth="167.0" promptText="Precio" />
+                        <Button fx:id="AgregarActividad" layoutX="578.0" layoutY="338.0" mnemonicParsing="false" onAction="#añadirActividad" prefHeight="50.0" prefWidth="140.0" text="Agregar Actividad" />
                         <Button fx:id="cancelarActividadClear" layoutX="409.0" layoutY="338.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" text="Cancelar" />
-                        <ComboBox fx:id="comboboxCategoriasAgregar" layoutX="32.0" layoutY="79.0" prefWidth="150.0" promptText="Categorias" />
-                        <TextField fx:id="cuposAgregar" layoutX="27.0" layoutY="336.0" promptText="Cupos(opcional)" />
-                        <TextFlow fx:id="DiasyHorarios" layoutX="26.0" layoutY="213.0" prefHeight="58.0" prefWidth="200.0" style="-fx-background-color: #B2BEB5;" />
-                        <Button fx:id="aniadirHorarioAgregar" layoutX="299.0" layoutY="206.0" minWidth="31.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" text="+" onAction="#agregarHorario"/>
+                        <ComboBox fx:id="comboboxCategoriasAgregar" layoutX="199.0" layoutY="18.0" prefWidth="150.0" promptText="Categorias" />
+                        <TextField fx:id="cuposAgregar" layoutX="152.0" layoutY="209.0" promptText="Cupos(opcional)" />
+                        <TextFlow fx:id="DiasyHorarios" layoutX="168.0" layoutY="279.0" prefHeight="58.0" prefWidth="200.0" style="-fx-background-color: #B2BEB5;" />
+                        <Button fx:id="aniadirHorarioAgregar" layoutX="334.0" layoutY="215.0" minWidth="31.0" mnemonicParsing="false" onAction="#agregarHorario" prefHeight="39.0" prefWidth="149.0" text="Agregar Horario" />
                         <ComboBox fx:id="comboxDiasAgregar" layoutX="32.0" layoutY="148.0" prefWidth="150.0" promptText="Dias" />
-                        <CheckBox fx:id="checkbox" layoutX="212.0" layoutY="341.0" mnemonicParsing="false" text="Tiene Cupos" />
-                        <Button fx:id="btnSubirImagen" layoutX="538.0" layoutY="188.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
-                        <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <CheckBox fx:id="checkbox" layoutX="32.0" layoutY="210.0" mnemonicParsing="false" text="Tiene Cupos" />
+                        <Button fx:id="btnSubirImagen" layoutX="590.0" layoutY="215.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
+                        <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="568.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
                         <ComboBox fx:id="comboBoxHorarioInicial" layoutX="193.0" layoutY="148.0" onAction="#controlHorafinal" prefWidth="150.0" promptText="Hora Inicio" />
                         <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Final" />
+                        <Label layoutX="23.0" layoutY="279.0" styleClass="gradient-background" stylesheets="@inicioestilo.css" text="Horarios Agregados:" />
+                        <Label layoutX="23.0" layoutY="100.0" prefHeight="18.0" prefWidth="62.0" styleClass="gradient-background" stylesheets="@inicioestilo.css" text="Horarios:" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
             <Tab text="Gestionar Actividades">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #5DC1B9FF;">
                      <children>
-                        <TableView fx:id="tablaGestionActividades" layoutX="47.0" layoutY="61.0" prefHeight="290.0" prefWidth="419.0">
+                        <TableView fx:id="tablaGestionActividades" layoutX="47.0" layoutY="61.0" prefHeight="310.0" prefWidth="635.0">
                           <columns>
                             <TableColumn fx:id="tablanombreGestion" prefWidth="159.20001220703125" text="Nombre" />
                             <TableColumn fx:id="preciotablaGestion" prefWidth="100.0" text="Precio" />
-                              <TableColumn fx:id="tablaHorariosGestionar" prefWidth="160.0" text="Horarios" />
+                              <TableColumn fx:id="tablaDiaGestion" prefWidth="58.4000244140625" text="Dia" />
+                              <TableColumn fx:id="columnaHoraInicio" prefWidth="104.0" text="Hora Inicio" />
+                              <TableColumn fx:id="colHoraFinal" prefWidth="102.39993286132812" text="Hora Final" />
+                              <TableColumn fx:id="colCupos" prefWidth="120.79998779296875" text="Cupos" />
                           </columns>
                         </TableView>
-                        <Button fx:id="modificarGestion" layoutX="573.0" layoutY="97.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="112.0" text="Modificar" />
                      </children>
                   </AnchorPane>
               </content>
@@ -105,7 +109,7 @@
             </Tab>
             <Tab text="Balance">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #5DC1B9FF;">
                      <children>
 
                         <Text layoutX="154.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu ingreso es de :" wrappingWidth="110.78306007385254" />
@@ -126,6 +130,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnCerrarsesion" layoutX="479.0" layoutY="24.0" mnemonicParsing="false" onAction="#cerrarSesion" stylesheets="@inicioestilo.css" text="Cerrar Sesión" />
+      <Button fx:id="btnCerrarsesion" layoutX="704.0" layoutY="17.0" mnemonicParsing="false" onAction="#cerrarSesion" stylesheets="@inicioestilo.css" text="Cerrar Sesión" />
    </children>
 </AnchorPane>
