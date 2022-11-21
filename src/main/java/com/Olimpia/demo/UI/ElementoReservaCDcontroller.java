@@ -15,6 +15,8 @@ import java.util.List;
 
 public class ElementoReservaCDcontroller {
 
+    CentroDeportivoController controller;
+
     @FXML
     private Button btnAceptar;
     @FXML
@@ -58,8 +60,8 @@ public class ElementoReservaCDcontroller {
         this.precioActividad.setText(String.valueOf(reserva.getActividad().getPrecio()));
     }
 
-    public void aceptarReserva(){
-        ModeloActividadRealizada reserva = new ModeloActividadRealizada(this.reserva.getFecha(),this.reserva.getActividad(),this.reserva.getHorarios(),this.empleadoReserva,this.reserva.getCupos(),null);
+    public void aceptarReserva() {
+        ModeloActividadRealizada reserva = new ModeloActividadRealizada(this.reserva.getFecha(), this.reserva.getActividad(), this.reserva.getHorarios(), this.empleadoReserva, this.reserva.getCupos(), null);
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(reserva);
@@ -67,8 +69,14 @@ public class ElementoReservaCDcontroller {
                     .header("Content-Type", "application/json;charset=utf-8")
                     .body(jsonString)
                     .asJson();
-        }catch(Exception e){
+
+            this.controller.actualizar();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setcontrol(CentroDeportivoController centroDeportivoController) {
+        this.controller = centroDeportivoController;
     }
 }

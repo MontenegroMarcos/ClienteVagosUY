@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -29,7 +30,7 @@
                      <children>
                         <TextField fx:id="nombreCheckin" layoutX="58.0" layoutY="67.0" promptText="Email Empleado" />
                         <Button fx:id="btnCheckin" layoutX="298.0" layoutY="96.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="41.0" prefWidth="91.0" text="Check-in" />
-                        <Button fx:id="btnCheckInCancelar" layoutX="298.0" layoutY="185.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Cancelar"/>
+                        <Button fx:id="btnCheckInCancelar" layoutX="298.0" layoutY="185.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="91.0" text="Cancelar" />
                         <ComboBox fx:id="checkinActividades" layoutX="59.0" layoutY="117.0" onAction="#seleccionActividad" prefWidth="150.0" promptText="Actividades" />
                         <DatePicker fx:id="selectorFecha" layoutX="47.0" layoutY="193.0" onAction="#seleccionarDia" />
                         <ComboBox fx:id="horarioInicio" layoutX="62.0" layoutY="271.0" onAction="#seleccionarHoraInicio" prefWidth="150.0" promptText="horaInicio" />
@@ -38,7 +39,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Actividades">
+          <Tab text="Registrar Actividades">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@actividaditemuserEstilo.css">
                      <children>
@@ -55,7 +56,7 @@
                         <Button fx:id="btnSubirImagen" layoutX="538.0" layoutY="188.0" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="50.0" prefWidth="138.0" text="Subir Imagen" />
                         <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                         <ComboBox fx:id="comboBoxHorarioInicial" layoutX="193.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Inicio" />
-                        <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" prefWidth="150.0" promptText="Hora Final" />
+                        <ComboBox fx:id="comboBoxhorarioFinal" layoutX="350.0" layoutY="148.0" onAction="#controlHorafinal" prefWidth="150.0" promptText="Hora Final" />
                      </children>
                   </AnchorPane>
             </content>
@@ -93,7 +94,11 @@
                               </ScrollPane>
                            </children>
                         </HBox>
-                        <Button layoutX="38.0" layoutY="42.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" text="wew" />
+                        <Label layoutX="14.0" layoutY="27.0" text="Reservas Actuales">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
               </content>

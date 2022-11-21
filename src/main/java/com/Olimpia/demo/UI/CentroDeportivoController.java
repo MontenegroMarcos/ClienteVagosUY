@@ -42,6 +42,8 @@ import java.util.*;
 
 public class CentroDeportivoController implements Initializable {
 
+    private String emailCentroDeportivo;
+
     public CheckBox checkbox;
 
     public ImageView imageview;
@@ -50,10 +52,10 @@ public class CentroDeportivoController implements Initializable {
     @FXML
     public GridPane gridpane;
     @FXML
-    public ComboBox comboBoxHorarioInicial;
+    public ComboBox<String> comboBoxHorarioInicial;
 
     @FXML
-    public ComboBox comboBoxhorarioFinal;
+    public ComboBox<String> comboBoxhorarioFinal;
     @FXML
     private Stage estage;
     @FXML
@@ -158,13 +160,14 @@ public class CentroDeportivoController implements Initializable {
 
     public void controlHorafinal(){
         ObservableList<String> horafin = null;
-        for (int i = (int) this.comboBoxHorarioInicial.getValue(); i < 23; i++) {
+        for (int i = Integer.parseInt(this.comboBoxHorarioInicial.getValue()); i < 23; i++) {
             horafin.add(String.valueOf(i));
         }
         this.comboBoxhorarioFinal.setItems(horafin);
     }
 
     public void init(String emailCD){
+        this.emailCentroDeportivo = emailCD;
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
         this.balancefinal.setText(obtenerBalanace(emailCD).toString());
@@ -196,6 +199,7 @@ public class CentroDeportivoController implements Initializable {
                 ElementoReservaCDcontroller controlador = fxmlLoader.getController();
                 controlador.setData(obtenerReserva(itemIDReservas.get(i).getIdActividad()),obtenerEmpleado(itemIDReservas.get(i).getEmailEmpleado()));
                 controlador.setData(obtenerReserva(itemIDReservas.get(i).getIdActividad()),obtenerEmpleado(itemIDReservas.get(i).getEmailEmpleado()));
+                controlador.setcontrol(this);
 
                 this.gridpane.add(anchorpane, 0, filas++);
                 GridPane.setMargin(anchorpane, new Insets(10));
@@ -480,6 +484,37 @@ public class CentroDeportivoController implements Initializable {
 
         stage.show();
         this.estage.close();
+    }
+
+    public void actualizar() {
+
+        this.gridpane.getChildren().clear();
+        this.itemIDReservas.clear();
+
+        this.itemIDReservas.addAll(obtenerIDReservas(this.emailCentroDeportivo));
+
+        try {
+            int filas = 0;
+            for (int i = 0; i < itemIDReservas.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("elementoReservaCD.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);
+                //anchorpane.setId("pane");*/
+                ElementoReservaCDcontroller controlador = fxmlLoader.getController();
+                controlador.setData(obtenerReserva(itemIDReservas.get(i).getIdActividad()),obtenerEmpleado(itemIDReservas.get(i).getEmailEmpleado()));
+                controlador.setData(obtenerReserva(itemIDReservas.get(i).getIdActividad()),obtenerEmpleado(itemIDReservas.get(i).getEmailEmpleado()));
+                controlador.setcontrol(this);
+
+                this.gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*public List<List> obtenerActividadesPorNombre(String  nombre) {
