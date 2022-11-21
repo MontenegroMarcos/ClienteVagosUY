@@ -87,10 +87,10 @@ public class CentroDeportivoController implements Initializable {
     private ComboBox<String> checkinActividades;
 
     @FXML
-    private ComboBox<?> comboboxCategoriasAgregar;
+    private ComboBox<String> comboboxCategoriasAgregar;
 
     @FXML
-    private ComboBox<?> comboxDiasAgregar;
+    private ComboBox<String> comboxDiasAgregar;
 
     @FXML
     private ComboBox<String> horarioFin;
@@ -114,16 +114,16 @@ public class CentroDeportivoController implements Initializable {
     private TextField precioAgregar;
 
     @FXML
-    private TableColumn<?, ?> preciotablaGestion;
+    private TableColumn<ModeloActividad, Long> preciotablaGestion;
 
     @FXML
-    private TableView<?> tablaGestionActividades;
+    private TableView<ModeloActividad> tablaGestionActividades;
 
     @FXML
     private TableColumn<?, ?> tablaHorariosGestionar;
 
     @FXML
-    private TableColumn<?, ?> tablanombreGestion;
+    private TableColumn<ModeloActividad, String> tablanombreGestion;
 
     @FXML
     private Text textoUsuario;
@@ -136,6 +136,8 @@ public class CentroDeportivoController implements Initializable {
     private List<idActEmpl> itemIDReservas;
 
     private File imagenFile;
+    private ModeloCentroDeportivo centroDeportivo;
+    private List<ModeloHorario> horariosAgregarRegistro;
 
 
     @Override
@@ -150,6 +152,11 @@ public class CentroDeportivoController implements Initializable {
         }
 
         this.itemIDReservas = new ArrayList<>();
+        this.horariosAgregarRegistro = new ArrayList<>();
+        ObservableList<String> lista = FXCollections.observableArrayList("Todas", "Futbol", "Basketball", "Tenis", "Otros");
+        this.comboboxCategoriasAgregar.setItems(lista);
+        ObservableList<String> lista1 = FXCollections.observableArrayList("Lunes", "Martes", "Miercoles", "Jueves", "Viernes","Sabado","Domingo");
+        this.comboxDiasAgregar.setItems(lista1);
 
         /*
         this.campoPSW.setManaged(false);
@@ -175,6 +182,7 @@ public class CentroDeportivoController implements Initializable {
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
         this.balancefinal.setText(obtenerBalanace(emailCD).toString());
+        this.centroDeportivo = obtenerCentro(emailCD);
         this.itemIDReservas.addAll(obtenerIDReservas(emailCD));
 
         List<String> horaInicio = new ArrayList<>();
@@ -215,6 +223,18 @@ public class CentroDeportivoController implements Initializable {
         }
     }
 
+    private ModeloCentroDeportivo obtenerCentro(String email){
+        ObjectMapper mapper = new ObjectMapper();
+        String strCentro = Unirest.get("http://localhost:8080/vagouy/CentroDeportivos/getCentro/"+email).asString().getBody();
+        ModeloCentroDeportivo centro = null;
+        try {
+            centro = mapper.readValue(strCentro, ModeloCentroDeportivo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return centro;
+    }
+
     private Long obtenerBalanace(String emailCD){
         ObjectMapper mapper = new ObjectMapper();
         String strActividad = Unirest.get("http://localhost:8080/vagouy/CentroDeportivos/balance/"+emailCD).asString().getBody();
@@ -225,6 +245,20 @@ public class CentroDeportivoController implements Initializable {
             e.printStackTrace();
         }
         return balance;
+    }
+
+    private ObservableList<ModeloActividad> obtenerActividades(String emailCD) {
+        ObjectMapper mapper = new ObjectMapper();
+        String strActividades = Unirest.get("http://localhost:8080/vagouy/Actividades/centro/getActividad/"+emailCD).asString().getBody();
+        List<ModeloActividad> actividades = null;
+        try {
+            actividades = mapper.readValue(strActividades, new TypeReference<List<ModeloActividad>>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ObservableList<ModeloActividad> retorno = FXCollections.observableList(actividades);
+        return retorno;
     }
 
     private List<idActEmpl> obtenerIDReservas(String emailCD) {
@@ -430,12 +464,60 @@ public class CentroDeportivoController implements Initializable {
         return empleado;
     }
 
+    public void agregarHorario(){
+        if(this.comboxDiasAgregar.getValue().equals(null)||this.comboBoxHorarioInicial.getValue().equals(null)||this.comboBoxhorarioFinal.getValue().equals(null)){
+            //Error agregarHorario
+        }else{
+            this.horariosAgregarRegistro.add(new ModeloHorario(new horarioKey(this.comboxDiasAgregar.getValue(),this.comboBoxHorarioInicial.getValue(),this.comboBoxhorarioFinal.getValue(),Integer.valueOf(this.cuposAgregar.getText()))));
+        }
+    }
+
     public void setStage(Stage stage) {
         this.estage = stage;
     }
 
     public void añadirActividad(){
-        //FIXME AÑADIR ACTIVIDAD
+        if(this.nombreActividadAgregar.getText().equals(null)||this.comboboxCategoriasAgregar.getValue().equals(null)||this.horariosAgregarRegistro.size()==0||this.precioAgregar.getText().equals(null)||this.imagenFile.equals(null)){
+            //Pantalla error
+        }else{
+            ObjectMapper mapper = new ObjectMapper();
+            ModeloActividad actividad = new ModeloActividad(new ActividadKey(this.centroDeportivo,this.nombreActividadAgregar.getText()),this.comboboxCategoriasAgregar.getValue(),Long.parseLong(this.precioAgregar.getText()),this.horariosAgregarRegistro);
+            try {
+                String strActividad = mapper.writeValueAsString(actividad);
+                HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/Actividades")
+                        .header("Content-Type", "application/json;charset=utf-8")
+                        .body(strActividad)
+                        .asJson();
+                if(response.getStatus()==200){
+                    añadirImagenActividad(actividad.getKey().getNombre());
+                }else{
+                    //Error ya existe actividad
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void añadirImagenActividad(String nombreActividad){
+        FileInputStream input = null;
+        MultipartFile multipartFile = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+        ModeloFile modeloFile = null;
+        String json = "";
+        try {
+            input = new FileInputStream(this.imagenFile);
+            multipartFile = new MockMultipartFile("file", this.imagenFile.getName(), Files.probeContentType(this.imagenFile.toPath()), IOUtils.toByteArray(input));
+            modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(),obtenerActividad(this.textoUsuario.getText(),nombreActividad));
+            json = mapper.writeValueAsString(modeloFile);
+            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
+                    .header("Content-Type", "application/json;charset=utf-8")
+                    .body(json)
+                    .asJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -451,24 +533,6 @@ public class CentroDeportivoController implements Initializable {
 
         if(this.imagenFile != null){
             this.imageview.setImage(new Image(this.imagenFile.toURI().toString()));
-            FileInputStream input = null;
-            MultipartFile multipartFile = null;
-
-            ObjectMapper mapper = new ObjectMapper();
-            ModeloFile modeloFile = null;
-            String json = "";
-            try {
-                input = new FileInputStream(this.imagenFile);
-                multipartFile = new MockMultipartFile("file", this.imagenFile.getName(), Files.probeContentType(this.imagenFile.toPath()), IOUtils.toByteArray(input));
-                modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(),obtenerActividad(this.textoUsuario.getText(),this.nombreActividadAgregar.getText()));
-                json = mapper.writeValueAsString(modeloFile);
-                HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
-                        .header("Content-Type", "application/json;charset=utf-8")
-                        .body(json)
-                        .asJson();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
