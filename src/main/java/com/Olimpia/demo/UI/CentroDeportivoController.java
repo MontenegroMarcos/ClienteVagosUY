@@ -190,6 +190,8 @@ public class CentroDeportivoController implements Initializable {
         this.columnaHoraInicio.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("horaInicio"));
         this.colHoraFinal.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("horaFin"));
         this.colCupos.setCellValueFactory(new PropertyValueFactory<MostrarActividad, String>("cupos"));
+
+        this.imagenFile = new File("src/main/resources/defaultImage.jpg");
     }
 
     public void controlHorafinal(){
@@ -496,7 +498,21 @@ public class CentroDeportivoController implements Initializable {
         if(this.comboxDiasAgregar.getValue().equals(null)||this.comboBoxHorarioInicial.getValue().equals(null)||this.comboBoxhorarioFinal.getValue().equals(null)){
             //Error agregarHorario
         }else{
-            this.horariosAgregarRegistro.add(new ModeloHorario(new horarioKey(this.comboxDiasAgregar.getValue(),this.comboBoxHorarioInicial.getValue(),this.comboBoxhorarioFinal.getValue(),Integer.valueOf(this.cuposAgregar.getText()))));
+            String cupos="";
+            if(!cuposAgregar.managedProperty().getValue()){
+                cupos="-";
+                this.horariosAgregarRegistro.add(new ModeloHorario(new horarioKey(this.comboxDiasAgregar.getValue(),this.comboBoxHorarioInicial.getValue(),this.comboBoxhorarioFinal.getValue(),-1)));
+            }else{
+                try {
+                    cupos = this.cuposAgregar.getText();
+                    this.horariosAgregarRegistro.add(new ModeloHorario(new horarioKey(this.comboxDiasAgregar.getValue(), this.comboBoxHorarioInicial.getValue(), this.comboBoxhorarioFinal.getValue(), Integer.valueOf(this.cuposAgregar.getText()))));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            String texto = "\n"+this.comboxDiasAgregar.getValue()+","+this.comboBoxHorarioInicial.getValue()+","+this.comboBoxhorarioFinal.getValue()+","+cupos;
+            Text nuevoTexto = new Text(texto);
+            this.DiasyHorarios.getChildren().add(nuevoTexto);
         }
     }
 
