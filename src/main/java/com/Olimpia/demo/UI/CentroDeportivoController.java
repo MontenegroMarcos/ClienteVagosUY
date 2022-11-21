@@ -166,7 +166,7 @@ public class CentroDeportivoController implements Initializable {
                 anchorpane.getStylesheets().add(css);*/
                 //anchorpane.setId("pane");
                 ElementoReservaCDcontroller controlador = fxmlLoader.getController();
-                controlador.setData(itemActReservadas.get(i), textoUsuario.getText());
+                controlador.setData(itemActReservadas.get(i), textoUsuario.getText(),this);
 
                 this.gridpane.add(anchorpane, 0, filas++);
                 GridPane.setMargin(anchorpane, new Insets(10));

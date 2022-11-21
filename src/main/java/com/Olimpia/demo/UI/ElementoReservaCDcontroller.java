@@ -34,6 +34,6 @@ public class ElementoReservaCDcontroller {
     @FXML
     private Label precioActividad;
 
-    public void setData(List list, String text) {
+    public void setData(List list, String text, CentroDeportivoController centroDeportivoController) {
     }
 }

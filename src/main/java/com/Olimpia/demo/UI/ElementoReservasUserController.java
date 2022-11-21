@@ -1,7 +1,6 @@
 package com.Olimpia.demo.UI;
 
 import com.Olimpia.demo.modelo.ModeloActividadRealizada;
-import com.Olimpia.demo.modelo.ModeloUsuario;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -21,6 +20,8 @@ import java.util.List;
 public class ElementoReservasUserController {
 
     private ModeloActividadRealizada reserva;
+
+    private PantalladeReservasUserController controlador;
 
     @FXML
     public Label lblfecha;
@@ -55,7 +56,8 @@ public class ElementoReservasUserController {
     private Label lbldireccion;
 
 
-    public void setData(ModeloActividadRealizada reserva, String emailEmpleado){
+    public void setData(ModeloActividadRealizada reserva, String emailEmpleado, PantalladeReservasUserController pantalladeReservasUserController){
+        this.controlador = pantalladeReservasUserController;
         this.reserva = reserva;
         this.lblNombre.setText(String.valueOf(reserva.getActividad().getKey().getNombre()));
         this.lblfecha.setText(fechaStr(reserva.getFecha()));
@@ -103,6 +105,7 @@ public class ElementoReservasUserController {
                     .body(strReserva)
                     .asJson();
             System.out.println(responseUsr.getStatus());
+            this.controlador.actualizar();
         }catch(Exception e){
             e.printStackTrace();
         }

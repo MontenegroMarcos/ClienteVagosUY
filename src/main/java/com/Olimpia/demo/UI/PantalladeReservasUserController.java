@@ -26,6 +26,9 @@ public class PantalladeReservasUserController {
     @FXML
     Stage estage;
 
+    private String emailUser;
+
+
     @FXML
     private Button btnVolver;
 
@@ -44,6 +47,7 @@ public class PantalladeReservasUserController {
 
 
     public void setinit(String email, Stage estage, UsuariosFinalesController usuariosFinalesController) {
+        this.emailUser = email;
         this.idReservas = obtenerIDReservasdeUsuario(email);
         this.controlador = usuariosFinalesController;
         try {
@@ -56,7 +60,7 @@ public class PantalladeReservasUserController {
                 anchorpane.getStylesheets().add(css);*/
                 //anchorpane.setId("pane");
                 ElementoReservasUserController controlador = fxmlLoader.getController();
-                controlador.setData(obtenerReserva(idReservas.get(i)),email);
+                controlador.setData(obtenerReserva(idReservas.get(i)),email,this);
 
                 this.gridpane.add(anchorpane, 0, filas++);
                 GridPane.setMargin(anchorpane, new Insets(10));
@@ -100,5 +104,32 @@ public class PantalladeReservasUserController {
     public void Back(){
         estage.close();
         this.controlador.showWindow();
+    }
+
+    public void actualizar() {
+        this.idReservas.clear();
+        this.gridpane.getChildren().clear();
+        this.idReservas = obtenerIDReservasdeUsuario(emailUser);
+
+        try {
+            int filas = 0;
+            for (int i = 0; i < idReservas.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ElementoReservasUser.fxml"));
+                AnchorPane anchorpane = fxmlLoader.load();
+                /*String css = this.getClass().getResource("actividaditemuserEstilo.css").toExternalForm();
+                anchorpane.getStylesheets().add(css);*/
+                //anchorpane.setId("pane");
+                ElementoReservasUserController controlador = fxmlLoader.getController();
+                controlador.setData(obtenerReserva(idReservas.get(i)),emailUser,this);
+
+                this.gridpane.add(anchorpane, 0, filas++);
+                GridPane.setMargin(anchorpane, new Insets(10));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
