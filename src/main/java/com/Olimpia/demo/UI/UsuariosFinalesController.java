@@ -2,6 +2,7 @@ package com.Olimpia.demo.UI;
 
 
 import com.Olimpia.demo.modelo.ModeloActividad;
+import com.Olimpia.demo.modelo.ModeloEmpleado;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -67,6 +68,8 @@ public class UsuariosFinalesController implements Initializable {
         this.textoUsuario.setText(text);
         this.controllerInicio = inicioController;
         this.estage = stage;
+        this.lblSaldo.setText(String.valueOf(obtenerSaldoRestante(text)));
+        this.lblgastoAdicional.setText(String.valueOf(obtenerGastoAdicional(text)));
 
         this.itemAct.addAll(obtenerActividades());
         try {
@@ -89,6 +92,30 @@ public class UsuariosFinalesController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Long obtenerSaldoRestante(String email){
+        ObjectMapper mapper = new ObjectMapper();
+        String strSaldo = Unirest.get("http://localhost:8080/vagouy/Empleado/verSaldoRestante/"+email).asString().getBody();
+        Long saldo = null;
+        try {
+            saldo = mapper.readValue(strSaldo, Long.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return saldo;
+    }
+
+    private Long obtenerGastoAdicional(String email){
+        ObjectMapper mapper = new ObjectMapper();
+        String strGasto = Unirest.get("http://localhost:8080/vagouy/Empleado/verGastoAdicional/"+email).asString().getBody();
+        Long gasto = null;
+        try {
+            gasto = mapper.readValue(strGasto, Long.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return gasto;
     }
 
     @FXML

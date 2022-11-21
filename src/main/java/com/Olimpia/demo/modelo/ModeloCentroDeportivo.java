@@ -4,13 +4,13 @@ public class ModeloCentroDeportivo {
     private String email;
     private String psw;
     private String nombre;
-    private String deuda;
+    private Long deuda;
     private String direccion;
 
     public ModeloCentroDeportivo() {
     }
 
-    public ModeloCentroDeportivo(String email, String psw, String nombre, String deuda, String direccion) {
+    public ModeloCentroDeportivo(String email, String psw, String nombre, Long deuda, String direccion) {
         this.email = email;
         this.psw = psw;
         this.nombre = nombre;
@@ -42,11 +42,11 @@ public class ModeloCentroDeportivo {
         this.nombre = nombre;
     }
 
-    public String getDeuda() {
+    public Long getDeuda() {
         return deuda;
     }
 
-    public void setDeuda(String deuda) {
+    public void setDeuda(Long deuda) {
         this.deuda = deuda;
     }
 

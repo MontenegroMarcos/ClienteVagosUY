@@ -47,7 +47,7 @@
                         <TextField fx:id="campoCorreoCentro" layoutX="51.0" layoutY="101.0" promptText="Correo Electronico" />
                         <TextField fx:id="campoContrasena" layoutX="51.0" layoutY="149.0" promptText="Contraseña" />
                         <TextField fx:id="campoDireccionCentro" layoutX="51.0" layoutY="203.0" promptText="Direccion" />
-                        <Button fx:id="btnAgregarCentro" layoutX="74.0" layoutY="290.0" mnemonicParsing="false" text="Agregar Centro" />
+                        <Button fx:id="btnAgregarCentro" layoutX="74.0" layoutY="290.0" mnemonicParsing="false" text="Agregar Centro" onAction="#añadirCentro"/>
                         <Button fx:id="btnCancelarCentro" layoutX="225.0" layoutY="290.0" mnemonicParsing="false" text="Cancelar" />
                      </children></AnchorPane>
                </content>

@@ -1,5 +1,6 @@
 package com.Olimpia.demo.UI;
 
+import com.Olimpia.demo.modelo.ModeloCentroDeportivo;
 import com.Olimpia.demo.modelo.ModeloEmpresa;
 import com.Olimpia.demo.modelo.ModeloFile;
 import com.Olimpia.demo.modelo.ModeloUsuario;
@@ -277,6 +278,43 @@ public class UsuarioAdminController implements Initializable {
         this.estage.close();
     }
 
+    public void añadirCentro(){
+        if (camponombreCentro.getText().equals(null) || campoCorreoCentro.getText().equals(null) || campoContrasena.getText().equals(null) || campoDireccionCentro.getText().equals(null)) {
+            //Hay un error , no se agrega
+        } else {
+            try {
+                String nombreCD = camponombreCentro.getText();
+                String emailCD = campoCorreoCentro.getText();
+                String passwordCD = campoContrasena.getText();
+                String direccionCD = campoDireccionCentro.getText();
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    ModeloUsuario usuario = new ModeloUsuario(emailCD,passwordCD,2);
+                    String strUsuario = mapper.writeValueAsString(usuario);
+                    HttpResponse<JsonNode> responseUsr = Unirest.post("http://localhost:8080/vagouy/usuario/registrarUsuario")
+                            .header("Content-Type", "application/json;charset=utf-8")
+                            .body(strUsuario)
+                            .asJson();
+                    System.out.println(responseUsr.getStatus());
+                    ModeloCentroDeportivo empresa = new ModeloCentroDeportivo(emailCD,passwordCD,nombreCD,0L,direccionCD);
+                    String jsonString = mapper.writeValueAsString(empresa);
+                    HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/vagouy/CentroDeportivos")
+                            .header("Content-Type", "application/json;charset=utf-8")
+                            .body(jsonString)
+                            .asJson();
+                    System.out.println(response.getBody());
+                    System.out.println(response.getStatus());
+                    System.out.println(response.getStatusText());
+                } catch (Exception e) {
+
+
+                }
+
+            } catch (Exception e) {
+            }
+        }
+    }
+
     /*public void subirImagen() {
         File file = new File("src/main/resources/furbo.jpg");
         FileInputStream input = null;
@@ -301,29 +339,6 @@ public class UsuarioAdminController implements Initializable {
     }*/
 
     //------------------------------------------------------------------------------------------------------------------
-
-    //Metodos para Centros Deportivos
-
-    @FXML
-    private void agregarCentroDeportivo(){
-
-        String nombreCentro = camponombreCentro.getText();
-        String pswCentro = campoContrasena.getText();
-        String correoCentro = campoCorreoCentro.getText();
-        String direccionCentro = campoDireccionCentro.getText();
-
-        if(nombreCentro.equals(null) || pswCentro.equals(null) || correoCentro.equals(null) || direccionCentro.equals(null)){
-             //Salta error
-        } else {
-            try {
-
-
-
-
-            }catch (Exception e){}
-        }
-
-    }
 
     public void setStage(Stage stage) {
         this.estage = stage;

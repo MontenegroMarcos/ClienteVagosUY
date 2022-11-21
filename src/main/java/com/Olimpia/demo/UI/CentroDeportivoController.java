@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -133,6 +134,8 @@ public class CentroDeportivoController implements Initializable {
     @FXML
     private DatePicker selectorFecha;
     private List<idActEmpl> itemIDReservas;
+
+    private File imagenFile;
 
 
     @Override
@@ -387,7 +390,7 @@ public class CentroDeportivoController implements Initializable {
                 e.printStackTrace();
             }
         }else{
-            //Levantar cuadro de texto
+            //FIXME Levantar cuadro de texto
         }
     }
 
@@ -431,6 +434,10 @@ public class CentroDeportivoController implements Initializable {
         this.estage = stage;
     }
 
+    public void añadirActividad(){
+        //FIXME AÑADIR ACTIVIDAD
+    }
+
 
     public void elegirImagen(){
         FileChooser seleccionar = new FileChooser();
@@ -440,10 +447,10 @@ public class CentroDeportivoController implements Initializable {
         seleccionar.getExtensionFilters().clear();
         seleccionar.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images Files","*.png","*.jpg","*.gif"));
 
-        File file = seleccionar.showOpenDialog(null);
+        this.imagenFile = seleccionar.showOpenDialog(null);
 
-        if(file != null){
-            //this.imageview.setImage(new Image(file.toURI().toString()));
+        if(this.imagenFile != null){
+            this.imageview.setImage(new Image(this.imagenFile.toURI().toString()));
             FileInputStream input = null;
             MultipartFile multipartFile = null;
 
@@ -451,8 +458,8 @@ public class CentroDeportivoController implements Initializable {
             ModeloFile modeloFile = null;
             String json = "";
             try {
-                input = new FileInputStream(file);
-                multipartFile = new MockMultipartFile("file", file.getName(), "image/jpg", IOUtils.toByteArray(input));
+                input = new FileInputStream(this.imagenFile);
+                multipartFile = new MockMultipartFile("file", this.imagenFile.getName(), Files.probeContentType(this.imagenFile.toPath()), IOUtils.toByteArray(input));
                 modeloFile = new ModeloFile(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes(),obtenerActividad(this.textoUsuario.getText(),this.nombreActividadAgregar.getText()));
                 json = mapper.writeValueAsString(modeloFile);
                 HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/Imagen")
