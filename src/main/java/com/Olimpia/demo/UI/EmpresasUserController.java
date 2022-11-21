@@ -151,7 +151,7 @@ public class EmpresasUserController implements Initializable {
                             .body(jsonString)
                             .asJson();
                     System.out.println(response.getStatus());
-                    ModeloEmpleado empleado = new ModeloEmpleado(email,nombreCliente,password,saldoMensual,0L,0L,obtenerEmpresa(this.labelEmpresa.getText()));
+                    ModeloEmpleado empleado = new ModeloEmpleado(email,nombreCliente,password,saldoMensual,0L,saldoMensual,obtenerEmpresa(this.labelEmpresa.getText()));
                     String empleadoJson = mapper.writeValueAsString(empleado);
                     HttpResponse<JsonNode> responseEmpleado = Unirest.post("http://localhost:8080/vagouy/Empleado")
                             .header("Content-Type", "application/json;charset=utf-8")
