@@ -156,6 +156,14 @@ public class CentroDeportivoController implements Initializable {
 
     }
 
+    public void controlHorafinal(){
+        ObservableList<String> horafin = null;
+        for (int i = (int) this.comboBoxHorarioInicial.getValue(); i < 23; i++) {
+            horafin.add(String.valueOf(i));
+        }
+        this.comboBoxhorarioFinal.setItems(horafin);
+    }
+
     public void init(String emailCD){
         this.textoUsuario.setText(emailCD);
         this.checkinActividades.setItems(obtenerActividadesdeCD());
