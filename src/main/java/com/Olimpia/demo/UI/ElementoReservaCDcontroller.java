@@ -1,12 +1,15 @@
 package com.Olimpia.demo.UI;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.util.List;
 
 public class ElementoReservaCDcontroller {
 
+    @FXML
+    private Button btnAceptar;
     @FXML
     private Label correoCliente;
 
