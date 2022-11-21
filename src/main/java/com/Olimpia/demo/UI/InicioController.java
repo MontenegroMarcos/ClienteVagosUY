@@ -82,7 +82,7 @@ public class InicioController implements Initializable {
     @FXML
     void entrarUsuarioAdmin() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResource("UsuarioAdminUI.fxml"));
+        Parent root = fxmlLoader.load(UsuarioAdminController.class.getResourceAsStream("UsuarioAdminUI.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 

@@ -39,7 +39,7 @@
          </font>
       </Label>
       <Label fx:id="lbldireccion" layoutX="280.0" layoutY="110.0" prefHeight="17.0" prefWidth="125.0" text="LabelDirección" />
-      <Button fx:id="btnCancelarReserva" layoutX="407.0" layoutY="106.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Cancelar Reserva" />
+      <Button fx:id="btnCancelarReserva" layoutX="407.0" layoutY="106.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Cancelar Reserva" onAction="#cancelarReserva"/>
       <Label layoutX="188.0" layoutY="23.0" prefHeight="17.0" prefWidth="46.0" text="Fecha:">
          <font>
             <Font name="System Bold" size="12.0" />
