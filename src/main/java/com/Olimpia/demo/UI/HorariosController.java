@@ -23,6 +23,7 @@ public class HorariosController {
     private Label horaFin;
     @FXML
     private Label cupos;
+    private Integer cuposBD;
 
     private String emailCentro;
     private String nombreActividad;
@@ -36,10 +37,21 @@ public class HorariosController {
         this.diaActividad.setText(String.valueOf(horas.get(0)));
         this.horaInicio.setText(String.valueOf(horas.get(1)));
         this.horaFin.setText(String.valueOf(horas.get(2)));
-        this.cupos.setText(String.valueOf(horas.get(3)));
+        this.cuposBD = (Integer)horas.get(3);
+        this.cupos.setText(getCupos(this.cuposBD));
         this.emailCentro=emailCentro;
         this.nombreActividad=nombreActividad;
         this.emailEmpleado=emailEmpleado;
+    }
+
+    private String getCupos(Integer cupos){
+        String retorno;
+        if(cupos.equals(-1)){
+            retorno="Ilimitados";
+        }else{
+            retorno=String.valueOf(cupos);
+        }
+        return retorno;
     }
 
     public void hacerReserva(){
@@ -61,7 +73,7 @@ public class HorariosController {
 
             Stage stage = new Stage();
             stage.setScene(scene);
-            controlador.init(diaActividad.getText(),horaInicio.getText(),horaFin.getText(),Integer.parseInt(cupos.getText()),this.emailCentro,this.nombreActividad,this.emailEmpleado,this.controller,stage);
+            controlador.init(diaActividad.getText(),horaInicio.getText(),horaFin.getText(),this.cuposBD,this.emailCentro,this.nombreActividad,this.emailEmpleado,this.controller,stage);
            controller.ocultar();
             stage.show();
         }catch (Exception e){

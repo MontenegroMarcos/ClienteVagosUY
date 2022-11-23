@@ -17,7 +17,12 @@ public class MostrarActividad {
         this.dia = dia;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.cupos = cupos;
+        if(cupos.equals("-1")){
+            this.cupos="Ilimitados";
+        }else{
+            this.cupos = cupos;
+        }
+
     }
 
     public String getNombre() {

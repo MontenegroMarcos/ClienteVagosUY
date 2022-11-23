@@ -133,7 +133,14 @@ public class HacerReservaController {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return respuesta.getCuposRestantes().toString();
+        Integer cuposRestantes=respuesta.getCuposRestantes();
+        String retorno;
+        if(cuposRestantes.equals(-1)){
+            retorno="Ilimitados";
+        }else{
+            retorno = cuposRestantes.toString();
+        }
+        return retorno;
     }
 
     private ModeloActividad obtenerActividad(String email_centro,String nombre){
